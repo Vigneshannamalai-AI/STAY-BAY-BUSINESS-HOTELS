@@ -197,6 +197,52 @@
         .source-note { margin-top: 14px; color: var(--neutral-700); font-size: 12px; }
         .source-note a { color: var(--primary); }
         .empty-state { padding: 18px 12px; color: var(--neutral-700); font-size: 14px; }
+
+        /* ===== Navigation tabs ===== */
+        .nav-tabs-container { display: flex; gap: 4px; padding: 0 30px; margin-bottom: 24px; border-bottom: 1px solid var(--line-soft); background: var(--surface); border-radius: 12px 12px 0 0; }
+        .nav-tab { padding: 16px 22px; background: transparent; color: var(--neutral-700); border: none; border-bottom: 3px solid transparent; cursor: pointer; font-weight: 600; font-size: 14px; letter-spacing: .3px; font-family: inherit; transition: color .2s ease, border-color .2s ease, background .2s ease; margin-bottom: -1px; }
+        .nav-tab:hover:not(.nav-tab-active) { color: var(--primary); background: rgba(196, 30, 58, .05); }
+        .nav-tab.nav-tab-active { color: var(--primary); border-bottom-color: var(--primary); background: rgba(196, 30, 58, .04); }
+
+        /* ===== Payroll section ===== */
+        #payrollSection { padding-top: 4px; }
+        .payroll-layout { display: flex; gap: 22px; align-items: flex-start; }
+        .payroll-sidebar { flex: 0 0 300px; background: var(--surface); border: 1px solid var(--line-soft); border-radius: 12px; box-shadow: var(--shadow-card); padding: 20px; max-height: calc(100vh - 220px); overflow-y: auto; }
+        .payroll-sidebar h3 { font-family: Georgia, 'Times New Roman', serif; color: var(--primary); font-size: 17px; font-weight: 600; margin-bottom: 4px; }
+        .payroll-sidebar .payroll-sidebar-sub { color: var(--neutral-700); font-size: 12.5px; margin-bottom: 16px; }
+        .payroll-employee-list { display: flex; flex-direction: column; gap: 8px; }
+        .payroll-employee-btn { display: flex; flex-direction: column; gap: 2px; padding: 12px 14px; background: var(--surface-warm); border: 1px solid var(--neutral-200); border-radius: 8px; text-align: left; cursor: pointer; font-family: inherit; transition: background .18s ease, border-color .18s ease, transform .18s ease; }
+        .payroll-employee-btn:hover { border-color: var(--primary-light); background: var(--neutral-50); transform: translateX(2px); }
+        .payroll-employee-btn.active { background: var(--primary-light); border-color: var(--primary-light); }
+        .payroll-employee-btn.active .payroll-emp-name, .payroll-employee-btn.active .payroll-emp-role { color: #fff; }
+        .payroll-emp-name { font-weight: 600; font-size: 14px; color: var(--neutral-900); }
+        .payroll-emp-role { font-size: 12px; color: var(--neutral-700); }
+        .payroll-main { flex: 1; min-width: 0; }
+        .payroll-empty { display: grid; place-items: center; height: 320px; color: var(--neutral-400); background: var(--surface); border: 1px dashed var(--neutral-300); border-radius: 12px; font-size: 14px; text-align: center; padding: 20px; }
+        .payslip-card { background: var(--surface); border: 1px solid var(--line-soft); border-radius: 12px; box-shadow: var(--shadow-card); padding: 28px; }
+        .payslip-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding-bottom: 18px; margin-bottom: 22px; border-bottom: 1px solid var(--neutral-200); }
+        .payslip-header h2 { font-family: Georgia, 'Times New Roman', serif; font-size: 24px; color: var(--primary); font-weight: 600; cursor: pointer; }
+        .payslip-header h2:hover { text-decoration: underline; }
+        .payslip-meta { color: var(--neutral-700); font-size: 13px; margin-top: 6px; }
+        .payslip-period-badge { flex-shrink: 0; background: var(--neutral-50); border: 1px solid var(--neutral-200); border-radius: 20px; padding: 7px 16px; font-size: 12px; font-weight: 700; letter-spacing: .3px; color: var(--primary); white-space: nowrap; }
+        .payslip-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 20px; }
+        .payslip-panel { background: var(--neutral-50); border: 1px solid var(--neutral-200); border-radius: 10px; padding: 16px 18px; }
+        .payslip-panel h4 { font-size: 11.5px; letter-spacing: .6px; text-transform: uppercase; color: var(--neutral-700); margin-bottom: 12px; font-weight: 700; }
+        .payslip-row { display: flex; justify-content: space-between; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--neutral-200); font-size: 13.5px; color: var(--neutral-900); }
+        .payslip-row:last-child { border-bottom: 0; }
+        .payslip-row strong { color: var(--neutral-900); font-weight: 700; }
+        .payslip-row.deduct strong { color: var(--danger); }
+        .payslip-netpay { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%); color: #fff; border-radius: 10px; padding: 22px; text-align: center; margin-bottom: 20px; box-shadow: 0 8px 20px rgba(196, 30, 58, .22); }
+        .payslip-netpay p { margin: 0 0 6px; font-size: 12px; opacity: .88; letter-spacing: .6px; text-transform: uppercase; font-weight: 600; }
+        .payslip-netpay .amount { font-family: Georgia, 'Times New Roman', serif; font-size: 34px; font-weight: 700; }
+        .payslip-bank { background: var(--neutral-50); border: 1px solid var(--neutral-200); border-radius: 10px; padding: 16px 18px; margin-bottom: 22px; }
+        .payslip-bank h4 { font-size: 11.5px; letter-spacing: .6px; text-transform: uppercase; color: var(--neutral-700); margin-bottom: 12px; font-weight: 700; }
+        .payslip-bank-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 22px; }
+        .payslip-bank-field span { display: block; color: var(--neutral-700); font-size: 10.5px; letter-spacing: .3px; text-transform: uppercase; margin-bottom: 3px; }
+        .payslip-bank-field strong { font-size: 13.5px; color: var(--neutral-900); font-weight: 600; }
+        .payslip-actions { display: flex; gap: 10px; }
+        .payslip-actions .btn { flex: 1; }
+        @media (max-width: 900px) { .payroll-layout { flex-direction: column; } .payroll-sidebar { flex: 1 1 auto; width: 100%; max-height: none; } .payslip-grid, .payslip-bank-grid { grid-template-columns: 1fr; } }
         @media print {
             body { padding: 0; background: white; }
             header, .dashboard, #detailsCard, #addEmployeeButton { display: none !important; }
@@ -229,6 +275,15 @@
             <h1>STAY BAY - Employee Attendance &amp; Salary Manager</h1>
             <p class="subtitle">Professional HR Management System | Real-time Tracking &amp; Analytics</p>
         </header>
+
+        <!-- NAVIGATION TABS - ALWAYS VISIBLE -->
+        <div class="nav-tabs-container">
+            <button class="nav-tab nav-tab-active" data-section="attendance" onclick="switchSection('attendance')">Attendance &amp; Salary</button>
+            <button class="nav-tab" data-section="payroll" onclick="switchSection('payroll')">Payroll</button>
+        </div>
+
+    <!-- ATTENDANCE & SALARY MANAGER SECTION -->
+    <div id="attendanceSection" class="section" style="display: block;">
 
         <div class="dashboard">
             <div>
@@ -466,6 +521,223 @@
                 <button class="btn btn-primary" type="button" onclick="window.print()">Print Statement</button>
             </div>
         </dialog>
+    </div> <!-- End of attendanceSection -->
+
+    <!-- PAYROLL SECTION -->
+    <div id="payrollSection" class="section" style="display: none;">
+        <div class="payroll-layout">
+            <!-- Employee List (Left Side) -->
+            <div class="payroll-sidebar">
+                <h3>Employees</h3>
+                <p class="payroll-sidebar-sub">Select an employee to view this month's payslip</p>
+                <div id="payrollEmployeeList" class="payroll-employee-list">
+                    <!-- Dynamically populated -->
+                </div>
+            </div>
+
+            <!-- Payroll Details (Right Side) -->
+            <div class="payroll-main">
+                <div id="payrollDetails">
+                    <div class="payroll-empty">
+                        <p>Select an employee on the left to view their payslip</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div> <!-- End of container -->
+
+    <script>
+        // ===== PAYROLL SECTION FUNCTIONS =====
+        
+        function switchSection(section) {
+            // Show/hide the two sections
+            document.getElementById('attendanceSection').style.display = section === 'attendance' ? 'block' : 'none';
+            document.getElementById('payrollSection').style.display = section === 'payroll' ? 'block' : 'none';
+
+            // Highlight the matching tab by data-section, not by the click event
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.toggle('nav-tab-active', tab.dataset.section === section);
+            });
+
+            if (section === 'payroll') renderPayrollSection();
+        }
+
+        function viewEmployeeInAttendance(employeeId) {
+            switchSection('attendance');
+            selectEmployee(employeeId);
+        }
+
+        function renderPayrollSection() {
+            const employeeList = document.getElementById('payrollEmployeeList');
+            employeeList.replaceChildren();
+
+            if (!employees.length) {
+                const empty = document.createElement('p');
+                empty.className = 'empty-state';
+                empty.textContent = 'Add employees to run payroll.';
+                employeeList.append(empty);
+                return;
+            }
+
+            employees.forEach(employee => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = `payroll-employee-btn ${selectedEmployee?.id === employee.id ? 'active' : ''}`;
+                const name = document.createElement('span');
+                name.className = 'payroll-emp-name';
+                name.textContent = employee.name;
+                const role = document.createElement('span');
+                role.className = 'payroll-emp-role';
+                role.textContent = employee.designation || employee.department || 'Employee';
+                btn.append(name, role);
+                btn.addEventListener('click', () => {
+                    selectedEmployee = employee;
+                    renderPayrollSection();
+                    renderPayrollDetails(employee);
+                });
+                employeeList.append(btn);
+            });
+        }
+
+        function renderPayrollDetails(employee) {
+            const now = new Date();
+            const currentMonth = now.toISOString().slice(0, 7);
+            const monthLabel = `${MONTHS[now.getMonth()]} ${now.getFullYear()}`;
+            const stats = employee.getMonthlyStats(currentMonth);
+
+            const currentSalary = employee.salary || 0;
+            const advanceDeduction = stats.advanceDeduction || 0;
+            const netPay = stats.netSalary || 0;
+            const accountDisplay = employee.accountNumber ? `•••• ${employee.accountNumber.slice(-4)}` : 'Not provided';
+
+            const details = document.getElementById('payrollDetails');
+            details.innerHTML = `
+                <div class="payslip-card">
+                    <div class="payslip-header">
+                        <div>
+                            <h2 onclick="viewEmployeeInAttendance('${employee.id}')" title="View full employee profile">${employee.name}</h2>
+                            <p class="payslip-meta"><strong>${employee.designation || employee.department || 'Employee'}</strong> &middot; Employee ID ${employee.id.slice(0, 8)}</p>
+                        </div>
+                        <span class="payslip-period-badge">${monthLabel}</span>
+                    </div>
+
+                    <div class="payslip-grid">
+                        <div class="payslip-panel">
+                            <h4>Salary Breakdown</h4>
+                            <div class="payslip-row"><span>Monthly Salary</span><strong>${formatMoney(currentSalary)}</strong></div>
+                            <div class="payslip-row"><span>Days Worked</span><strong>${stats.daysWorked || 0}</strong></div>
+                            <div class="payslip-row"><span>Gross Pay (Prorated)</span><strong>${formatMoney(stats.grossSalary || currentSalary)}</strong></div>
+                        </div>
+                        <div class="payslip-panel">
+                            <h4>Deductions</h4>
+                            <div class="payslip-row deduct"><span>Advance Repayment</span><strong>${formatMoney(advanceDeduction)}</strong></div>
+                            <div class="payslip-row deduct"><span>Outstanding Advance</span><strong>${formatMoney(stats.outstandingAdvance || 0)}</strong></div>
+                            <div class="payslip-row deduct"><span>Absence Deduction</span><strong>${formatMoney(stats.deductions || 0)}</strong></div>
+                        </div>
+                    </div>
+
+                    <div class="payslip-netpay">
+                        <p>Net Pay (Final Payment)</p>
+                        <div class="amount">${formatMoney(Math.max(0, netPay))}</div>
+                    </div>
+
+                    <div class="payslip-bank">
+                        <h4>Bank Details</h4>
+                        <div class="payslip-bank-grid">
+                            <div class="payslip-bank-field"><span>Account Holder</span><strong>${employee.accountHolder || 'Not provided'}</strong></div>
+                            <div class="payslip-bank-field"><span>Account Number</span><strong>${accountDisplay}</strong></div>
+                            <div class="payslip-bank-field"><span>IFSC Code</span><strong>${employee.ifsc || 'Not provided'}</strong></div>
+                            <div class="payslip-bank-field"><span>Bank Name</span><strong>${employee.bankName || 'Not provided'}</strong></div>
+                        </div>
+                    </div>
+
+                    <div class="payslip-actions">
+                        <button class="btn btn-secondary" onclick="viewEmployeeInAttendance('${employee.id}')">👤 View Full Employee Details</button>
+                        <button class="btn btn-primary" onclick="printPayrollSlip('${employee.id}')">🖨️ Print Payslip</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function printPayrollSlip(employeeId) {
+            const employee = employees.find(e => e.id === employeeId);
+            if (!employee) return;
+            
+            const currentMonth = new Date().toISOString().slice(0, 7);
+            const stats = employee.getMonthlyStats(currentMonth);
+            const w = window.open('', 'Payslip', 'height=700,width=900');
+            
+            const gross = stats.grossSalary || employee.salary;
+            w.document.write(`
+                <html>
+                <head>
+                    <title>Payslip - ${employee.name}</title>
+                    <style>
+                        * { box-sizing: border-box; }
+                        body { font-family: Georgia, 'Times New Roman', serif; margin: 32px; color: #3E2723; }
+                        .header { text-align: center; margin-bottom: 26px; border-bottom: 3px solid #C41E3A; padding-bottom: 14px; }
+                        .header h2 { color: #C41E3A; letter-spacing: 1px; margin: 0 0 4px; }
+                        .header p { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: #5C4033; margin: 0; }
+                        .section { margin-bottom: 22px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+                        .section h3 { color: #C41E3A; font-family: Georgia, serif; font-size: 16px; margin-bottom: 8px; }
+                        .section p { margin: 4px 0; font-size: 14px; }
+                        table { width: 100%; border-collapse: collapse; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 14px; }
+                        th, td { padding: 10px; border: 1px solid #F5E6D3; text-align: left; }
+                        th { background: #FFFAF0; color: #5C4033; font-weight: 700; }
+                        .total { font-weight: 700; background: #FFF5E6; }
+                        .final td { background: linear-gradient(135deg, #C41E3A, #E63946); color: white; font-size: 17px; font-weight: 700; }
+                        button { margin-top: 22px; padding: 10px 18px; background: #C41E3A; color: white; border: 0; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+                    </style>
+                </head>
+                <body>
+                    <div class="header">
+                        <h2>STAY BAY &mdash; PAYSLIP</h2>
+                        <p>Pay Period: ${currentMonth}</p>
+                    </div>
+
+                    <div class="section">
+                        <h3>Employee Information</h3>
+                        <p><strong>Name:</strong> ${employee.name}</p>
+                        <p><strong>Designation:</strong> ${employee.designation || 'N/A'}</p>
+                        <p><strong>Employee ID:</strong> ${employee.id}</p>
+                    </div>
+
+                    <div class="section">
+                        <table>
+                            <tr>
+                                <th>Earnings</th>
+                                <th>Amount</th>
+                                <th>Deductions</th>
+                                <th>Amount</th>
+                            </tr>
+                            <tr>
+                                <td>Gross Pay</td>
+                                <td>${formatMoney(gross)}</td>
+                                <td>Advance Repayment</td>
+                                <td>${formatMoney(stats.advanceDeduction || 0)}</td>
+                            </tr>
+                            <tr class="total">
+                                <td>Total Earnings</td>
+                                <td>${formatMoney(gross)}</td>
+                                <td>Total Deductions</td>
+                                <td>${formatMoney(stats.advanceDeduction || 0)}</td>
+                            </tr>
+                            <tr class="final">
+                                <td colspan="3">Net Pay</td>
+                                <td>${formatMoney(Math.max(0, stats.netSalary || 0))}</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <button onclick="window.print()">Print</button>
+                </body>
+                </html>
+            `);
+            w.document.close();
+        }
+    </script>
+
     </div>
 
     <script>
@@ -742,6 +1014,10 @@
                     overdueAdvance: advancePayroll.overdue,
                     netSalary: netCents / 100
                 };
+            }
+            getMonthlyStats(monthKey) {
+                const [year, month] = monthKey.split('-').map(Number);
+                return this.getMonthStats(year, month);
             }
             getAnnualStats(year) {
                 let present = 0, paidOff = 0, absent = 0, unmarked = 0, governmentHolidaysOff = 0, holidaysWorked = 0, netSalaryCents = 0, grossSalaryCents = 0, deductionsCents = 0, advanceDeductionCents = 0, diwaliBonusCents = 0;
@@ -1439,6 +1715,7 @@
         }
         function selectEmployee(id) {
             selectedEmployee = employees.find(emp => emp.id === id);
+            if (!selectedEmployee) return;
             document.getElementById('yearSelect').value = document.getElementById('reportYearSelect').value;
             renderEmployeeList();
             document.getElementById('detailsCard').style.display = 'block';
