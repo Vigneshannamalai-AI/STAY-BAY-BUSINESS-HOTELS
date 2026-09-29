@@ -1730,6 +1730,28 @@
 
         .link-btn + .link-btn { margin-left: 12px; }
 
+        /* Birthday celebration */
+        #confetti { position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 3000; }
+        [data-bday] { cursor: pointer; }
+        .balloon { position: fixed; bottom: -70px; z-index: 2999; pointer-events: none; animation: floatUp 4.5s ease-in forwards; }
+        @keyframes floatUp { 0% { transform: translateY(0) rotate(-6deg); opacity: 1; } 50% { transform: translateY(-55vh) rotate(6deg); } 100% { transform: translateY(-120vh) rotate(-4deg); opacity: .9; } }
+        .bday-pop {
+            position: fixed; left: 50%; top: 26%; transform: translate(-50%, -50%); z-index: 3001;
+            padding: 26px 40px; text-align: center; border-radius: 22px; max-width: calc(100vw - 32px);
+            background: linear-gradient(135deg, #fff 0%, #fff5dc 100%);
+            border: 1px solid rgba(201, 162, 39, .5);
+            box-shadow: 0 30px 70px -18px rgba(125, 11, 34, .55);
+            animation: popIn .5s cubic-bezier(.2, 1.4, .4, 1) both; pointer-events: none;
+        }
+        .bday-pop .cake { font-size: 52px; line-height: 1; }
+        .bday-pop .hb { font-size: 24px; font-weight: 800; color: var(--primary); margin-top: 8px; letter-spacing: -.01em; }
+        .bday-pop .sub { font-size: 13.5px; color: var(--ink-soft); margin-top: 6px; }
+        .bday-pop.out { opacity: 0; transform: translate(-50%, -60%); transition: opacity .5s ease, transform .5s ease; }
+        @keyframes popIn { from { opacity: 0; transform: translate(-50%, -30%) scale(.7); } to { opacity: 1; transform: translate(-50%, -50%) scale(1); } }
+        .emp-card.bday { border-color: rgba(201, 162, 39, .7); box-shadow: 0 0 0 3px rgba(233, 203, 106, .35); }
+        .bday-banner { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; padding: 14px 20px; margin-bottom: 16px; border-radius: 16px; background: linear-gradient(135deg, #fff5dc, #ffe6ea); border: 1px solid rgba(201, 162, 39, .45); font-size: 14px; }
+        .bday-banner b[data-bday] { color: var(--primary); text-decoration: underline dotted; }
+
         /* Line icons (replace emoji) */
         .i { width: 1.15em; height: 1.15em; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; vertical-align: -0.2em; flex: none; }
         .btn .i { margin-right: 6px; }
@@ -1756,6 +1778,7 @@
     </style>
 </head>
 <body class="locked">
+    <canvas id="confetti" aria-hidden="true"></canvas>
     <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><symbol id="i-dashboard" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></symbol><symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol><symbol id="i-card" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M6 15h4"/></symbol><symbol id="i-trend" viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></symbol><symbol id="i-heart" viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"/></symbol><symbol id="i-id" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="11" r="2"/><path d="M6 17c.5-2 2-3 3-3s2.5 1 3 3M14 9h4M14 13h4"/></symbol><symbol id="i-receipt" viewBox="0 0 24 24"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6"/></symbol><symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.5-3.5 3.2-5.5 6.5-5.5s6 2 6.5 5.5"/><circle cx="17.5" cy="9" r="2.5"/><path d="M17 14.5c2.5 0 4.2 1.5 4.5 4"/></symbol><symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/></symbol><symbol id="i-coin" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 8h6M9 11h6M9 8c3 0 5 1 5 3s-2 3-5 3l5 4"/></symbol><symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></symbol><symbol id="i-gift" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M5 12v9h14v-9M12 8v13M12 8C9 8 7.5 6.5 7.5 5S9 3 10 4l2 4zM12 8c3 0 4.5-1.5 4.5-3S15 3 14 4l-2 4z"/></symbol><symbol id="i-advance" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 15l6-6M10 9h5v5"/></symbol><symbol id="i-cake" viewBox="0 0 24 24"><path d="M4 20h16v-6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2z"/><path d="M4 16c2 1.5 3 1.5 4 0s3-1.500 4 0 3 1.500 4 0 2-1 4 0M12 12V8M12 3v2"/></symbol><symbol id="i-award" viewBox="0 0 24 24"><circle cx="12" cy="9" r="6"/><path d="M8.5 14L7 21l5-3 5 3-1.5-7"/></symbol><symbol id="i-flag" viewBox="0 0 24 24"><path d="M5 21V4M5 4h11l-2 4 2 4H5"/></symbol><symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></symbol><symbol id="i-unlock" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 7.5-2"/></symbol><symbol id="i-cross" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M12 8v8M8 12h8"/></symbol><symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 19V5M8 7h7"/></symbol><symbol id="i-rings" viewBox="0 0 24 24"><circle cx="9" cy="14" r="5"/><circle cx="15" cy="14" r="5"/><path d="M8 6l1-2h2l1 2"/></symbol><symbol id="i-smile" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 14c1 1.5 2.5 2.2 4 2.2s3-.7 4-2.2M9 9.5h.01M15 9.5h.01"/></symbol><symbol id="i-leaf" viewBox="0 0 24 24"><path d="M5 19c0-9 5-14 15-14 0 10-5 15-14 15"/><path d="M5 19l8-8"/></symbol><symbol id="i-sparkles" viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8zM19 17l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7z"/></symbol><symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18h.01"/></symbol><symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/></symbol><symbol id="i-building" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="1"/><path d="M9 7h2M13 7h2M9 11h2M13 11h2M10 21v-5h4v5"/></symbol><symbol id="i-refresh" viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 15.5-6.2L21 8M21 3v5h-5M21 12a9 9 0 0 1-15.5 6.2L3 16M3 21v-5h5"/></symbol><symbol id="i-undo" viewBox="0 0 24 24"><path d="M9 14L4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-3"/></symbol><symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M4 21h16"/></symbol><symbol id="i-settings" viewBox="0 0 24 24"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></symbol><symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M14 6l4 4"/></symbol><symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/></symbol><symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol><symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol><symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></symbol></defs></svg>
     <div class="lock-screen" id="lockScreen">
         <form class="lock-card" id="lockCard" onsubmit="tryUnlock(event)" autocomplete="off">
@@ -1806,6 +1829,7 @@
 
         <!-- Dashboard -->
         <section class="tab-panel" id="tab-dashboard">
+            <div id="bdayBanner"></div>
             <div class="kpi-grid" id="overviewStats"></div>
 
             <div class="quick-row">
@@ -1959,33 +1983,6 @@
                     </table>
                 </div>
                 <p class="note">Once a month is marked paid its figures are locked. Later attendance or salary changes won't alter that payment; use Undo to reopen it.</p>
-            </div>
-
-            <div class="card">
-                <div class="section-head">
-                    <div>
-                        <h2>Diwali Bonus <span class="fy-tag fy-text"></span></h2>
-                        <p class="section-desc" id="bonusDesc"></p>
-                    </div>
-                    <div class="controls">
-                        <label class="toggle-label">Bonus = <input type="number" id="bonusMult" min="0" step="0.5" style="width: 76px;" onchange="setBonusRule('multiplier', this.value)"> x monthly salary</label>
-                        <label class="toggle-label">Minimum service <input type="number" id="bonusMin" min="0" step="1" style="width: 76px;" onchange="setBonusRule('minMonths', this.value)"> months</label>
-                    </div>
-                </div>
-                <div class="stats-grid" id="bonusStats"></div>
-                <div class="table-wrap">
-                    <table class="data">
-                        <thead>
-                            <tr><th>Employee</th><th>Date of Joining</th><th class="num">Service at Diwali</th><th class="num">Monthly Salary</th><th>Eligibility</th><th class="num">Bonus</th><th>Payroll</th></tr>
-                        </thead>
-                        <tbody id="bonusBody"></tbody>
-                    </table>
-                </div>
-                <div class="controls" style="margin: 14px 0 0;">
-                    <label class="toggle-label">Diwali date for this year <input type="date" id="diwaliDate"></label>
-                    <button class="btn btn-secondary btn-sm" onclick="setDiwaliDate()">Set Diwali date</button>
-                </div>
-                <p class="note">The Diwali date comes from the government holiday calendar (Attendance tab). The bonus is added to the gross salary of the month Diwali falls in, is taxable, and carries no PF. Paid months stay locked.</p>
             </div>
 
             <div class="card">
@@ -2504,9 +2501,11 @@
         const GRATUITY_RATE = 0.0481;
         const WELFARE_KEY = 'staybay.welfare.v1';
         const FY_KEY = 'staybay.fy';
-        const BONUS_KEY = 'staybay.bonus.v1';
         const DEFAULT_BONUS_RULES = { multiplier: 2, minMonths: 6 };
-        let bonusRules = { ...DEFAULT_BONUS_RULES };
+        const bonusRules = { ...DEFAULT_BONUS_RULES };
+        // Deepavali dates used when the holiday calendar has none for a year (Tamil Nadu 2025-26 are the notified dates;
+        // later years are calendar estimates, so replace them with the official date when it is announced).
+        const DIWALI_DATES = { 2025: '2025-10-20', 2026: '2026-11-08', 2027: '2027-10-29', 2028: '2028-10-17', 2029: '2029-11-05', 2030: '2030-10-26' };
         const WELFARE_SCHEMES = [
             { key: 'health', icon: 'cross', name: 'Medical & Health Support', desc: 'Hospitalisation, surgery and health check-ups for the employee or family', cap: 50000 },
             { key: 'education', icon: 'book', name: "Children's Education Aid", desc: 'School / college fees and books for employees\' children', cap: 25000 },
@@ -2877,41 +2876,6 @@
                 console.warn('Could not load saved data', e);
             }
             return null;
-        }
-
-        function loadBonusRules() {
-            try {
-                bonusRules = { ...DEFAULT_BONUS_RULES, ...JSON.parse(localStorage.getItem(BONUS_KEY) || '{}') };
-            } catch (e) {
-                bonusRules = { ...DEFAULT_BONUS_RULES };
-            }
-        }
-
-        function setBonusRule(field, value) {
-            const n = parseFloat(value);
-            bonusRules[field] = Number.isFinite(n) && n >= 0 ? (field === 'minMonths' ? Math.round(n) : n) : DEFAULT_BONUS_RULES[field];
-            try { localStorage.setItem(BONUS_KEY, JSON.stringify(bonusRules)); } catch (e) { /* ignore */ }
-            refreshAll();
-        }
-
-        function setDiwaliDate() {
-            const iso = document.getElementById('diwaliDate').value;
-            if (!iso) {
-                showToast('Pick the Diwali date first.');
-                return;
-            }
-            if (!inFy(iso)) {
-                showToast(`That date is outside FY ${TAX_RULES.fy}. Change the financial year first.`);
-                return;
-            }
-            const months = fyMonths();
-            Object.keys(holidays).forEach(d => {
-                if (d >= months[0] + '-01' && d <= dayIso(months[11], 31) && /deepavali|diwali/i.test(holidays[d])) delete holidays[d];
-            });
-            holidays[iso] = 'Deepavali';
-            saveHolidays();
-            refreshAll();
-            showToast(`Diwali set to ${formatDate(iso)}.`);
         }
 
         function loadEmployer() {
@@ -3377,10 +3341,11 @@
             employees[3].family.push(member('Divya', 'Spouse', '1992-02-11', true, true), member('Aadhya', 'Daughter', '2018-06-30', true, true, 'Class 2'));
             employees[4].family.push(member('Lakshmi', 'Spouse', '1989-12-01', true, true), member('Rohan', 'Son', '2014-04-18', true, false, 'Class 6'), member('Shanmugam', 'Father', '1955-08-09', true, false));
 
+            const t = todayISO();
+            employees[3].dob = `1990-${t.slice(5)}`;   // sample: Karthik's birthday is today, so the celebration can be tried
             advances = [];
             welfare = [];
-            if (!Object.values(holidays).some((name, i) => /deepavali|diwali/i.test(name) && Object.keys(holidays)[i] < '2026-04-01')) holidays['2025-10-20'] = 'Deepavali';
-            saveHolidays();
+            ensureDiwaliDates();
             const cur = defaultFy();
             const years = cur > FY_FIRST ? [cur - 1, cur] : [cur];
             years.forEach(fy => {
@@ -3563,6 +3528,96 @@
 
         const lastCounts = {};
 
+        // ---------- birthdays ----------
+
+        function bdayToday(emp) {
+            return isBirthdayOn(emp, todayISO());
+        }
+
+        function bdayAttr(emp) {
+            return bdayToday(emp) ? ` data-bday="${esc(emp.name)}" data-age="${emp.age ?? ''}"` : '';
+        }
+
+        function bdayMark(emp) {
+            return bdayToday(emp) ? ' 🎂' : '';
+        }
+
+        const CONFETTI_COLORS = ['#B3122F', '#E04A5C', '#C9A227', '#E9CB6A', '#10b981', '#0ea5e9', '#8b5cf6', '#f59e0b', '#ffffff'];
+        let confettiParticles = [];
+        let confettiFrame = null;
+
+        function burstConfetti(x, y, count) {
+            for (let i = 0; i < count; i++) {
+                const angle = -Math.PI / 2 + (Math.random() - 0.5) * Math.PI * 1.15;
+                const speed = 6 + Math.random() * 11;
+                confettiParticles.push({
+                    x, y, vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed,
+                    size: 6 + Math.random() * 7, rot: Math.random() * 6.28, vr: (Math.random() - 0.5) * 0.4,
+                    color: CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)],
+                    round: Math.random() < 0.3, life: 140 + Math.random() * 110
+                });
+            }
+        }
+
+        function runConfetti() {
+            const canvas = document.getElementById('confetti');
+            const ctx = canvas.getContext('2d');
+            const dpr = window.devicePixelRatio || 1;
+            canvas.width = window.innerWidth * dpr;
+            canvas.height = window.innerHeight * dpr;
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+            if (confettiFrame) return;
+            const step = () => {
+                ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+                confettiParticles.forEach(p => {
+                    p.vy += 0.28; p.vx *= 0.992; p.vy *= 0.992;
+                    p.x += p.vx; p.y += p.vy; p.rot += p.vr; p.life--;
+                    ctx.save();
+                    ctx.globalAlpha = Math.max(0, Math.min(1, p.life / 40));
+                    ctx.translate(p.x, p.y); ctx.rotate(p.rot); ctx.fillStyle = p.color;
+                    if (p.round) { ctx.beginPath(); ctx.arc(0, 0, p.size / 2, 0, 6.28); ctx.fill(); }
+                    else ctx.fillRect(-p.size / 2, -p.size / 4, p.size, p.size / 2);
+                    ctx.restore();
+                });
+                confettiParticles = confettiParticles.filter(p => p.life > 0 && p.y < window.innerHeight + 40);
+                if (confettiParticles.length) confettiFrame = requestAnimationFrame(step);
+                else { confettiFrame = null; ctx.clearRect(0, 0, window.innerWidth, window.innerHeight); }
+            };
+            confettiFrame = requestAnimationFrame(step);
+        }
+
+        function celebrate(x, y, name, age) {
+            const reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (!reduce) {
+                burstConfetti(x, y, 170);
+                setTimeout(() => { burstConfetti(window.innerWidth * 0.12, window.innerHeight * 0.85, 80); burstConfetti(window.innerWidth * 0.88, window.innerHeight * 0.85, 80); runConfetti(); }, 320);
+                runConfetti();
+                for (let i = 0; i < 9; i++) {
+                    const b = document.createElement('div');
+                    b.className = 'balloon';
+                    b.textContent = '🎈';
+                    b.style.left = (6 + Math.random() * 88) + 'vw';
+                    b.style.fontSize = (28 + Math.random() * 26) + 'px';
+                    b.style.animationDelay = (Math.random() * 0.9) + 's';
+                    b.style.animationDuration = (3.6 + Math.random() * 2) + 's';
+                    document.body.appendChild(b);
+                    setTimeout(() => b.remove(), 6500);
+                }
+            }
+            document.querySelectorAll('.bday-pop').forEach(n => n.remove());
+            const pop = document.createElement('div');
+            pop.className = 'bday-pop';
+            pop.innerHTML = `<div class="cake">🎂</div><div class="hb">Happy Birthday, ${esc(name)}!</div><div class="sub">${age ? `Turning ${esc(age)} today. ` : ''}Wishing you a wonderful year ahead. 🎉</div>`;
+            document.body.appendChild(pop);
+            setTimeout(() => pop.classList.add('out'), 3800);
+            setTimeout(() => pop.remove(), 4400);
+        }
+
+        document.addEventListener('click', e => {
+            const el = e.target.closest && e.target.closest('[data-bday]');
+            if (el) celebrate(e.clientX, e.clientY, el.dataset.bday, el.dataset.age);
+        });
+
         const ic = name => `<svg class="i" aria-hidden="true"><use href="#i-${name}"/></svg>`;
 
         function greeting() {
@@ -3615,9 +3670,9 @@
                 const iso = isoDate(d);
                 const rel = i === 0 ? 'Today' : i === 1 ? 'Tomorrow' : `in ${i} days`;
                 const hol = holidayName(iso);
-                if (hol) out.push({ iso, d, rel, kind: 'hol', icon: 'flag', title: hol, sub: 'Government holiday' });
+                if (hol) out.push({ iso, d, rel, kind: 'hol', emoji: '🎉', title: hol, sub: 'Government holiday' });
                 employees.forEach(e => {
-                    if (isBirthdayOn(e, iso)) out.push({ iso, d, rel, kind: 'bday', icon: 'cake', title: `${e.name}'s birthday`, sub: `Turns ${ageOn(e.dob, d)}` });
+                    if (isBirthdayOn(e, iso)) out.push({ iso, d, rel, kind: 'bday', emoji: '🎂', title: `${e.name}'s birthday`, sub: `Turns ${ageOn(e.dob, d)}` });
                     if (e.doj && e.doj.slice(5) === iso.slice(5) && e.doj.slice(0, 4) < iso.slice(0, 4)) {
                         const yrs = Number(iso.slice(0, 4)) - Number(e.doj.slice(0, 4));
                         out.push({ iso, d, rel, kind: 'anniv', icon: 'award', title: `${e.name}`, sub: `${yrs} year${yrs > 1 ? 's' : ''} with STAY BAY` });
@@ -3688,6 +3743,10 @@
             ].join('');
             animateCounts();
 
+            const celebrants = employees.filter(bdayToday);
+            document.getElementById('bdayBanner').innerHTML = celebrants.length
+                ? `<div class="bday-banner"><span style="font-size: 26px;">🎂</span><span>Today is ${celebrants.map(e => `<b${bdayAttr(e)}>${esc(e.name)}</b>`).join(' and ')}'s birthday. Touch ${celebrants.length > 1 ? 'a name' : 'the name'} to celebrate!</span></div>` : '';
+
             // Team
             const list = document.getElementById('employeeList');
             if (!employees.length) {
@@ -3699,11 +3758,11 @@
                     const refDay = inToday ? today : dayIso(fyMonths()[11], 31);
                     const hue = [350, 24, 158, 205, 268, 42][i % 6];
                     return `
-                    <div class="emp-card" onclick="openEmployee('${emp.id}', 'personal')" title="Open personal data">
+                    <div class="emp-card ${bdayToday(emp) ? 'bday' : ''}" onclick="openEmployee('${emp.id}', 'personal')" title="Open personal data">
                         <div class="emp-top">
                             <div class="emp-avatar" style="--h: ${hue};">${esc(initials(emp.name))}</div>
                             <div>
-                                <div class="emp-name">${esc(emp.name)}</div>
+                                <div class="emp-name"${bdayAttr(emp)}>${esc(emp.name)}${bdayMark(emp)}</div>
                                 <div class="emp-dept">${esc(emp.department)}</div>
                             </div>
                             <div class="emp-sal">${fmt(emp.salary)}<small>per month</small></div>
@@ -3722,7 +3781,7 @@
             document.getElementById('upcomingList').innerHTML = events.length ? events.map(ev => `
                 <div class="event ${ev.kind}">
                     <div class="when">${ev.d.getDate()}<small>${ev.d.toLocaleDateString('en-IN', { month: 'short' })}</small></div>
-                    <div class="txt"><b>${ic(ev.icon)}${esc(ev.title)}</b><span>${esc(ev.sub)}</span></div>
+                    <div class="txt"><b>${ev.emoji ? ev.emoji + ' ' : ic(ev.icon)}${esc(ev.title)}</b><span>${esc(ev.sub)}</span></div>
                     <div class="rel">${ev.rel}</div>
                 </div>`).join('') : '<div class="empty-state">Nothing coming up in the next 60 days.</div>';
 
@@ -4000,7 +4059,7 @@
             document.getElementById('weekHead').innerHTML = `<tr><th class="emp-col">Employee</th>${dates.map(iso => {
                 const hol = holidayName(iso);
                 const d = parseDate(iso);
-                return `<th class="${iso === today ? 'today' : hol ? 'holiday' : ''}" title="${esc(hol)}">${d.toLocaleDateString('en-IN', { weekday: 'short' })} ${d.getDate()} ${d.toLocaleDateString('en-IN', { month: 'short' })}${hol ? `<span class="hol-name">${esc(hol)}</span>` : ''}</th>`;
+                return `<th class="${iso === today ? 'today' : hol ? 'holiday' : ''}" title="${esc(hol)}">${d.toLocaleDateString('en-IN', { weekday: 'short' })} ${d.getDate()} ${d.toLocaleDateString('en-IN', { month: 'short' })}${hol ? `<span class="hol-name">🎉 ${esc(hol)}</span>` : ''}</th>`;
             }).join('')}<th title="Paid offs left at the end of this week (4 new offs are added on the 1st of each month)">Offs left<br><span style="font-weight: 400; font-size: 11px;">by ${esc(parseDate(dates[6]).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' }))}</span></th></tr>`;
 
             document.getElementById('weekBody').innerHTML = employees.map(emp => {
@@ -4012,7 +4071,7 @@
                     return `<td><button class="wk-cell ${s ? `set st-${s}` : ''}" ${allowed ? '' : 'disabled'} title="${esc(`${emp.name}, ${formatDate(iso)}: ${label}${holidayName(iso) ? ' — ' + holidayName(iso) : ''}`)}" onclick="openStatusDialog('${emp.id}', '${iso}')">${s ? STATUS[s].short : '—'}<small>${s ? esc(s === 'WPO' ? 'Comp off' : s === 'GH' ? 'Holiday' : STATUS[s].label.replace(' (unpaid)', '')) : ''}</small></button></td>`;
                 }).join('');
                 const bal = inFy(lastDay) ? offBalance(emp, lastDay) : '—';
-                return `<tr><th class="emp-col">${esc(emp.name)}${bday ? ` <span class="tag-bday" title="Birthday on ${esc(formatDate(bday))}">${ic('cake')}</span>` : ''}<div class="muted">${esc(emp.department)}</div></th>${cells}<td><strong>${bal}</strong></td></tr>`;
+                return `<tr><th class="emp-col"${bdayAttr(emp)}>${esc(emp.name)}${bday ? ` <span title="Birthday on ${esc(formatDate(bday))}">🎂</span>` : ''}<div class="muted">${esc(emp.department)}</div></th>${cells}<td><strong>${bal}</strong></td></tr>`;
             }).join('') || '<tr><td colspan="9" class="muted" style="padding: 20px;">Add employees to start the weekly log.</td></tr>';
         }
 
@@ -4218,7 +4277,7 @@
                 const hol = holidayName(iso);
                 const cls = iso === today ? 'today' : hol ? 'holiday' : wd === 0 ? 'sun' : '';
                 const title = hol ? `${hol} — click for holiday options` : `Mark everyone on ${formatDate(iso)} as ${BRUSH_LABEL[brush]}`;
-                head += `<th class="day-head ${cls}" onclick="clickDayHeader('${iso}')" title="${esc(title)}">${d}<br><span style="font-weight: 400;">${hol ? 'Hol' : WEEKDAYS[wd]}</span></th>`;
+                head += `<th class="day-head ${cls}" onclick="clickDayHeader('${iso}')" title="${esc(title)}">${d}<br><span style="font-weight: 400;">${hol ? '🎉' : WEEKDAYS[wd]}</span></th>`;
             }
             head += '<th class="sum first">P</th><th class="sum">HD</th><th class="sum">A</th><th class="sum">PO</th><th class="sum">WPO</th><th class="sum">GH</th><th class="sum" title="Not marked">Blank</th><th class="sum" title="Paid offs left at month end">Offs left</th><th class="sum">Paid days</th>';
 
@@ -4227,7 +4286,7 @@
                 for (let d = 1; d <= days; d++) cells += `<td>${cellHtml(emp, dayIso(ym, d))}</td>`;
                 const a = monthAttendance(emp, ym);
                 const lock = emp.payments[ym] ? ' ' + ic('lock') : '';
-                return `<tr><td class="name-col" title="Fill ${esc(emp.name)}'s unmarked days with ${BRUSH_LABEL[brush]}" onclick="fillRow('${emp.id}')">${esc(emp.name)}${lock}</td>${cells}
+                return `<tr><td class="name-col" title="Fill ${esc(emp.name)}'s unmarked days with ${BRUSH_LABEL[brush]}" onclick="fillRow('${emp.id}')"${bdayAttr(emp)}>${esc(emp.name)}${bdayMark(emp)}${lock}</td>${cells}
                     <td class="sum first">${a.P}</td><td class="sum">${a.HD}</td><td class="sum">${a.A}</td><td class="sum">${a.PO}</td><td class="sum">${a.WPO}</td><td class="sum">${a.GH}</td>
                     <td class="sum">${a.U ? `<span class="warn-text">${a.U}</span>` : 0}</td><td class="sum"><strong>${offBalance(emp, dayIso(ym, days))}</strong></td><td class="sum">${fmtDays(a.paidDays)}/${days}</td></tr>`;
             }).join('');
@@ -4238,6 +4297,15 @@
 
         // ----- holidays -----
 
+        function ensureDiwaliDates() {
+            let changed = false;
+            Object.entries(DIWALI_DATES).forEach(([year, iso]) => {
+                const has = Object.entries(holidays).some(([d, name]) => d >= `${year}-09-15` && d <= `${year}-11-30` && /deepavali|diwali/i.test(name));
+                if (!has) { holidays[iso] = 'Deepavali'; changed = true; }
+            });
+            if (changed) saveHolidays();
+        }
+
         function saveHolidays() {
             try { localStorage.setItem(HOLIDAYS_KEY, JSON.stringify(holidays)); } catch (e) { console.warn('Could not save holidays', e); }
         }
@@ -4247,7 +4315,7 @@
             document.getElementById('holidayCount').textContent = `${list.length} holidays`;
             document.getElementById('holidayBody').innerHTML = list.map(([iso, name]) => `
                 <tr>
-                    <td>${esc(formatDate(iso))}</td>
+                    <td>🎉 ${esc(formatDate(iso))}</td>
                     <td>${parseDate(iso).toLocaleDateString('en-IN', { weekday: 'long' })}</td>
                     <td><strong>${esc(name)}</strong></td>
                     <td><button class="link-btn" onclick="removeHoliday('${iso}')">Remove</button></td>
@@ -4278,6 +4346,7 @@
         function resetHolidays() {
             if (!confirm('Restore the Tamil Nadu 2026 holiday list? Holidays you added will be removed.')) return;
             holidays = { ...TN_HOLIDAYS_2026 };
+            ensureDiwaliDates();
             saveHolidays();
             refreshAll();
         }
@@ -4313,7 +4382,7 @@
                         <td><strong>${esc(emp.name)}</strong><div class="muted" style="font-size: 12px;">${esc(emp.department)} · ${fmt(emp.salary)}/mo</div></td>
                         <td class="num">${fmtDays(row.paidDays)}${!row.paid && row.unmarked ? `<div class="warn-text">${row.unmarked} unmarked</div>` : ''}</td>
                         <td class="num">${fmtDays(row.lopDays)}</td>
-                        <td class="num"><strong>${fmt(row.gross)}</strong>${row.incentive ? `<div><span class="badge ok">incl. ${fmt(row.incentive)} incentive</span></div>` : ''}${row.bonus ? `<div><span class="badge info">incl. ${fmt(row.bonus)} Diwali bonus</span></div>` : ''}</td>
+                        <td class="num"><strong>${fmt(row.gross)}</strong>${row.incentive ? `<div><span class="badge ok">+ Incentive ${fmt(row.incentive)}</span></div>` : ''}${row.bonus ? `<div><span class="badge info">+ Diwali bonus ${fmt(row.bonus)}</span></div>` : ''}</td>
                         <td class="num">${fmt(row.pf)}</td>
                         <td class="num">${fmt(row.pt)}</td>
                         <td class="num">${fmt(row.tds)}</td>
@@ -4335,47 +4404,7 @@
             payAll.disabled = !canPay || !pendingRows.length;
             payAll.textContent = pendingRows.length ? `Pay All Pending (${pendingRows.length})` : 'All Paid';
 
-            renderBonus();
             renderAdvances();
-        }
-
-        function renderBonus() {
-            const info = employees.map(emp => ({ emp, b: bonusInfo(emp) }));
-            const first = info[0]?.b;
-            const d = diwaliDate();
-            document.getElementById('bonusMult').value = bonusRules.multiplier;
-            document.getElementById('bonusMin').value = bonusRules.minMonths;
-            document.getElementById('diwaliDate').value = d ? d.iso : '';
-
-            document.getElementById('bonusDesc').textContent = d
-                ? `${d.name} falls on ${formatDate(d.iso)}. Employees with at least ${bonusRules.minMonths} months of service before that date receive ${bonusRules.multiplier} x their monthly salary as bonus, paid with the ${ymLabel(d.iso.slice(0, 7), true)} salary.`
-                : `No Diwali / Deepavali date is set for FY ${TAX_RULES.fy}. Pick the date below, or add a holiday named Deepavali in the Attendance tab, and bonuses will be calculated automatically.`;
-
-            const eligible = info.filter(x => x.b.eligible);
-            const total = eligible.reduce((sum, x) => sum + x.b.amount, 0);
-            document.getElementById('bonusStats').innerHTML = d ? `
-                <div class="stat"><div class="stat-value">${formatDate(d.iso)}</div><div class="stat-label">${esc(d.name)}</div></div>
-                <div class="stat"><div class="stat-value">${eligible.length}/${employees.length}</div><div class="stat-label">Employees Eligible</div></div>
-                <div class="stat"><div class="stat-value">${fmt(total)}</div><div class="stat-label">Total Bonus</div><div class="stat-sub">Paid with ${ymLabel(d.iso.slice(0, 7))} salary</div></div>` : '';
-
-            document.getElementById('bonusBody').innerHTML = d ? info.map(({ emp, b }) => {
-                const row = payRow(emp, b.ym);
-                const status = !b.eligible ? '<span class="badge neutral">Not applicable</span>' : row.paid ? '<span class="badge ok">Paid in payroll</span>' : b.ym <= currentYm() ? '<span class="badge warn">Due in payroll</span>' : '<span class="badge neutral">Scheduled</span>';
-                const elig = b.months === null ? '<span class="badge bad">Joining date missing</span>'
-                    : b.eligible ? '<span class="badge ok">Eligible</span>'
-                    : `<span class="badge warn">Not eligible</span><div class="muted" style="font-size: 11px;">Eligible for a Diwali on or after ${esc(formatDate(b.eligibleFrom))}</div>`;
-                return `
-                <tr>
-                    <td><strong>${esc(emp.name)}</strong><div class="muted" style="font-size: 12px;">${esc(emp.department)}</div></td>
-                    <td>${esc(formatDate(emp.doj)) || '<span class="muted">—</span>'}</td>
-                    <td class="num">${b.months === null ? '—' : b.months + ' months'}</td>
-                    <td class="num">${fmt(b.salary)}</td>
-                    <td>${elig}</td>
-                    <td class="num" style="color: var(--success);"><strong>${b.eligible ? fmt(b.amount) : '—'}</strong></td>
-                    <td>${status}</td>
-                </tr>`;
-            }).join('') || '<tr><td colspan="7" class="muted" style="text-align: center; padding: 20px;">No employees</td></tr>'
-                : '<tr><td colspan="7" class="muted" style="text-align: center; padding: 20px;">Set the Diwali date to see who is eligible.</td></tr>';
         }
 
         function renderAdvances() {
@@ -4772,7 +4801,7 @@
                     <div class="profile-head">
                         <div class="avatar">${esc(initials(emp.name))}</div>
                         <div class="who">
-                            <h3>${esc(emp.name)}</h3>
+                            <h3${bdayAttr(emp)}>${esc(emp.name)}${bdayMark(emp)}</h3>
                             <p>${esc(emp.department)}${emp.doj ? ` · Joined ${esc(formatDate(emp.doj))} (${esc(tenure(emp.doj))})` : ''}</p>
                         </div>
                         <div class="profile-badges">
@@ -4835,7 +4864,7 @@
 
             document.getElementById('personalTableBody').innerHTML = employees.map(e => `
                 <tr class="clickable ${emp?.id === e.id ? 'active' : ''}" onclick="selectEmployee('${e.id}')">
-                    <td><strong>${esc(e.name)}</strong></td>
+                    <td><strong${bdayAttr(e)}>${esc(e.name)}${bdayMark(e)}</strong></td>
                     <td>${esc(e.department)}</td>
                     <td class="num">${e.age ?? '—'}</td>
                     <td>${esc(e.phone) || '—'}</td>
@@ -5044,18 +5073,17 @@
                             ${line('A1', 'Basic salary', fmt(reg.totals.basic))}
                             ${line('A2', 'House rent allowance received', fmt(reg.totals.hra))}
                             ${line('A3', 'Special allowance', fmt(reg.totals.special))}
-                            ${line('A4', 'Performance incentives', fmt(reg.totals.incentive))}
-                            ${line('A5', 'Diwali bonus', fmt(reg.totals.bonus))}
-                            ${line('A6', 'Gross salary (A1 to A5)', fmt(t.gross), 'subtotal')}
-                            ${less('A7', 'HRA exemption', t.hraExempt, !isNew)}
-                            ${less('A8', 'Standard deduction', t.standardDeduction)}
-                            ${less('A9', 'Professional tax (tax on employment)', t.ptDeduction, !isNew)}
-                            ${line('A10', 'Income chargeable under the head “Salaries”', fmt(t.incomeFromSalary), 'subtotal')}
+                            ${line('A4', 'Performance incentives and Diwali bonus', fmt(reg.totals.incentive + reg.totals.bonus))}
+                            ${line('A5', 'Gross salary (A1 to A4)', fmt(t.gross), 'subtotal')}
+                            ${less('A6', 'HRA exemption', t.hraExempt, !isNew)}
+                            ${less('A7', 'Standard deduction', t.standardDeduction)}
+                            ${less('A8', 'Professional tax (tax on employment)', t.ptDeduction, !isNew)}
+                            ${line('A9', 'Income chargeable under the head “Salaries”', fmt(t.incomeFromSalary), 'subtotal')}
 
                             ${part('B · Other income & house property')}
                             ${line('B1', 'Income from other sources (interest etc.)', fmt(t.otherIncome))}
                             ${less('B2', 'Interest on housing loan (self-occupied)', t.homeLoan, !isNew)}
-                            ${line('B3', 'Gross total income (A10 + B1 − B2)', fmt(t.grossTotal), 'subtotal')}
+                            ${line('B3', 'Gross total income (A9 + B1 − B2)', fmt(t.grossTotal), 'subtotal')}
 
                             ${part('C · Deductions (Chapter VI-A)')}
                             ${less('C1', 'Employee PF + life insurance, PPF, ELSS etc.', t.deduction80C, !isNew)}
@@ -5103,7 +5131,7 @@
                     <table class="data">
                         <thead>
                             <tr>
-                                <th>Month</th><th class="num">Paid Days</th><th class="num">Basic</th><th class="num">HRA</th><th class="num">Special</th><th class="num">Incentive</th><th class="num">Bonus</th>
+                                <th>Month</th><th class="num">Paid Days</th><th class="num">Basic</th><th class="num">HRA</th><th class="num">Special</th><th class="num">Incentive / Bonus</th>
                                 <th class="num">Gross</th><th class="num">PF</th><th class="num">Prof. Tax</th><th class="num">TDS</th><th class="num">Advance</th><th class="num">Net Pay</th>
                                 <th class="num">Employer PF</th><th>Status</th>
                             </tr>
@@ -5112,7 +5140,7 @@
                             ${reg.rows.map(r => `
                                 <tr>
                                     <td>${ymLabel(r.ym)}</td><td class="num">${fmtDays(r.paidDays)}</td>
-                                    <td class="num">${fmt(r.basic)}</td><td class="num">${fmt(r.hra)}</td><td class="num">${fmt(r.special)}</td><td class="num">${r.incentive ? fmt(r.incentive) : '—'}</td><td class="num">${r.bonus ? fmt(r.bonus) : '—'}</td>
+                                    <td class="num">${fmt(r.basic)}</td><td class="num">${fmt(r.hra)}</td><td class="num">${fmt(r.special)}</td><td class="num">${(r.incentive || 0) + (r.bonus || 0) ? fmt((r.incentive || 0) + (r.bonus || 0)) : '—'}${r.bonus ? '<div><span class="badge info">+ Diwali bonus</span></div>' : ''}</td>
                                     <td class="num"><strong>${fmt(r.gross)}</strong></td><td class="num">${fmt(r.pf)}</td><td class="num">${fmt(r.pt)}</td><td class="num">${fmt(r.tds)}</td>
                                     <td class="num">${r.advance ? fmt(r.advance) : '—'}</td>
                                     <td class="num" style="color: var(--success);"><strong>${fmt(r.net)}</strong></td>
@@ -5122,7 +5150,7 @@
                         <tfoot>
                             <tr>
                                 <td>Total</td><td class="num">${fmtDays(reg.totals.paidDays)}</td>
-                                <td class="num">${fmt(reg.totals.basic)}</td><td class="num">${fmt(reg.totals.hra)}</td><td class="num">${fmt(reg.totals.special)}</td><td class="num">${fmt(reg.totals.incentive)}</td><td class="num">${fmt(reg.totals.bonus)}</td>
+                                <td class="num">${fmt(reg.totals.basic)}</td><td class="num">${fmt(reg.totals.hra)}</td><td class="num">${fmt(reg.totals.special)}</td><td class="num">${fmt(reg.totals.incentive + reg.totals.bonus)}</td>
                                 <td class="num">${fmt(reg.totals.gross)}</td><td class="num">${fmt(reg.totals.pf)}</td><td class="num">${fmt(reg.totals.pt)}</td><td class="num">${fmt(reg.totals.tds)}</td>
                                 <td class="num">${fmt(reg.totals.advance)}</td><td class="num">${fmt(reg.totals.net)}</td><td class="num">${fmt(reg.totals.employerPf)}</td><td></td>
                             </tr>
@@ -5814,7 +5842,6 @@
             let savedFy = NaN;
             try { savedFy = Number(localStorage.getItem(FY_KEY)); } catch (e) { /* ignore */ }
             TAX_RULES.fyStartYear = savedFy >= FY_FIRST && savedFy <= FY_LAST ? savedFy : defaultFy();
-            loadBonusRules();
             wireMuster();
             weekStart = mondayOf(fyStartOf(todayISO()) === TAX_RULES.fyStartYear ? todayISO() : `${TAX_RULES.fyStartYear}-04-01`);
             period = clampToFy(currentYm());
@@ -5826,6 +5853,7 @@
             }
             showTab(tab);
 
+            ensureDiwaliDates();
             const saved = loadAll();
             if (saved) {
                 employees = saved;
