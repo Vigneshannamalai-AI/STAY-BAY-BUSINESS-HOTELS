@@ -1686,6 +1686,11 @@
             .card { padding: 18px; }
         }
 
+        /* Let grid children shrink so wide tables scroll inside their box instead of the page */
+        .two-col > *, .dash-grid > *, .info-grid > *, .form-grid > *, .kpi > div { min-width: 0; }
+        .panel, .card { max-width: 100%; }
+        @media (max-width: 600px) { .info-grid { grid-template-columns: 1fr; } .fy-nav { width: 100%; } .fy-nav .btn { flex: 1; } }
+
         @media (prefers-reduced-motion: reduce) {
             * { animation: none !important; transition: none !important; }
         }
@@ -2855,7 +2860,7 @@
             const [y, m] = ym.split('-').map(Number);
             let balance = ((y - sy) * 12 + (m - sm) + 1) * PAID_OFFS_PER_MONTH;
             Object.entries(emp.attendance).forEach(([month, days]) => {
-                if (month > ym) return;
+                if (month > ym || month < start) return;   // each financial year has its own paid-off balance
                 Object.entries(days).forEach(([day, s]) => {
                     const d = dayIso(month, day);
                     if (d > iso || (!includeDay && d === iso)) return;
@@ -3197,7 +3202,7 @@
         }
 
         function generateSampleData() {
-            if (employees.length && !confirm('Replace all current employees, attendance, payments, advances and uploaded documents with sample data?')) return;
+            if (employees.length && !confirm('Replace all current employees, attendance, payments, advances, incentives and welfare records with sample data? A full past financial year plus the current one will be created.')) return;
 
             employees = [
                 new Employee('Bhuvaneswari Valliappan', 50000, 'Accountant', sampleDetails('Bhuvaneswari Valliappan', '1974-05-12', '2012-04-01', 22000, 'State Bank of India', 'SBIN')),
@@ -3206,48 +3211,80 @@
                 new Employee('Karthik', 27000, 'Manager', sampleDetails('Karthik', '1990-01-30', '2019-02-11', 18000, 'ICICI Bank', 'ICIC')),
                 new Employee('Balaji', 30000, 'Manager', sampleDetails('Balaji', '1987-09-09', '2017-10-02', 19500, 'Canara Bank', 'CNRB'))
             ];
-            employees.forEach(sampleAttendance);
-
-            // Sample increments, incentives, family and welfare records for the year being shown.
-            const fm = fyMonths();
-            const nowYm = clampToFy(currentYm());
-            const prevYm = clampToFy(addMonths(currentYm(), -1));
-            const seedInc = (emp, ym, amount, reason) => emp.increments.push({ id: uid('inc'), date: `${ym}-01`, ym, amount, reason, prev: emp.salary - amount, next: emp.salary });
-            seedInc(employees[3], fm[0], 2000, 'Annual appraisal');
-            seedInc(employees[2], fm[3], 2500, 'Promotion to Finance Lead');
-            employees[4].incentives.push({ id: uid('ivt'), ym: prevYm, amount: 3000, reason: 'Exceeded occupancy target', date: `${prevYm}-28` });
-            employees[2].incentives.push({ id: uid('ivt'), ym: prevYm, amount: 2000, reason: 'Zero-error audit', date: `${prevYm}-28` });
-            employees[3].incentives.push({ id: uid('ivt'), ym: nowYm, amount: 4000, reason: 'Guest satisfaction score 4.8★', date: `${nowYm}-15` });
             const member = (name, relation, dob, dependent, insured, notes = '') => ({ id: uid('fam'), name, relation, dob, dependent, insured, notes });
             employees[0].family.push(member('Valliappan', 'Spouse', '1970-03-14', true, true));
             employees[1].family.push(member('Meenakshi', 'Spouse', '1970-07-22', true, true), member('Arun', 'Son', '1996-10-05', false, false, 'Working in Bengaluru'));
             employees[3].family.push(member('Divya', 'Spouse', '1992-02-11', true, true), member('Aadhya', 'Daughter', '2018-06-30', true, true, 'Class 2'));
             employees[4].family.push(member('Lakshmi', 'Spouse', '1989-12-01', true, true), member('Rohan', 'Son', '2014-04-18', true, false, 'Class 6'), member('Shanmugam', 'Father', '1955-08-09', true, false));
-            const wDate = day => `${prevYm}-${day}`;
-            welfare = [
-                { id: uid('wel'), empId: employees[4].id, date: wDate('12'), category: 'education', beneficiary: 'Rohan (Son)', amount: 12000, status: 'Paid', note: 'Annual school fees' },
-                { id: uid('wel'), empId: employees[3].id, date: wDate('05'), category: 'health', beneficiary: 'Employee (self)', amount: 8500, status: 'Paid', note: 'Medical check-up and medicines' },
-                { id: uid('wel'), empId: employees[0].id, date: wDate('20'), category: 'festival', beneficiary: 'Employee (self)', amount: 3000, status: 'Paid', note: 'Festival gift hamper' },
-                { id: uid('wel'), empId: employees[4].id, date: `${nowYm}-10`, category: 'health', beneficiary: 'Shanmugam (Father)', amount: 15000, status: 'Requested', note: 'Cataract surgery' }
-            ];
 
-
-            // One running advance, then every completed month marked as paid.
-            const months = fyMonths();
-            const current = currentYm();
-            const advMonth = clampToFy(addMonths(current, -2));
-            advances = [{ id: 'adv_' + Date.now().toString(36), empId: employees[3].id, date: `${advMonth}-10`, amount: 20000, emi: 5000, startMonth: clampToFy(addMonths(advMonth, 1)), mode: 'Cash', reason: 'Family function' }];
-            months.filter(ym => ym < current).forEach(ym => {
-                employees.forEach(emp => markPaid(emp, ym, { paidOn: `${addMonths(ym, 1)}-01`, mode: 'Bank transfer', reference: '' }));
+            advances = [];
+            welfare = [];
+            const cur = defaultFy();
+            const years = cur > FY_FIRST ? [cur - 1, cur] : [cur];
+            years.forEach(fy => {
+                TAX_RULES.fyStartYear = fy;
+                seedFinancialYear(fy === cur);
             });
+            TAX_RULES.fyStartYear = cur;
 
             selectedEmployee = null;
             settingsRenderedFor = null;
+            period = clampToFy(currentYm());
+            weekStart = mondayOf(fyStartOf(todayISO()) === cur ? todayISO() : `${cur}-04-01`);
+            try { localStorage.setItem(FY_KEY, String(cur)); } catch (e) { /* ignore */ }
             // Don't block rendering on IndexedDB (it can be slow or unavailable on file:// pages).
             docStore.clear().catch(e => console.warn('Could not clear documents', e));
 
             saveAll();
             refreshAll();
+        }
+
+        // Fills the financial year currently set in TAX_RULES with random attendance, raises, incentives,
+        // welfare and paid months, so a whole year can be explored.
+        function seedFinancialYear(isCurrent) {
+            const rnd = (a, b) => a + Math.floor(Math.random() * (b - a + 1));
+            const months = fyMonths();
+            const current = currentYm();
+            const usable = months.filter(ym => ym <= current);
+            const pick = list => list[rnd(0, list.length - 1)];
+            const reasonsInc = ['Annual appraisal', 'Outstanding performance', 'Additional responsibilities', 'Cost of living adjustment', 'Promotion'];
+            const reasonsIvt = ['Exceeded occupancy target', 'Excellent guest feedback', 'Upsell target achieved', 'Zero-error audit', 'Employee of the month'];
+            const beneficiaryOf = emp => pick(['Employee (self)', ...emp.family.map(f => `${f.name} (${f.relation})`)]);
+
+            employees.forEach(sampleAttendance);
+
+            employees.forEach(emp => {
+                // Raises (some employees, one or two months in the year)
+                if (Math.random() < 0.6 && usable.length) {
+                    const ym = pick(usable);
+                    const amount = rnd(4, 30) * 100;
+                    const prev = salaryForMonth(emp, addMonths(ym, -1));
+                    emp.increments.push({ id: uid('inc'), date: `${ym}-01`, ym, amount, reason: pick(reasonsInc), prev, next: prev + amount });
+                }
+                // Incentives in a few months
+                const count = rnd(2, 4);
+                const chosen = new Set();
+                for (let i = 0; i < count && usable.length; i++) chosen.add(pick(usable));
+                chosen.forEach(ym => emp.incentives.push({ id: uid('ivt'), ym, amount: rnd(10, 60) * 100, reason: pick(reasonsIvt), date: `${ym}-${String(rnd(20, 27))}` }));
+                // Welfare records
+                for (let i = 0; i < rnd(1, 3) && usable.length; i++) {
+                    const ym = pick(usable);
+                    const sc = pick(WELFARE_SCHEMES);
+                    welfare.push({ id: uid('wel'), empId: emp.id, date: `${ym}-${String(rnd(3, 25)).padStart(2, '0')}`, category: sc.key, beneficiary: beneficiaryOf(emp), amount: rnd(10, Math.max(11, sc.cap / 1000 * 0.6)) * 500, status: 'Paid', note: sc.name });
+                }
+            });
+
+            if (isCurrent) {
+                const nowYm = clampToFy(current);
+                employees[3].incentives.push({ id: uid('ivt'), ym: nowYm, amount: 4000, reason: 'Guest satisfaction score 4.8★', date: `${nowYm}-15` });
+                welfare.push({ id: uid('wel'), empId: employees[4].id, date: `${nowYm}-10`, category: 'health', beneficiary: 'Shanmugam (Father)', amount: 15000, status: 'Requested', note: 'Cataract surgery' });
+                const advMonth = clampToFy(addMonths(current, -2));
+                advances.push({ id: uid('adv'), empId: employees[3].id, date: `${advMonth}-10`, amount: 20000, emi: 5000, startMonth: clampToFy(addMonths(advMonth, 1)), mode: 'Cash', reason: 'Family function' });
+            }
+
+            months.filter(ym => ym < current).forEach(ym => {
+                employees.forEach(emp => markPaid(emp, ym, { paidOn: `${addMonths(ym, 1)}-01`, mode: pick(['Bank transfer', 'Bank transfer', 'UPI']), reference: '' }));
+            });
         }
 
         // ---------- financial year ----------
@@ -3441,7 +3478,7 @@
                 const e = empById(a.empId);
                 items.push({ date: a.date, icon: '💸', text: `<b>${esc(e ? e.name : 'Employee')}</b> took an advance`, sub: a.reason || a.mode, amt: fmt(a.amount) });
             });
-            return items.filter(x => x.date).sort((a, b) => b.date.localeCompare(a.date)).slice(0, limit);
+            return items.filter(x => x.date && inFy(x.date)).sort((a, b) => b.date.localeCompare(a.date)).slice(0, limit);
         }
 
         function renderDashboard() {
@@ -3495,6 +3532,7 @@
                 list.innerHTML = employees.map((emp, i) => {
                     const s = effectiveStatus(emp, today);
                     const row = payRow(emp, ym);
+                    const refDay = inToday ? today : dayIso(fyMonths()[11], 31);
                     const hue = [350, 24, 158, 205, 268, 42][i % 6];
                     return `
                     <div class="emp-card" onclick="openEmployee('${emp.id}', 'personal')" title="Open personal data">
@@ -3507,8 +3545,8 @@
                             <div class="emp-sal">${fmt(emp.salary)}<small>per month</small></div>
                         </div>
                         <div class="employee-badges">
-                            <span class="badge ${s === 'P' || s === 'WPO' ? 'ok' : s === 'A' ? 'bad' : s ? 'warn' : 'neutral'}">Today: ${s ? STATUS[s].label : 'Not marked'}</span>
-                            <span class="badge neutral">Offs left: ${offBalance(emp, today)}</span>
+                            ${inToday ? `<span class="badge ${s === 'P' || s === 'WPO' ? 'ok' : s === 'A' ? 'bad' : s ? 'warn' : 'neutral'}">Today: ${s ? STATUS[s].label : 'Not marked'}</span>` : ''}
+                            <span class="badge neutral">Offs left${inToday ? '' : ' at year end'}: ${offBalance(emp, refDay)}</span>
                             <span class="badge ${row.paid ? 'ok' : 'neutral'}">${ymLabel(ym)}: ${row.paid ? 'Paid' : 'Pending'}</span>
                         </div>
                     </div>`;
