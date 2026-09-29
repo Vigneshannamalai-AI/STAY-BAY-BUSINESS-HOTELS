@@ -468,11 +468,185 @@
         }
 
         .st-P { --st: var(--success); }
-        .st-H { --st: var(--info); }
-        .st-L { --st: var(--warning); }
+        .st-HD { --st: var(--info); }
         .st-A { --st: var(--danger); }
-        .st-W { --st: var(--muted); }
+        .st-PO { --st: #4b7c87; }
+        .st-WPO { --st: #176B87; }
+        .st-GH { --st: #e3bd54; --st-text: #3E2723; }
         .st-C { --st: var(--neutral-400); }
+
+        .muster thead th.holiday {
+            background: #f6e4b0;
+            color: #6b4e00;
+        }
+
+        .week-table {
+            width: 100%;
+            min-width: 900px;
+            border-collapse: separate;
+            border-spacing: 0;
+            font-size: 13px;
+        }
+
+        .week-table th, .week-table td {
+            padding: 8px;
+            border-bottom: 1px solid var(--neutral-100);
+            border-right: 1px solid var(--neutral-100);
+            text-align: center;
+            background: white;
+        }
+
+        .week-table thead th {
+            background: var(--neutral-100);
+            color: var(--neutral-700);
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        .week-table thead th.holiday {
+            background: #f6e4b0;
+            color: #6b4e00;
+        }
+
+        .week-table thead th.today {
+            background: var(--primary);
+            color: white;
+        }
+
+        .week-table .hol-name {
+            display: block;
+            font-size: 10px;
+            font-weight: 700;
+            max-width: 110px;
+            margin: 2px auto 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .week-table .emp-col {
+            text-align: left;
+            min-width: 190px;
+            position: sticky;
+            left: 0;
+            z-index: 1;
+        }
+
+        .week-table .emp-col .muted {
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        .wk-cell {
+            width: 100%;
+            min-width: 84px;
+            min-height: 40px;
+            border-radius: 8px;
+            border: 1px dashed var(--neutral-300);
+            background: #f7f4ee;
+            color: var(--neutral-700);
+            font-family: inherit;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            transition: filter 0.15s ease, transform 0.15s ease;
+        }
+
+        .wk-cell small {
+            display: block;
+            font-size: 10px;
+            font-weight: 600;
+            opacity: 0.9;
+        }
+
+        .wk-cell:hover { filter: brightness(0.95); transform: translateY(-1px); }
+
+        .wk-cell.set {
+            background: var(--st);
+            border: 1px solid var(--st);
+            color: var(--st-text, white);
+        }
+
+        .wk-cell:disabled {
+            cursor: not-allowed;
+            opacity: 0.4;
+            transform: none;
+        }
+
+        .status-options {
+            display: grid;
+            gap: 8px;
+        }
+
+        .status-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            padding: 12px 14px;
+            border: 2px solid var(--neutral-200);
+            border-radius: 8px;
+            background: white;
+            color: var(--neutral-900);
+            font: inherit;
+            font-size: 14px;
+            text-align: left;
+            cursor: pointer;
+        }
+
+        .status-option:hover:not(:disabled) {
+            border-color: var(--primary-light);
+            background: var(--neutral-50);
+        }
+
+        .status-option.current {
+            border-color: var(--st);
+            background: var(--neutral-50);
+            font-weight: 700;
+        }
+
+        .status-option:disabled {
+            opacity: 0.45;
+            cursor: not-allowed;
+        }
+
+        .status-option .swatch {
+            width: 14px;
+            height: 14px;
+            border-radius: 4px;
+            background: var(--st);
+            flex-shrink: 0;
+        }
+
+        .status-option .opt-note {
+            margin-left: auto;
+            font-size: 12px;
+            color: var(--neutral-700);
+            font-weight: 500;
+        }
+
+        .toast {
+            position: fixed;
+            left: 50%;
+            bottom: 24px;
+            transform: translate(-50%, 20px);
+            background: var(--neutral-900);
+            color: white;
+            padding: 12px 18px;
+            border-radius: 10px;
+            font-size: 14px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+            z-index: 100;
+            max-width: calc(100vw - 32px);
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
 
         .brush-bar {
             display: flex;
@@ -678,7 +852,11 @@
         .cell.set {
             background: var(--st);
             border: 1px solid var(--st);
-            color: white;
+            color: var(--st-text, white);
+        }
+
+        .cell.wpo-cell {
+            font-size: 8px;
         }
 
         .cell.na {
@@ -1204,7 +1382,7 @@
                         <h2>Company Overview</h2>
                         <div class="stats-grid" id="overviewStats"></div>
                         <div class="controls" style="margin-bottom: 0;">
-                            <button class="btn btn-primary" onclick="showTab('attendance')">✓ Mark Today's Attendance</button>
+                            <button class="btn btn-primary" onclick="setWeek(todayISO()); showTab('attendance')">✓ Mark Today's Attendance</button>
                             <button class="btn btn-secondary" onclick="showTab('payments')">₹ Run This Month's Payroll</button>
                         </div>
                     </div>
@@ -1242,7 +1420,31 @@
             <div class="card">
                 <div class="section-head">
                     <div>
-                        <h2>Attendance Marker</h2>
+                        <h2>Weekly Attendance Log</h2>
+                        <p class="section-desc">Click any day to choose the status. Government holidays are highlighted; working on one earns a comp off.</p>
+                    </div>
+                    <div class="controls">
+                        <div class="date-nav">
+                            <button class="btn btn-ghost btn-sm" onclick="shiftWeek(-7)" aria-label="Previous week">◀</button>
+                            <input type="date" id="weekDate" onchange="setWeek(this.value)" aria-label="Pick a date in the week">
+                            <button class="btn btn-ghost btn-sm" onclick="shiftWeek(7)" aria-label="Next week">▶</button>
+                            <button class="btn btn-ghost btn-sm" onclick="setWeek(todayISO())">This Week</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-wrap">
+                    <table class="week-table">
+                        <thead id="weekHead"></thead>
+                        <tbody id="weekBody"></tbody>
+                    </table>
+                </div>
+                <div class="chips" id="attLegend1" style="margin-top: 12px;"></div>
+            </div>
+
+            <div class="card">
+                <div class="section-head">
+                    <div>
+                        <h2>Monthly Attendance Calendar</h2>
                         <p class="section-desc">Employees on the left, every day of the month across. Changes save instantly and flow into salary payments and tax.</p>
                     </div>
                     <div class="controls">
@@ -1255,55 +1457,33 @@
                     <div class="status-group" id="brushBar"></div>
                     <div class="quick-actions">
                         <button class="btn btn-secondary btn-sm" onclick="fillAllUnmarked()">Fill unmarked days (up to today)</button>
-                        <button class="btn btn-secondary btn-sm" onclick="markSundaysOff()">Unmarked Sundays → Week off</button>
+                        <button class="btn btn-secondary btn-sm" onclick="markSundaysOff()">Unmarked Sundays → Paid off</button>
                         <button class="btn btn-ghost btn-sm" id="undoBtn" onclick="undoAttendance()">↶ Undo</button>
                     </div>
                 </div>
-                <p class="how-to"><strong>Fast marking:</strong> choose a status above (or press P, H, L, A, W, C), then <strong>click</strong> a cell, or <strong>click and drag</strong> across many cells. Click a <strong>date</strong> to mark that whole day for everyone. Click a <strong>name</strong> to fill that person's unmarked days up to today. Clicking a cell that already has the chosen status clears it.</p>
+                <p class="how-to"><strong>Fast marking:</strong> choose a status above (or press P, H, A, O, W, C), then <strong>click</strong> a cell or <strong>click and drag</strong> across many cells. Click a <strong>date</strong> to mark that day for everyone; click a <strong>gold holiday date</strong> for holiday options. Click a <strong>name</strong> to fill that person's unmarked days up to today. <strong>Right-click</strong> any cell for all options. Marking Present on a holiday records it as Worked–Paid off (+1 comp off).</p>
                 <div class="table-wrap tall" id="musterWrap"></div>
-                <div class="chips" style="margin-top: 12px;">
-                    <span class="chip"><span class="status-dot" style="background: var(--success);"></span>P Present</span>
-                    <span class="chip"><span class="status-dot" style="background: var(--info);"></span>H Half day (½ pay)</span>
-                    <span class="chip"><span class="status-dot" style="background: var(--warning);"></span>L Leave (unpaid)</span>
-                    <span class="chip"><span class="status-dot" style="background: var(--danger);"></span>A Absent (unpaid)</span>
-                    <span class="chip"><span class="status-dot" style="background: var(--muted);"></span>WO Week off (paid)</span>
-                    <span class="chip">Blank = not marked yet (paid as present until marked)</span>
-                </div>
+                <div class="chips" id="attLegend2" style="margin-top: 12px;"></div>
             </div>
 
-            <div class="card">
-                <div class="section-head">
-                    <div>
-                        <h2>Day View</h2>
-                        <p class="section-desc">Mark everyone for a single date. Useful for a quick morning roll call.</p>
-                    </div>
+            <details class="settings">
+                <summary>🗓 Government holidays (Tamil Nadu) — <span id="holidayCount"></span></summary>
+                <div class="settings-body">
+                    <p class="note" style="margin: 0 0 12px;">Pre-filled with the Tamil Nadu Government public holiday list for 2026. Holidays are paid; an employee who works on one gets +1 comp off added to their paid-off balance. The Jan–Mar 2027 holidays are announced by the state around December; add them here when published.</p>
                     <div class="controls">
-                        <div class="date-nav">
-                            <button class="btn btn-ghost btn-sm" onclick="shiftAttDate(-1)" aria-label="Previous day">◀</button>
-                            <input type="date" id="attDate" onchange="setAttDate(this.value)">
-                            <button class="btn btn-ghost btn-sm" onclick="shiftAttDate(1)" aria-label="Next day">▶</button>
-                            <button class="btn btn-ghost btn-sm" onclick="setAttDate(todayISO())">Today</button>
-                        </div>
-                        <button class="btn btn-primary" onclick="markRemaining('P')">Mark Unmarked as Present</button>
+                        <input type="date" id="holDate" aria-label="Holiday date">
+                        <input type="text" id="holName" placeholder="Holiday name" aria-label="Holiday name">
+                        <button class="btn btn-primary btn-sm" onclick="addHoliday()">+ Add Holiday</button>
+                        <button class="btn btn-ghost btn-sm" onclick="resetHolidays()">Restore Tamil Nadu 2026 list</button>
+                    </div>
+                    <div class="table-wrap">
+                        <table class="data">
+                            <thead><tr><th>Date</th><th>Day</th><th>Holiday</th><th></th></tr></thead>
+                            <tbody id="holidayBody"></tbody>
+                        </table>
                     </div>
                 </div>
-                <div class="chips" id="dailyChips" style="margin-bottom: 16px;"></div>
-                <div class="table-wrap">
-                    <table class="data">
-                        <thead>
-                            <tr>
-                                <th>Employee</th>
-                                <th>Status for the day</th>
-                                <th>This month so far</th>
-                                <th class="num">Attendance</th>
-                            </tr>
-                        </thead>
-                        <tbody id="dailyBody"></tbody>
-                    </table>
-                </div>
-                <p class="note" id="dailyNote"></p>
-            </div>
-
+            </details>
         </section>
 
         <!-- 2. Salary Payments & Advances -->
@@ -1312,7 +1492,7 @@
                 <div class="section-head">
                     <div>
                         <h2>Monthly Salary Payments</h2>
-                        <p class="section-desc">Pay is worked out from the attendance register: paid days = present + week offs + ½ half days. Advance recoveries are deducted automatically.</p>
+                        <p class="section-desc">Pay is worked out from the attendance calendar: every day is paid except Absent (unpaid) days and half of each Half day. Paid offs, govt holidays and comp-off days are paid. Advance recoveries are deducted automatically.</p>
                     </div>
                     <div class="controls">
                         <select id="payMonth" onchange="setPeriod(this.value)"></select>
@@ -1519,6 +1699,20 @@
         </form>
     </dialog>
 
+    <!-- Attendance status dialog -->
+    <dialog id="statusDialog" class="small">
+        <div class="dialog-head">
+            <h2 id="statusTitle">Set Attendance</h2>
+            <button type="button" class="close-x" onclick="document.getElementById('statusDialog').close()" aria-label="Close">×</button>
+        </div>
+        <div class="dialog-body">
+            <p class="section-desc" id="statusSub" style="margin-bottom: 14px;"></p>
+            <div class="status-options" id="statusOptions"></div>
+        </div>
+    </dialog>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
     <!-- Record salary payment dialog -->
     <dialog id="paymentDialog" class="small">
         <form onsubmit="confirmPayment(event)" novalidate>
@@ -1590,8 +1784,10 @@
         let showSensitive = false;
         let settingsRenderedFor = null;
         let activeTab = 'dashboard';
-        let attDate = null;
+        let weekStart = null;
         let period = null;
+        let dialogTarget = null;
+        let toastTimer = null;
         let pendingPayments = [];
         let brush = 'P';
         let paint = null;
@@ -1603,6 +1799,8 @@
         const ADVANCES_KEY = 'staybay.advances.v1';
         const EMPLOYER_KEY = 'staybay.employer.v1';
         const TAB_KEY = 'staybay.tab';
+        const HOLIDAYS_KEY = 'staybay.holidays.v1';
+        const PAID_OFFS_PER_MONTH = 4;
         const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
         const WEEKDAYS = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
         const MAX_DOC_BYTES = 5 * 1024 * 1024;
@@ -1612,14 +1810,44 @@
         const BONUS_RATE = 0.05;
         const BONUS_ATTENDANCE_PCT = 95;
 
+        // Stored attendance codes. 'GH' is never stored: an unmarked holiday is a govt holiday off.
         const STATUS = {
             P: { label: 'Present', short: 'P' },
-            H: { label: 'Half day', short: 'H' },
-            L: { label: 'Leave', short: 'L' },
-            A: { label: 'Absent', short: 'A' },
-            W: { label: 'Week off', short: 'WO' }
+            HD: { label: 'Half day', short: 'HD' },
+            A: { label: 'Absent (unpaid)', short: 'A' },
+            PO: { label: 'Paid off', short: 'PO' },
+            WPO: { label: 'Worked – Paid off (comp off)', short: 'WPO' },
+            GH: { label: 'Govt holiday', short: 'GH' }
         };
-        const STATUS_ORDER = ['P', 'H', 'L', 'A', 'W'];
+        const STATUS_ORDER = ['P', 'HD', 'A', 'PO', 'WPO'];
+
+        // Tamil Nadu Government public holidays 2026 (G.O. issued Nov 2025).
+        const TN_HOLIDAYS_2026 = {
+            '2026-01-01': "New Year's Day",
+            '2026-01-15': 'Pongal',
+            '2026-01-16': 'Thiruvalluvar Day',
+            '2026-01-17': 'Uzhavar Thirunal',
+            '2026-01-26': 'Republic Day',
+            '2026-02-01': 'Thai Poosam',
+            '2026-03-19': "Telugu New Year's Day",
+            '2026-03-21': 'Ramzan (Eid-ul-Fitr)',
+            '2026-03-31': 'Mahaveer Jayanti',
+            '2026-04-03': 'Good Friday',
+            '2026-04-14': "Tamil New Year's Day / Dr. B. R. Ambedkar's Birthday",
+            '2026-05-01': 'May Day',
+            '2026-05-28': 'Bakrid (Eid al-Adha)',
+            '2026-06-26': 'Muharram',
+            '2026-08-15': 'Independence Day',
+            '2026-08-26': 'Milad-un-Nabi',
+            '2026-09-04': 'Krishna Jayanthi',
+            '2026-09-14': 'Vinayakar Chathurthi',
+            '2026-10-02': 'Gandhi Jayanthi',
+            '2026-10-19': 'Ayutha Pooja',
+            '2026-10-20': 'Vijaya Dasami',
+            '2026-11-08': 'Deepavali',
+            '2026-12-25': 'Christmas'
+        };
+        let holidays = { ...TN_HOLIDAYS_2026 };
 
         // Income-tax rules for individuals (salaried). Update this block when a new Finance Act changes slabs.
         // Tax Year 2026-27 (FY 2026-27): slabs unchanged by Budget 2026; Income-tax Act, 2025 applies from 1 Apr 2026.
@@ -1844,7 +2072,7 @@
                 this.initialSalary = salary;
                 this.docs = { aadhaar: null, pan: null };
                 this.salaryConfig = { ...DEFAULT_SALARY_CONFIG };
-                this.attendance = {};   // { 'YYYY-MM': { day: 'P' | 'H' | 'L' | 'A' | 'W' } }
+                this.attendance = {};   // { 'YYYY-MM': { day: 'P' | 'HD' | 'A' | 'PO' | 'WPO' } }
                 this.payments = {};     // { 'YYYY-MM': { paidOn, mode, reference, snapshot } }
                 Object.assign(this, details);
             }
@@ -1880,7 +2108,7 @@
 
         // Converts data saved by the previous version (attendance keyed by month number only).
         function migrateLegacy(raw) {
-            const map = { present: 'P', leave: 'L', absent: 'A' };
+            const map = { present: 'P', leave: 'A', absent: 'A' };
             const today = todayISO();
             return JSON.parse(raw).map(data => {
                 const old = data.attendance || {};
@@ -1897,11 +2125,26 @@
             });
         }
 
+        // Earlier codes of this version: H (half day), L (leave), W (week off).
+        function migrateStatuses(emp) {
+            const map = { H: 'HD', L: 'A', W: 'PO' };
+            Object.values(emp.attendance).forEach(days => {
+                Object.keys(days).forEach(d => { if (map[days[d]]) days[d] = map[days[d]]; });
+            });
+            return emp;
+        }
+
         function loadAll() {
+            try {
+                const savedHolidays = localStorage.getItem(HOLIDAYS_KEY);
+                if (savedHolidays) holidays = JSON.parse(savedHolidays);
+            } catch (e) {
+                console.warn('Could not load holidays', e);
+            }
             try {
                 advances = JSON.parse(localStorage.getItem(ADVANCES_KEY) || '[]');
                 const raw = localStorage.getItem(STORAGE_KEY);
-                if (raw) return JSON.parse(raw).map(Employee.fromJSON);
+                if (raw) return JSON.parse(raw).map(Employee.fromJSON).map(migrateStatuses);
                 const legacy = localStorage.getItem(LEGACY_STORAGE_KEY);
                 if (legacy) return migrateLegacy(legacy);
             } catch (e) {
@@ -1938,8 +2181,17 @@
 
         // ---------- attendance ----------
 
+        function holidayName(iso) {
+            return holidays[iso] || '';
+        }
+
         function getStatus(emp, iso) {
             return emp.attendance[iso.slice(0, 7)]?.[Number(iso.slice(8))] || '';
+        }
+
+        // What the day shows: the stored mark, or 'GH' for an unmarked holiday.
+        function effectiveStatus(emp, iso) {
+            return getStatus(emp, iso) || (holidayName(iso) && employedOn(emp, iso) ? 'GH' : '');
         }
 
         function setStatus(emp, iso, code) {
@@ -1955,35 +2207,108 @@
             return !emp.doj || iso >= emp.doj;
         }
 
-        // Counts for a month. Unmarked days (U) are paid as present until someone marks them.
+        function inFy(iso) {
+            const months = fyMonths();
+            return iso.slice(0, 7) >= months[0] && iso.slice(0, 7) <= months[11];
+        }
+
+        // Paid-off balance: 4 accrue on the 1st of every month (from the FY start or joining month),
+        // unused offs carry forward, each Worked–Paid off adds a comp off, each Paid off uses one.
+        function offBalance(emp, iso, includeDay = true) {
+            let start = fyMonths()[0];
+            if (emp.doj && emp.doj.slice(0, 7) > start) start = emp.doj.slice(0, 7);
+            const ym = iso.slice(0, 7);
+            if (ym < start) return 0;
+            const [sy, sm] = start.split('-').map(Number);
+            const [y, m] = ym.split('-').map(Number);
+            let balance = ((y - sy) * 12 + (m - sm) + 1) * PAID_OFFS_PER_MONTH;
+            Object.entries(emp.attendance).forEach(([month, days]) => {
+                if (month > ym) return;
+                Object.entries(days).forEach(([day, s]) => {
+                    const d = dayIso(month, day);
+                    if (d > iso || (!includeDay && d === iso)) return;
+                    if (s === 'PO') balance--;
+                    if (s === 'WPO') balance++;
+                });
+            });
+            return balance;
+        }
+
+        // Applies a status the way the rules allow. Returns a message when it can't.
+        function applyStatus(emp, iso, requested) {
+            if (!employedOn(emp, iso)) return { changed: false };
+            let code = requested;
+            if (holidayName(iso)) {
+                // On a govt holiday: working earns a comp off; anything "off" is just the holiday.
+                if (code === 'P' || code === 'WPO') code = 'WPO';
+                else if (code !== 'HD') code = '';
+            }
+            const current = getStatus(emp, iso);
+            if (current === code) return { changed: false };
+            const delta = offEffect(code) - offEffect(current);
+            if (delta < 0 && lowestBalanceFrom(emp, iso) + delta < 0) {
+                return {
+                    changed: false,
+                    message: code === 'PO'
+                        ? `${emp.name} has no paid offs left for ${formatDate(iso)}. Mark Absent (unpaid) instead.`
+                        : `Can't change ${formatDate(iso)} for ${emp.name}: that comp off is already used by a later paid off.`
+                };
+            }
+            setStatus(emp, iso, code);
+            return { changed: true };
+        }
+
+        function offEffect(code) {
+            return code === 'PO' ? -1 : code === 'WPO' ? 1 : 0;
+        }
+
+        // Lowest paid-off balance from this date to the end of the FY, with the day's current mark,
+        // so a new paid off can never overdraw a paid off already marked later in the year.
+        function lowestBalanceFrom(emp, iso) {
+            let balance = offBalance(emp, iso);
+            let lowest = balance;
+            const end = dayIso(fyMonths()[11], daysIn(fyMonths()[11]));
+            const d = parseDate(iso);
+            for (d.setDate(d.getDate() + 1); isoDate(d) <= end; d.setDate(d.getDate() + 1)) {
+                const day = isoDate(d);
+                if (d.getDate() === 1 && employedOn(emp, day)) balance += PAID_OFFS_PER_MONTH;
+                balance += offEffect(getStatus(emp, day));
+                lowest = Math.min(lowest, balance);
+            }
+            return lowest;
+        }
+
+        // Counts for a month. Unmarked working days (U) are paid as present until someone marks them.
         function monthAttendance(emp, ym) {
             const days = daysIn(ym);
-            const c = { P: 0, H: 0, L: 0, A: 0, W: 0, U: 0, N: 0, days };
+            const c = { P: 0, HD: 0, A: 0, PO: 0, WPO: 0, GH: 0, U: 0, N: 0, days };
             const marks = emp.attendance[ym] || {};
             for (let d = 1; d <= days; d++) {
-                if (!employedOn(emp, dayIso(ym, d))) { c.N++; continue; }
+                const iso = dayIso(ym, d);
+                if (!employedOn(emp, iso)) { c.N++; continue; }
                 const s = marks[d];
-                if (s && s in STATUS) c[s]++;
+                if (s && s in c) c[s]++;
+                else if (holidayName(iso)) c.GH++;
                 else c.U++;
             }
-            c.paidDays = c.P + c.W + c.U + 0.5 * c.H;
-            c.lopDays = c.L + c.A + 0.5 * c.H + c.N;
-            c.workDays = days - c.W - c.N;
-            c.attendancePct = c.workDays > 0 ? Math.round(((c.P + 0.5 * c.H + c.U) / c.workDays) * 100) : 0;
+            c.paidDays = days - c.N - c.A - 0.5 * c.HD;
+            c.lopDays = c.N + c.A + 0.5 * c.HD;
+            const expected = c.P + c.WPO + c.HD + c.A + c.U;
+            c.attendancePct = expected ? Math.round(((c.P + c.WPO + 0.5 * c.HD + c.U) / expected) * 100) : 0;
             return c;
         }
 
         // Marked days only, from the start of the FY up to (and including) a date.
         function markedStats(emp, uptoIso = todayISO()) {
-            const c = { P: 0, H: 0, L: 0, A: 0, W: 0 };
+            const c = { P: 0, HD: 0, A: 0, PO: 0, WPO: 0 };
             fyMonths().forEach(ym => {
                 const marks = emp.attendance[ym] || {};
                 Object.entries(marks).forEach(([day, s]) => {
                     if (dayIso(ym, day) <= uptoIso && s in c) c[s]++;
                 });
             });
-            const working = c.P + c.H + c.L + c.A;
-            c.pct = working ? Math.round(((c.P + 0.5 * c.H) / working) * 100) : 0;
+            const working = c.P + c.WPO + c.HD + c.A;
+            c.pct = working ? Math.round(((c.P + c.WPO + 0.5 * c.HD) / working) * 100) : 0;
             c.working = working;
             return c;
         }
@@ -2202,9 +2527,16 @@
                 for (let d = 1; d <= daysIn(ym); d++) {
                     const iso = dayIso(ym, d);
                     if (iso >= today) return;
-                    if (parseDate(iso).getDay() === 0) { setStatus(emp, iso, 'W'); continue; }
                     const r = Math.random();
-                    setStatus(emp, iso, r < 0.87 ? 'P' : r < 0.9 ? 'H' : r < 0.97 ? 'L' : 'A');
+                    if (holidayName(iso)) {
+                        if (r < 0.35) setStatus(emp, iso, 'WPO');
+                        continue;
+                    }
+                    if (parseDate(iso).getDay() === 0) {
+                        setStatus(emp, iso, offBalance(emp, iso, false) >= 1 ? 'PO' : 'P');
+                        continue;
+                    }
+                    setStatus(emp, iso, r < 0.92 ? 'P' : r < 0.95 ? 'HD' : 'A');
                 }
             });
         }
@@ -2288,12 +2620,12 @@
             const today = todayISO();
             const ym = currentYm();
             let presentToday = 0, unmarkedToday = 0, pctSum = 0, pctCount = 0, excellent = 0, payout = 0, paid = 0;
-            const inFy = fyMonths().includes(ym);
+            const ymInFy = fyMonths().includes(ym);
 
             employees.forEach(emp => {
-                const s = getStatus(emp, today);
+                const s = effectiveStatus(emp, today);
                 if (employedOn(emp, today)) {
-                    if (s === 'P' || s === 'H') presentToday++;
+                    if (s === 'P' || s === 'HD' || s === 'WPO') presentToday++;
                     if (!s) unmarkedToday++;
                 }
                 const stats = markedStats(emp);
@@ -2302,7 +2634,7 @@
                     pctCount++;
                     if (stats.pct >= BONUS_ATTENDANCE_PCT) excellent++;
                 }
-                if (inFy) {
+                if (ymInFy) {
                     const row = payRow(emp, ym);
                     payout += row.net;
                     if (row.paid) paid += row.net;
@@ -2324,8 +2656,8 @@
                 list.innerHTML = '<div class="empty-state">No employees yet. Click <strong>+ Add Employee</strong> to get started.</div>';
             } else {
                 list.innerHTML = employees.map(emp => {
-                    const s = getStatus(emp, today);
-                    const row = inFy ? payRow(emp, ym) : null;
+                    const s = effectiveStatus(emp, today);
+                    const row = ymInFy ? payRow(emp, ym) : null;
                     return `
                     <div class="employee-item" onclick="openEmployee('${emp.id}', 'personal')" title="Open personal data">
                         <div>
@@ -2333,7 +2665,8 @@
                             <div class="employee-meta">${esc(emp.department)} • ${fmt(emp.salary)}</div>
                         </div>
                         <div class="employee-badges">
-                            <span class="badge ${s === 'P' ? 'ok' : s === 'A' ? 'bad' : s ? 'warn' : 'neutral'}">Today: ${s ? STATUS[s].label : 'Not marked'}</span>
+                            <span class="badge ${s === 'P' || s === 'WPO' ? 'ok' : s === 'A' ? 'bad' : s ? 'warn' : 'neutral'}">Today: ${s ? STATUS[s].label : 'Not marked'}</span>
+                            <span class="badge neutral">Offs left: ${offBalance(emp, today)}</span>
                             ${row ? `<span class="badge ${row.paid ? 'ok' : 'neutral'}">${ymLabel(ym)}: ${row.paid ? 'Paid' : 'Pending'}</span>` : ''}
                         </div>
                     </div>`;
@@ -2378,10 +2711,10 @@
             charts.pie = new Chart(document.getElementById('pieChart').getContext('2d'), {
                 type: 'doughnut',
                 data: {
-                    labels: ['Present', 'Half day', 'Leave', 'Absent', 'Week off'],
+                    labels: ['Present', 'Half day', 'Absent (unpaid)', 'Paid off', 'Worked – Paid off'],
                     datasets: [{
-                        data: [total('P'), total('H'), total('L'), total('A'), total('W')],
-                        backgroundColor: ['#10b981', '#0ea5e9', '#f59e0b', '#ef4444', '#a8a29e'],
+                        data: [total('P'), total('HD'), total('A'), total('PO'), total('WPO')],
+                        backgroundColor: ['#10b981', '#0ea5e9', '#ef4444', '#4b7c87', '#176B87'],
                         borderWidth: 2,
                         borderColor: '#fff'
                     }]
@@ -2397,48 +2730,157 @@
 
         // ---------- 1. attendance ----------
 
-        function setAttDate(iso) {
-            if (!iso) return;
-            attDate = iso;
-            if (fyMonths().includes(iso.slice(0, 7))) period = iso.slice(0, 7);
-            renderAttendance();
-            renderPayments();
+        const BRUSHES = [...STATUS_ORDER, 'C'];
+        const BRUSH_LABEL = { P: 'Present', HD: 'Half day', A: 'Absent (unpaid)', PO: 'Paid off', WPO: 'Worked – Paid off', C: 'Clear' };
+        const BRUSH_KEY = { P: 'P', HD: 'H', A: 'A', PO: 'O', WPO: 'W', C: 'C' };
+        const KEY_BRUSH = Object.fromEntries(Object.entries(BRUSH_KEY).map(([code, key]) => [key, code]));
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => toast.classList.remove('show'), 3500);
         }
 
-        function shiftAttDate(delta) {
-            const d = parseDate(attDate);
-            d.setDate(d.getDate() + delta);
-            setAttDate(isoDate(d));
+        function legendHtml() {
+            return [
+                ['P', 'P Present'], ['HD', 'HD Half day (½ pay)'], ['A', 'A Absent (unpaid)'],
+                ['PO', `PO Paid off (${PAID_OFFS_PER_MONTH} per month, unused carry forward)`], ['WPO', 'WPO Worked – Paid off (+1 comp off)'], ['GH', 'GH Govt holiday (paid)']
+            ].map(([code, label]) => `<span class="chip st-${code}"><span class="status-dot" style="background: var(--st);"></span>${label}</span>`).join('')
+                + '<span class="chip">Blank = not marked yet (paid as present until marked)</span>';
         }
 
-        function markDay(empId, code) {
-            const emp = empById(empId);
-            if (!emp || !employedOn(emp, attDate)) return;
-            pushUndo();
-            setStatus(emp, attDate, getStatus(emp, attDate) === code ? '' : code);
-            afterAttendanceChange(emp, attDate);
-        }
-
-        function markRemaining(code) {
-            let changed = 0;
-            pushUndo();
-            employees.forEach(emp => {
-                if (employedOn(emp, attDate) && !getStatus(emp, attDate)) {
-                    setStatus(emp, attDate, code);
-                    changed++;
-                }
-            });
-            if (!changed) { undoStack.pop(); return; }
+        function afterAttendanceEdit(messages = []) {
             saveAll();
             refreshAll();
+            if (messages.length) showToast(messages.length === 1 ? messages[0] : `${messages[0]} (+${messages.length - 1} more skipped)`);
         }
 
-        // ----- fast marking in the monthly grid -----
+        // ----- status dialog (weekly log clicks, right-clicks, holiday headers) -----
 
-        const BRUSHES = [...STATUS_ORDER, 'C'];
-        const BRUSH_LABEL = { P: 'Present', H: 'Half day', L: 'Leave', A: 'Absent', W: 'Week off', C: 'Clear' };
-        const BRUSH_KEY = { P: 'P', H: 'H', L: 'L', A: 'A', W: 'W', C: 'C' };
-        const brushValue = () => brush === 'C' ? '' : brush;
+        function statusOptions(emp, iso) {
+            const hol = holidayName(iso);
+            const balance = offBalance(emp, iso, false);
+            if (hol) {
+                return [
+                    { code: '', st: 'GH', label: `Govt holiday off (${hol})`, note: 'Paid' },
+                    { code: 'WPO', st: 'WPO', label: 'Worked on holiday', note: '+1 comp off' },
+                    { code: 'HD', st: 'HD', label: 'Half day worked', note: '' }
+                ];
+            }
+            return [
+                { code: 'P', st: 'P', label: 'Present', note: '' },
+                { code: 'HD', st: 'HD', label: 'Half day', note: '½ day pay cut' },
+                { code: 'A', st: 'A', label: 'Absent (unpaid)', note: '1 day pay cut' },
+                { code: 'PO', st: 'PO', label: 'Paid off', note: `${balance} left`, disabled: balance < 1 && getStatus(emp, iso) !== 'PO' },
+                { code: 'WPO', st: 'WPO', label: 'Worked – Paid off', note: '+1 comp off' },
+                { code: '', st: 'C', label: 'Clear (not marked)', note: '' }
+            ];
+        }
+
+        function openStatusDialog(empId, iso) {
+            const emp = empById(empId);
+            if (!emp || !employedOn(emp, iso)) return;
+            const hol = holidayName(iso);
+            const current = getStatus(emp, iso);
+            dialogTarget = { type: 'cell', empId, iso };
+            document.getElementById('statusTitle').textContent = hol ? `${hol}` : 'Set Attendance';
+            document.getElementById('statusSub').innerHTML = `<strong>${esc(emp.name)}</strong> · ${esc(parseDate(iso).toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }))}${hol ? ' · Government holiday' : ''}<br>Paid offs available: <strong>${offBalance(emp, iso, false)}</strong>`;
+            document.getElementById('statusOptions').innerHTML = statusOptions(emp, iso).map(o => `
+                <button class="status-option st-${o.st} ${current === o.code && (o.code || o.st === 'GH') ? 'current' : ''}" ${o.disabled ? 'disabled' : ''} onclick="chooseStatus('${o.code}')">
+                    <span class="swatch"></span>${esc(o.label)}<span class="opt-note">${esc(o.note)}</span>
+                </button>`).join('');
+            document.getElementById('statusDialog').showModal();
+        }
+
+        function openHolidayColumnDialog(iso) {
+            const hol = holidayName(iso);
+            dialogTarget = { type: 'column', iso };
+            document.getElementById('statusTitle').textContent = hol;
+            document.getElementById('statusSub').innerHTML = `${esc(parseDate(iso).toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }))} · Government holiday<br>Apply to <strong>all employees</strong>:`;
+            document.getElementById('statusOptions').innerHTML = [
+                { code: '', st: 'GH', label: 'Everyone on holiday (off)', note: 'Paid' },
+                { code: 'WPO', st: 'WPO', label: 'Everyone worked', note: '+1 comp off each' },
+                { code: 'HD', st: 'HD', label: 'Everyone worked half day', note: '' }
+            ].map(o => `<button class="status-option st-${o.st}" onclick="chooseStatus('${o.code}')"><span class="swatch"></span>${esc(o.label)}<span class="opt-note">${esc(o.note)}</span></button>`).join('')
+                + '<p class="note">Tip: to mark only some employees as worked, click their cells in the calendar or weekly log.</p>';
+            document.getElementById('statusDialog').showModal();
+        }
+
+        function chooseStatus(code) {
+            const target = dialogTarget;
+            document.getElementById('statusDialog').close();
+            dialogTarget = null;
+            if (!target) return;
+            pushUndo();
+            const messages = [];
+            const targets = target.type === 'cell' ? [empById(target.empId)] : employees;
+            targets.forEach(emp => {
+                if (!emp) return;
+                const r = applyStatus(emp, target.iso, code);
+                if (r.message) messages.push(r.message);
+            });
+            afterAttendanceEdit(messages);
+        }
+
+        // ----- weekly attendance log -----
+
+        function mondayOf(iso) {
+            const d = parseDate(iso);
+            d.setDate(d.getDate() - ((d.getDay() + 6) % 7));
+            return isoDate(d);
+        }
+
+        function setWeek(iso) {
+            if (!iso) return;
+            weekStart = mondayOf(iso);
+            if (inFy(iso)) period = iso.slice(0, 7);
+            renderAttendance();
+            renderPayments();
+            populateMonthSelects();
+        }
+
+        function shiftWeek(days) {
+            const d = parseDate(weekStart);
+            d.setDate(d.getDate() + days);
+            setWeek(isoDate(d));
+        }
+
+        function isBirthdayOn(emp, iso) {
+            return Boolean(emp.dob && emp.dob.slice(5) === iso.slice(5));
+        }
+
+        function renderWeek() {
+            document.getElementById('weekDate').value = weekStart;
+            const today = todayISO();
+            const dates = Array.from({ length: 7 }, (_, i) => {
+                const d = parseDate(weekStart);
+                d.setDate(d.getDate() + i);
+                return isoDate(d);
+            });
+            const lastDay = dates[6];
+
+            document.getElementById('weekHead').innerHTML = `<tr><th class="emp-col">Employee</th>${dates.map(iso => {
+                const hol = holidayName(iso);
+                const d = parseDate(iso);
+                return `<th class="${iso === today ? 'today' : hol ? 'holiday' : ''}" title="${esc(hol)}">${d.toLocaleDateString('en-IN', { weekday: 'short' })} ${d.getDate()} ${d.toLocaleDateString('en-IN', { month: 'short' })}${hol ? `<span class="hol-name">🎉 ${esc(hol)}</span>` : ''}</th>`;
+            }).join('')}<th title="Paid offs left at the end of this week (4 new offs are added on the 1st of each month)">Offs left<br><span style="font-weight: 400; font-size: 11px;">by ${esc(parseDate(dates[6]).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' }))}</span></th></tr>`;
+
+            document.getElementById('weekBody').innerHTML = employees.map(emp => {
+                const bday = dates.find(iso => isBirthdayOn(emp, iso));
+                const cells = dates.map(iso => {
+                    const allowed = employedOn(emp, iso) && inFy(iso);
+                    const s = allowed ? effectiveStatus(emp, iso) : '';
+                    const label = s ? STATUS[s].label : (allowed ? 'Not marked' : 'Not available');
+                    return `<td><button class="wk-cell ${s ? `set st-${s}` : ''}" ${allowed ? '' : 'disabled'} title="${esc(`${emp.name}, ${formatDate(iso)}: ${label}${holidayName(iso) ? ' — ' + holidayName(iso) : ''}`)}" onclick="openStatusDialog('${emp.id}', '${iso}')">${s ? STATUS[s].short : '—'}<small>${s ? esc(s === 'WPO' ? 'Comp off' : s === 'GH' ? 'Holiday' : STATUS[s].label.replace(' (unpaid)', '')) : ''}</small></button></td>`;
+                }).join('');
+                const bal = inFy(lastDay) ? offBalance(emp, lastDay) : '—';
+                return `<tr><th class="emp-col">${esc(emp.name)}${bday ? ` <span title="Birthday on ${esc(formatDate(bday))}">🎂</span>` : ''}<div class="muted">${esc(emp.department)}</div></th>${cells}<td><strong>${bal}</strong></td></tr>`;
+            }).join('') || '<tr><td colspan="9" class="muted" style="padding: 20px;">Add employees to start the weekly log.</td></tr>';
+        }
+
+        // ----- monthly calendar: fast marking -----
 
         function setBrush(code) {
             brush = code;
@@ -2464,30 +2906,34 @@
             refreshAll();
         }
 
-        function paintCell(btn, s) {
-            btn.className = 'cell' + (s ? ` set st-${s}` : '');
-            btn.textContent = s ? STATUS[s].short : '';
-            btn.title = `${formatDate(btn.dataset.date)}: ${s ? STATUS[s].label : 'Not marked'}`;
+        function cellHtml(emp, iso) {
+            if (!employedOn(emp, iso)) return '<button class="cell na" disabled title="Before joining date"></button>';
+            const s = effectiveStatus(emp, iso);
+            const hol = holidayName(iso);
+            const title = `${formatDate(iso)}${hol ? ` (${hol})` : ''}: ${s ? STATUS[s].label : 'Not marked'}`;
+            return `<button class="cell ${s ? `set st-${s}` : ''} ${s === 'WPO' ? 'wpo-cell' : ''}" data-emp="${emp.id}" data-date="${iso}" title="${esc(title)}">${s ? STATUS[s].short : ''}</button>`;
         }
 
         function applyPaint(btn) {
             const emp = empById(btn.dataset.emp);
             const iso = btn.dataset.date;
-            if (!emp || !employedOn(emp, iso) || getStatus(emp, iso) === paint.value) return;
-            setStatus(emp, iso, paint.value);
-            paintCell(btn, paint.value);
-            paint.changed = true;
+            if (!emp) return;
+            const r = paint.erase ? applyStatus(emp, iso, '') : applyStatus(emp, iso, brush === 'C' ? '' : brush);
+            if (r.message && !paint.messages.includes(r.message)) paint.messages.push(r.message);
+            if (r.changed) {
+                paint.changed = true;
+                btn.outerHTML = cellHtml(emp, iso);
+            }
         }
 
         function finishPaint() {
             if (!paint) return;
-            const changed = paint.changed;
+            const { changed, messages } = paint;
             paint = null;
-            if (changed) {
-                saveAll();
-                refreshAll();
-            } else {
+            if (changed) afterAttendanceEdit(messages);
+            else {
                 undoStack.pop();
+                if (messages.length) showToast(messages[0]);
             }
         }
 
@@ -2498,15 +2944,25 @@
                 if (!btn || e.button !== 0) return;
                 e.preventDefault();
                 pushUndo();
-                const current = getStatus(empById(btn.dataset.emp), btn.dataset.date);
-                // Clicking a cell that already has the chosen status clears it (and the drag clears too).
-                paint = { value: current && current === brushValue() ? '' : brushValue(), changed: false };
+                const emp = empById(btn.dataset.emp);
+                const iso = btn.dataset.date;
+                // Clicking a cell that already shows the chosen status clears it (and the drag clears too).
+                const current = getStatus(emp, iso);
+                const wanted = brush === 'C' ? '' : brush;
+                const resolved = holidayName(iso) && (wanted === 'P' || wanted === 'WPO') ? 'WPO' : wanted;
+                paint = { erase: Boolean(current) && current === resolved, changed: false, messages: [] };
                 applyPaint(btn);
             });
             wrap.addEventListener('pointerover', e => {
                 if (!paint) return;
                 const btn = e.target.closest('.cell[data-emp]');
                 if (btn) applyPaint(btn);
+            });
+            wrap.addEventListener('contextmenu', e => {
+                const btn = e.target.closest('.cell[data-emp]');
+                if (!btn) return;
+                e.preventDefault();
+                openStatusDialog(btn.dataset.emp, btn.dataset.date);
             });
             document.addEventListener('pointerup', finishPaint);
             document.addEventListener('pointercancel', finishPaint);
@@ -2520,22 +2976,43 @@
                     return;
                 }
                 if (e.metaKey || e.ctrlKey) return;
-                const code = e.key.toUpperCase();
-                if (BRUSHES.includes(code)) setBrush(code);
+                const code = KEY_BRUSH[e.key.toUpperCase()];
+                if (code) setBrush(code);
             });
         }
 
-        function markColumn(iso) {
+        function clickDayHeader(iso) {
+            if (holidayName(iso)) {
+                openHolidayColumnDialog(iso);
+                return;
+            }
             pushUndo();
-            employees.forEach(emp => { if (employedOn(emp, iso)) setStatus(emp, iso, brushValue()); });
-            saveAll();
-            refreshAll();
+            const messages = [];
+            employees.forEach(emp => {
+                const r = applyStatus(emp, iso, brush === 'C' ? '' : brush);
+                if (r.message) messages.push(r.message);
+            });
+            afterAttendanceEdit(messages);
         }
 
         function lastFillDay(ym) {
             const today = todayISO();
             if (ym > today.slice(0, 7)) return 0;
             return ym < today.slice(0, 7) ? daysIn(ym) : Number(today.slice(8));
+        }
+
+        // Fills unmarked, non-holiday days up to today with the current brush.
+        function fillUnmarked(emps, ym, code) {
+            const messages = [];
+            emps.forEach(emp => {
+                for (let d = 1; d <= lastFillDay(ym); d++) {
+                    const iso = dayIso(ym, d);
+                    if (!employedOn(emp, iso) || holidayName(iso) || getStatus(emp, iso)) continue;
+                    const r = applyStatus(emp, iso, code);
+                    if (r.message) messages.push(r.message);
+                }
+            });
+            return messages;
         }
 
         function fillRow(empId) {
@@ -2546,106 +3023,46 @@
             if (brush === 'C') {
                 if (!confirm(`Clear all of ${emp.name}'s marks for ${ymLabel(ym, true)}?`)) { undoStack.pop(); return; }
                 delete emp.attendance[ym];
-            } else {
-                for (let d = 1; d <= lastFillDay(ym); d++) {
-                    const iso = dayIso(ym, d);
-                    if (employedOn(emp, iso) && !getStatus(emp, iso)) setStatus(emp, iso, brush);
-                }
+                afterAttendanceEdit();
+                return;
             }
-            saveAll();
-            refreshAll();
+            afterAttendanceEdit(fillUnmarked([emp], ym, brush));
         }
 
         function fillAllUnmarked() {
             if (brush === 'C') {
-                alert('Choose a status (for example Present) first, then fill.');
+                showToast('Choose a status (for example Present) first, then fill.');
                 return;
             }
             pushUndo();
-            const ym = period;
-            employees.forEach(emp => {
-                for (let d = 1; d <= lastFillDay(ym); d++) {
-                    const iso = dayIso(ym, d);
-                    if (employedOn(emp, iso) && !getStatus(emp, iso)) setStatus(emp, iso, brush);
-                }
-            });
-            saveAll();
-            refreshAll();
+            afterAttendanceEdit(fillUnmarked(employees, period, brush));
         }
 
         function markSundaysOff() {
             pushUndo();
             const ym = period;
+            const messages = [];
             employees.forEach(emp => {
                 for (let d = 1; d <= daysIn(ym); d++) {
                     const iso = dayIso(ym, d);
-                    if (parseDate(iso).getDay() === 0 && employedOn(emp, iso) && !getStatus(emp, iso)) setStatus(emp, iso, 'W');
+                    if (parseDate(iso).getDay() !== 0 || holidayName(iso) || getStatus(emp, iso) || !employedOn(emp, iso)) continue;
+                    const r = applyStatus(emp, iso, 'PO');
+                    if (r.message) messages.push(r.message);
                 }
             });
-            saveAll();
-            refreshAll();
+            afterAttendanceEdit(messages);
         }
 
         function shiftPeriod(delta) {
             setPeriod(addMonths(period, delta));
         }
 
-        function afterAttendanceChange(emp, iso) {
-            saveAll();
-            refreshAll();
-            if (emp.payments[iso.slice(0, 7)]) {
-                console.info(`${emp.name}'s ${ymLabel(iso.slice(0, 7))} salary is already paid; the paid amount stays locked.`);
-            }
-        }
-
-        function statusButtons(emp, iso) {
-            const current = getStatus(emp, iso);
-            const disabled = !employedOn(emp, iso) ? 'disabled' : '';
-            return `<div class="status-group">${STATUS_ORDER.map(code => `
-                <button class="status-btn st-${code} ${current === code ? 'on' : ''}" ${disabled} title="${STATUS[code].label}" onclick="markDay('${emp.id}', '${code}')">${STATUS[code].short}</button>`).join('')}
-            </div>`;
-        }
-
         function renderAttendance() {
-            document.getElementById('attDate').value = attDate;
-            const ym = attDate.slice(0, 7);
-            const counts = { P: 0, H: 0, L: 0, A: 0, W: 0, U: 0 };
-
-            const rows = employees.map(emp => {
-                const s = getStatus(emp, attDate);
-                if (employedOn(emp, attDate)) counts[s || 'U']++;
-                const m = { P: 0, H: 0, L: 0, A: 0, W: 0 };
-                Object.entries(emp.attendance[ym] || {}).forEach(([day, st]) => {
-                    if (dayIso(ym, day) <= attDate && st in m) m[st]++;
-                });
-                const working = m.P + m.H + m.L + m.A;
-                const pct = working ? Math.round(((m.P + 0.5 * m.H) / working) * 100) : null;
-                return `
-                    <tr>
-                        <td><strong>${esc(emp.name)}</strong><div class="muted" style="font-size: 12px;">${esc(emp.department)}${emp.payments[ym] ? ' · 🔒 salary paid' : ''}</div></td>
-                        <td>${employedOn(emp, attDate) ? statusButtons(emp, attDate) : '<span class="muted">Not joined yet</span>'}</td>
-                        <td><span class="muted">P</span> ${m.P} · <span class="muted">H</span> ${m.H} · <span class="muted">L</span> ${m.L} · <span class="muted">A</span> ${m.A} · <span class="muted">WO</span> ${m.W}</td>
-                        <td class="num">${pct === null ? '—' : `<span class="badge ${pct >= 95 ? 'ok' : pct >= 85 ? 'warn' : 'bad'}">${pct}%</span>`}</td>
-                    </tr>`;
-            }).join('');
-
-            document.getElementById('dailyBody').innerHTML = rows || '<tr><td colspan="4" style="text-align: center; padding: 20px;" class="muted">Add employees to start marking attendance</td></tr>';
-
-            const d = parseDate(attDate);
-            document.getElementById('dailyChips').innerHTML = `
-                <span class="chip"><b>${d.toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}</b>${attDate === todayISO() ? ' · Today' : ''}</span>
-                <span class="chip"><span class="status-dot" style="background: var(--success);"></span>Present <b>${counts.P}</b></span>
-                <span class="chip"><span class="status-dot" style="background: var(--info);"></span>Half day <b>${counts.H}</b></span>
-                <span class="chip"><span class="status-dot" style="background: var(--warning);"></span>Leave <b>${counts.L}</b></span>
-                <span class="chip"><span class="status-dot" style="background: var(--danger);"></span>Absent <b>${counts.A}</b></span>
-                <span class="chip"><span class="status-dot" style="background: var(--muted);"></span>Week off <b>${counts.W}</b></span>
-                <span class="chip">Not marked <b>${counts.U}</b></span>`;
-
-            document.getElementById('dailyNote').textContent = attDate > todayISO()
-                ? 'This date is in the future. You can mark planned leave or week offs in advance.'
-                : 'Click a status again to clear it.';
-
+            document.getElementById('attLegend1').innerHTML = legendHtml();
+            document.getElementById('attLegend2').innerHTML = legendHtml();
+            renderWeek();
             renderMuster();
+            renderHolidays();
         }
 
         function renderMuster() {
@@ -2662,27 +3079,71 @@
             for (let d = 1; d <= days; d++) {
                 const iso = dayIso(ym, d);
                 const wd = parseDate(iso).getDay();
-                head += `<th class="day-head ${iso === today ? 'today' : wd === 0 ? 'sun' : ''}" onclick="markColumn('${iso}')" title="Mark everyone on ${formatDate(iso)} as ${BRUSH_LABEL[brush]}">${d}<br><span style="font-weight: 400;">${WEEKDAYS[wd]}</span></th>`;
+                const hol = holidayName(iso);
+                const cls = iso === today ? 'today' : hol ? 'holiday' : wd === 0 ? 'sun' : '';
+                const title = hol ? `${hol} — click for holiday options` : `Mark everyone on ${formatDate(iso)} as ${BRUSH_LABEL[brush]}`;
+                head += `<th class="day-head ${cls}" onclick="clickDayHeader('${iso}')" title="${esc(title)}">${d}<br><span style="font-weight: 400;">${hol ? '🎉' : WEEKDAYS[wd]}</span></th>`;
             }
-            head += '<th class="sum first">P</th><th class="sum">H</th><th class="sum">L</th><th class="sum">A</th><th class="sum">WO</th><th class="sum" title="Not marked">Blank</th><th class="sum">Paid</th>';
+            head += '<th class="sum first">P</th><th class="sum">HD</th><th class="sum">A</th><th class="sum">PO</th><th class="sum">WPO</th><th class="sum">GH</th><th class="sum" title="Not marked">Blank</th><th class="sum" title="Paid offs left at month end">Offs left</th><th class="sum">Paid days</th>';
 
             const body = employees.map(emp => {
                 let cells = '';
-                for (let d = 1; d <= days; d++) {
-                    const iso = dayIso(ym, d);
-                    if (!employedOn(emp, iso)) { cells += '<td><button class="cell na" disabled title="Before joining date"></button></td>'; continue; }
-                    const s = getStatus(emp, iso);
-                    cells += `<td><button class="cell ${s ? `set st-${s}` : ''}" data-emp="${emp.id}" data-date="${iso}" title="${formatDate(iso)}: ${s ? STATUS[s].label : 'Not marked'}">${s ? STATUS[s].short : ''}</button></td>`;
-                }
+                for (let d = 1; d <= days; d++) cells += `<td>${cellHtml(emp, dayIso(ym, d))}</td>`;
                 const a = monthAttendance(emp, ym);
                 const lock = emp.payments[ym] ? ' 🔒' : '';
                 return `<tr><td class="name-col" title="Fill ${esc(emp.name)}'s unmarked days with ${BRUSH_LABEL[brush]}" onclick="fillRow('${emp.id}')">${esc(emp.name)}${lock}</td>${cells}
-                    <td class="sum first">${a.P}</td><td class="sum">${a.H}</td><td class="sum">${a.L}</td><td class="sum">${a.A}</td><td class="sum">${a.W}</td>
-                    <td class="sum">${a.U ? `<span class="warn-text">${a.U}</span>` : 0}</td><td class="sum">${fmtDays(a.paidDays)}/${days}</td></tr>`;
+                    <td class="sum first">${a.P}</td><td class="sum">${a.HD}</td><td class="sum">${a.A}</td><td class="sum">${a.PO}</td><td class="sum">${a.WPO}</td><td class="sum">${a.GH}</td>
+                    <td class="sum">${a.U ? `<span class="warn-text">${a.U}</span>` : 0}</td><td class="sum"><strong>${offBalance(emp, dayIso(ym, days))}</strong></td><td class="sum">${fmtDays(a.paidDays)}/${days}</td></tr>`;
             }).join('');
 
             wrap.innerHTML = `<table class="muster"><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table>`;
             renderBrushBar();
+        }
+
+        // ----- holidays -----
+
+        function saveHolidays() {
+            try { localStorage.setItem(HOLIDAYS_KEY, JSON.stringify(holidays)); } catch (e) { console.warn('Could not save holidays', e); }
+        }
+
+        function renderHolidays() {
+            const list = Object.entries(holidays).sort(([a], [b]) => a.localeCompare(b));
+            document.getElementById('holidayCount').textContent = `${list.length} holidays`;
+            document.getElementById('holidayBody').innerHTML = list.map(([iso, name]) => `
+                <tr>
+                    <td>${esc(formatDate(iso))}</td>
+                    <td>${parseDate(iso).toLocaleDateString('en-IN', { weekday: 'long' })}</td>
+                    <td><strong>${esc(name)}</strong></td>
+                    <td><button class="link-btn" onclick="removeHoliday('${iso}')">Remove</button></td>
+                </tr>`).join('') || '<tr><td colspan="4" class="muted" style="padding: 16px;">No holidays</td></tr>';
+        }
+
+        function addHoliday() {
+            const iso = document.getElementById('holDate').value;
+            const name = document.getElementById('holName').value.trim();
+            if (!iso || !name) {
+                showToast('Enter both the holiday date and name.');
+                return;
+            }
+            holidays[iso] = name;
+            saveHolidays();
+            document.getElementById('holDate').value = '';
+            document.getElementById('holName').value = '';
+            refreshAll();
+        }
+
+        function removeHoliday(iso) {
+            if (!confirm(`Remove ${holidays[iso]} (${formatDate(iso)}) from the holiday list?`)) return;
+            delete holidays[iso];
+            saveHolidays();
+            refreshAll();
+        }
+
+        function resetHolidays() {
+            if (!confirm('Restore the Tamil Nadu 2026 holiday list? Holidays you added will be removed.')) return;
+            holidays = { ...TN_HOLIDAYS_2026 };
+            saveHolidays();
+            refreshAll();
         }
 
         // ---------- 2. salary payments & advances ----------
@@ -3676,7 +4137,7 @@
 
         function init() {
             wireMuster();
-            attDate = todayISO();
+            weekStart = mondayOf(todayISO());
             period = clampToFy(currentYm());
             renderEmployerForm();
 
