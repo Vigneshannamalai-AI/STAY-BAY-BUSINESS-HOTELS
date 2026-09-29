@@ -1728,6 +1728,23 @@
         .lock-error { min-height: 20px; margin-top: 10px; font-size: 13px; font-weight: 600; color: var(--danger); }
         .lock-foot { margin-top: 12px; font-size: 11.5px; color: var(--neutral-400); }
 
+        .link-btn + .link-btn { margin-left: 12px; }
+
+        /* Line icons (replace emoji) */
+        .i { width: 1.15em; height: 1.15em; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; vertical-align: -0.2em; flex: none; }
+        .btn .i { margin-right: 6px; }
+        .btn .i:only-child { margin-right: 0; }
+        .hero-pill { display: inline-flex; align-items: center; gap: 6px; }
+        .tab .i { width: 18px; height: 18px; }
+        .kpi-ico .i { width: 26px; height: 26px; color: var(--accent); }
+        .activity .ico .i { width: 18px; height: 18px; color: var(--primary); }
+        .scheme .s-ico .i { width: 30px; height: 30px; color: var(--primary); }
+        .fy-ico .i { width: 22px; height: 22px; color: #5b1a00; }
+        .event .txt b .i { width: 14px; height: 14px; margin-right: 4px; vertical-align: -2px; color: var(--primary); }
+        .pill .i { width: 14px; height: 14px; }
+        .tag-bday { display: inline-flex; margin-left: 4px; color: var(--primary); vertical-align: middle; }
+        .tag-bday .i { width: 14px; height: 14px; }
+
         /* Let grid children shrink so wide tables scroll inside their box instead of the page */
         .two-col > *, .dash-grid > *, .info-grid > *, .form-grid > *, .kpi > div { min-width: 0; }
         .panel, .card { max-width: 100%; }
@@ -1739,13 +1756,14 @@
     </style>
 </head>
 <body class="locked">
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><symbol id="i-dashboard" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></symbol><symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol><symbol id="i-card" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M6 15h4"/></symbol><symbol id="i-trend" viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></symbol><symbol id="i-heart" viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"/></symbol><symbol id="i-id" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="11" r="2"/><path d="M6 17c.5-2 2-3 3-3s2.5 1 3 3M14 9h4M14 13h4"/></symbol><symbol id="i-receipt" viewBox="0 0 24 24"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6"/></symbol><symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.5-3.5 3.2-5.5 6.5-5.5s6 2 6.5 5.5"/><circle cx="17.5" cy="9" r="2.5"/><path d="M17 14.5c2.5 0 4.2 1.5 4.5 4"/></symbol><symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/></symbol><symbol id="i-coin" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 8h6M9 11h6M9 8c3 0 5 1 5 3s-2 3-5 3l5 4"/></symbol><symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></symbol><symbol id="i-gift" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M5 12v9h14v-9M12 8v13M12 8C9 8 7.5 6.5 7.5 5S9 3 10 4l2 4zM12 8c3 0 4.5-1.5 4.5-3S15 3 14 4l-2 4z"/></symbol><symbol id="i-advance" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 15l6-6M10 9h5v5"/></symbol><symbol id="i-cake" viewBox="0 0 24 24"><path d="M4 20h16v-6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2z"/><path d="M4 16c2 1.5 3 1.5 4 0s3-1.500 4 0 3 1.500 4 0 2-1 4 0M12 12V8M12 3v2"/></symbol><symbol id="i-award" viewBox="0 0 24 24"><circle cx="12" cy="9" r="6"/><path d="M8.5 14L7 21l5-3 5 3-1.5-7"/></symbol><symbol id="i-flag" viewBox="0 0 24 24"><path d="M5 21V4M5 4h11l-2 4 2 4H5"/></symbol><symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></symbol><symbol id="i-unlock" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 7.5-2"/></symbol><symbol id="i-cross" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M12 8v8M8 12h8"/></symbol><symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 19V5M8 7h7"/></symbol><symbol id="i-rings" viewBox="0 0 24 24"><circle cx="9" cy="14" r="5"/><circle cx="15" cy="14" r="5"/><path d="M8 6l1-2h2l1 2"/></symbol><symbol id="i-smile" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 14c1 1.5 2.5 2.2 4 2.2s3-.7 4-2.2M9 9.5h.01M15 9.5h.01"/></symbol><symbol id="i-leaf" viewBox="0 0 24 24"><path d="M5 19c0-9 5-14 15-14 0 10-5 15-14 15"/><path d="M5 19l8-8"/></symbol><symbol id="i-sparkles" viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8zM19 17l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7z"/></symbol><symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18h.01"/></symbol><symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/></symbol><symbol id="i-building" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="1"/><path d="M9 7h2M13 7h2M9 11h2M13 11h2M10 21v-5h4v5"/></symbol><symbol id="i-refresh" viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 15.5-6.2L21 8M21 3v5h-5M21 12a9 9 0 0 1-15.5 6.2L3 16M3 21v-5h5"/></symbol><symbol id="i-undo" viewBox="0 0 24 24"><path d="M9 14L4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-3"/></symbol><symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M4 21h16"/></symbol><symbol id="i-settings" viewBox="0 0 24 24"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></symbol><symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M14 6l4 4"/></symbol><symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/></symbol><symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol><symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol><symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></symbol></defs></svg>
     <div class="lock-screen" id="lockScreen">
         <form class="lock-card" id="lockCard" onsubmit="tryUnlock(event)" autocomplete="off">
             <h1>STAY BAY</h1>
             <div class="tag">HR, Payroll &amp; Welfare Suite · Please sign in</div>
             <input type="password" id="lockPassword" placeholder="Enter password" autocomplete="off" aria-label="Password" autofocus>
             <div class="lock-error" id="lockError" role="alert"></div>
-            <button type="submit" class="btn btn-primary">🔓 Unlock</button>
+            <button type="submit" class="btn btn-primary"><svg class="i" aria-hidden="true"><use href="#i-unlock"/></svg> Unlock</button>
             <div class="lock-foot">Authorised staff only</div>
         </form>
     </div>
@@ -1769,19 +1787,19 @@
                     </label>
                     <span class="hero-pill" id="heroAct"></span>
                     <span class="hero-pill">Tamil Nadu</span>
-                    <button class="hero-pill" style="cursor: pointer; font-family: inherit;" onclick="lockApp()" title="Lock the app">🔒 Lock</button>
+                    <button class="hero-pill" style="cursor: pointer; font-family: inherit;" onclick="lockApp()" title="Lock the app"><svg class="i" aria-hidden="true"><use href="#i-lock"/></svg> Lock</button>
                 </div>
             </div>
         </header>
 
         <nav class="tabs" id="tabs">
-            <button class="tab" data-tab="dashboard" onclick="showTab('dashboard')"><span class="ico">📊</span>Dashboard</button>
-            <button class="tab" data-tab="attendance" onclick="showTab('attendance')"><span class="ico">🗓️</span>Attendance</button>
-            <button class="tab" data-tab="payments" onclick="showTab('payments')"><span class="ico">💳</span>Salary Payments &amp; Advances</button>
-            <button class="tab" data-tab="growth" onclick="showTab('growth')"><span class="ico">📈</span>Increments &amp; Incentives</button>
-            <button class="tab" data-tab="welfare" onclick="showTab('welfare')"><span class="ico">🤝</span>Family &amp; Welfare</button>
-            <button class="tab" data-tab="personal" onclick="showTab('personal')"><span class="ico">🪪</span>Employee Personal Data</button>
-            <button class="tab" data-tab="tax" onclick="showTab('tax')"><span class="ico">🧾</span>Salary &amp; Tax</button>
+            <button class="tab" data-tab="dashboard" onclick="showTab('dashboard')"><svg class="i" aria-hidden="true"><use href="#i-dashboard"/></svg>Dashboard</button>
+            <button class="tab" data-tab="attendance" onclick="showTab('attendance')"><svg class="i" aria-hidden="true"><use href="#i-calendar"/></svg>Attendance</button>
+            <button class="tab" data-tab="payments" onclick="showTab('payments')"><svg class="i" aria-hidden="true"><use href="#i-card"/></svg>Salary Payments &amp; Advances</button>
+            <button class="tab" data-tab="growth" onclick="showTab('growth')"><svg class="i" aria-hidden="true"><use href="#i-trend"/></svg>Increments &amp; Incentives</button>
+            <button class="tab" data-tab="welfare" onclick="showTab('welfare')"><svg class="i" aria-hidden="true"><use href="#i-heart"/></svg>Family &amp; Welfare</button>
+            <button class="tab" data-tab="personal" onclick="showTab('personal')"><svg class="i" aria-hidden="true"><use href="#i-id"/></svg>Employee Personal Data</button>
+            <button class="tab" data-tab="tax" onclick="showTab('tax')"><svg class="i" aria-hidden="true"><use href="#i-receipt"/></svg>Salary &amp; Tax</button>
         </nav>
 
         <div class="fy-ribbon" id="fyRibbon"></div>
@@ -1791,12 +1809,12 @@
             <div class="kpi-grid" id="overviewStats"></div>
 
             <div class="quick-row">
-                <button class="btn btn-primary" onclick="setWeek(todayISO()); showTab('attendance')">✓ Mark Today's Attendance</button>
+                <button class="btn btn-primary" onclick="setWeek(todayISO()); showTab('attendance')"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg> Mark Today's Attendance</button>
                 <button class="btn btn-secondary" onclick="showTab('payments')">₹ Run This Month's Payroll</button>
-                <button class="btn btn-secondary" onclick="openIncentiveDialog()">⭐ Add Incentive</button>
-                <button class="btn btn-secondary" onclick="openWelfareDialog()">🤝 Record Welfare</button>
+                <button class="btn btn-secondary" onclick="openIncentiveDialog()"><svg class="i" aria-hidden="true"><use href="#i-star"/></svg> Add Incentive</button>
+                <button class="btn btn-secondary" onclick="openWelfareDialog()"><svg class="i" aria-hidden="true"><use href="#i-heart"/></svg> Record Welfare</button>
                 <button class="btn btn-ghost" onclick="openEmployeeForm()">+ Add Employee</button>
-                <button class="btn btn-ghost" onclick="generateSampleData()">↻ Sample Data</button>
+                <button class="btn btn-ghost" onclick="generateSampleData()"><svg class="i" aria-hidden="true"><use href="#i-refresh"/></svg> Sample Data</button>
             </div>
 
             <div class="dash-grid">
@@ -1844,9 +1862,9 @@
                     </div>
                     <div class="controls">
                         <div class="date-nav">
-                            <button class="btn btn-ghost btn-sm" onclick="shiftWeek(-7)" aria-label="Previous week">◀</button>
+                            <button class="btn btn-ghost btn-sm" onclick="shiftWeek(-7)" aria-label="Previous week"><svg class="i" aria-hidden="true"><use href="#i-chevron-left"/></svg></button>
                             <input type="date" id="weekDate" onchange="setWeek(this.value)" aria-label="Pick a date in the week">
-                            <button class="btn btn-ghost btn-sm" onclick="shiftWeek(7)" aria-label="Next week">▶</button>
+                            <button class="btn btn-ghost btn-sm" onclick="shiftWeek(7)" aria-label="Next week"><svg class="i" aria-hidden="true"><use href="#i-chevron-right"/></svg></button>
                             <button class="btn btn-ghost btn-sm" onclick="setWeek(todayISO())">This Week</button>
                         </div>
                     </div>
@@ -1867,9 +1885,9 @@
                         <p class="section-desc">Employees on the left, every day of the month across. Changes save instantly and flow into salary payments and tax.</p>
                     </div>
                     <div class="controls">
-                        <button class="btn btn-ghost btn-sm" onclick="shiftPeriod(-1)" aria-label="Previous month">◀</button>
+                        <button class="btn btn-ghost btn-sm" onclick="shiftPeriod(-1)" aria-label="Previous month"><svg class="i" aria-hidden="true"><use href="#i-chevron-left"/></svg></button>
                         <select id="attMonth" onchange="setPeriod(this.value)"></select>
-                        <button class="btn btn-ghost btn-sm" onclick="shiftPeriod(1)" aria-label="Next month">▶</button>
+                        <button class="btn btn-ghost btn-sm" onclick="shiftPeriod(1)" aria-label="Next month"><svg class="i" aria-hidden="true"><use href="#i-chevron-right"/></svg></button>
                     </div>
                 </div>
                 <div class="brush-bar">
@@ -1877,7 +1895,7 @@
                     <div class="quick-actions">
                         <button class="btn btn-secondary btn-sm" onclick="fillAllUnmarked()">Fill unmarked days (up to today)</button>
                         <button class="btn btn-secondary btn-sm" onclick="markSundaysOff()">Unmarked Sundays → Paid off</button>
-                        <button class="btn btn-ghost btn-sm" id="undoBtn" onclick="undoAttendance()">↶ Undo</button>
+                        <button class="btn btn-ghost btn-sm" id="undoBtn" onclick="undoAttendance()"><svg class="i" aria-hidden="true"><use href="#i-undo"/></svg> Undo</button>
                     </div>
                 </div>
                 <p class="how-to"><strong>Fast marking:</strong> choose a status above (or press P, H, A, O, W, C), then <strong>click</strong> a cell or <strong>click and drag</strong> across many cells. Click a <strong>date</strong> to mark that day for everyone; click a <strong>gold holiday date</strong> for holiday options. Click a <strong>name</strong> to fill that person's unmarked days up to today. <strong>Right-click</strong> any cell for all options. Marking Present on a holiday records it as Worked–Paid off (+1 comp off).</p>
@@ -1886,7 +1904,7 @@
             </div>
 
             <details class="settings">
-                <summary>🗓 Government holidays (Tamil Nadu) — <span id="holidayCount"></span></summary>
+                <summary>Government holidays (Tamil Nadu) — <span id="holidayCount"></span></summary>
                 <div class="settings-body">
                     <p class="note" style="margin: 0 0 12px;">Holidays are shared across financial years. Pre-filled with the Tamil Nadu Government public holiday list for calendar year 2026; add the holidays for any other year below. Holidays are paid; an employee who works on one gets +1 comp off added to their paid-off balance. The Jan–Mar 2027 holidays are announced by the state around December; add them here when published.</p>
                     <div class="controls">
@@ -1941,6 +1959,33 @@
                     </table>
                 </div>
                 <p class="note">Once a month is marked paid its figures are locked. Later attendance or salary changes won't alter that payment; use Undo to reopen it.</p>
+            </div>
+
+            <div class="card">
+                <div class="section-head">
+                    <div>
+                        <h2>Diwali Bonus <span class="fy-tag fy-text"></span></h2>
+                        <p class="section-desc" id="bonusDesc"></p>
+                    </div>
+                    <div class="controls">
+                        <label class="toggle-label">Bonus = <input type="number" id="bonusMult" min="0" step="0.5" style="width: 76px;" onchange="setBonusRule('multiplier', this.value)"> x monthly salary</label>
+                        <label class="toggle-label">Minimum service <input type="number" id="bonusMin" min="0" step="1" style="width: 76px;" onchange="setBonusRule('minMonths', this.value)"> months</label>
+                    </div>
+                </div>
+                <div class="stats-grid" id="bonusStats"></div>
+                <div class="table-wrap">
+                    <table class="data">
+                        <thead>
+                            <tr><th>Employee</th><th>Date of Joining</th><th class="num">Service at Diwali</th><th class="num">Monthly Salary</th><th>Eligibility</th><th class="num">Bonus</th><th>Payroll</th></tr>
+                        </thead>
+                        <tbody id="bonusBody"></tbody>
+                    </table>
+                </div>
+                <div class="controls" style="margin: 14px 0 0;">
+                    <label class="toggle-label">Diwali date for this year <input type="date" id="diwaliDate"></label>
+                    <button class="btn btn-secondary btn-sm" onclick="setDiwaliDate()">Set Diwali date</button>
+                </div>
+                <p class="note">The Diwali date comes from the government holiday calendar (Attendance tab). The bonus is added to the gross salary of the month Diwali falls in, is taxable, and carries no PF. Paid months stay locked.</p>
             </div>
 
             <div class="card">
@@ -2122,19 +2167,19 @@
                     </div>
                     <div class="controls">
                         <select id="salaryEmpSelect" onchange="selectEmployee(this.value)"></select>
-                        <button class="btn btn-primary" onclick="downloadForm16()">⬇ Download Tax Certificate (Form 130 / 16)</button>
+                        <button class="btn btn-primary" onclick="downloadForm16()"><svg class="i" aria-hidden="true"><use href="#i-download"/></svg> Download Tax Certificate (Form 130 / 16)</button>
                     </div>
                 </div>
                 <div id="fyBanner"></div>
                 <div id="salaryContent"></div>
 
                 <details class="settings" id="salarySettingsWrap">
-                    <summary>⚙ Salary structure &amp; tax declarations for this employee</summary>
+                    <summary><svg class="i" aria-hidden="true"><use href="#i-settings"/></svg> Salary structure &amp; tax declarations for this employee</summary>
                     <div class="settings-body" id="salarySettings"></div>
                 </details>
 
                 <details class="settings">
-                    <summary>🏢 Employer details (printed on payslips and Form 16 / 130)</summary>
+                    <summary><svg class="i" aria-hidden="true"><use href="#i-building"/></svg> Employer details (printed on payslips and Form 16 / 130)</summary>
                     <div class="settings-body">
                         <div class="form-grid" id="employerForm"></div>
                     </div>
@@ -2236,7 +2281,7 @@
     <dialog id="incrementDialog" class="small">
         <form onsubmit="saveIncrement(event)" novalidate>
             <div class="dialog-head">
-                <h2>New Salary Increment</h2>
+                <h2 id="incTitle">New Salary Increment</h2>
                 <button type="button" class="close-x" onclick="document.getElementById('incrementDialog').close()" aria-label="Close">×</button>
             </div>
             <div class="dialog-body">
@@ -2262,7 +2307,7 @@
             </div>
             <div class="dialog-foot">
                 <button type="button" class="btn btn-ghost" onclick="document.getElementById('incrementDialog').close()">Cancel</button>
-                <button type="submit" class="btn btn-primary">Save Increment</button>
+                <button type="submit" class="btn btn-primary" id="incSubmit">Save Increment</button>
             </div>
         </form>
     </dialog>
@@ -2271,7 +2316,7 @@
     <dialog id="incentiveDialog" class="small">
         <form onsubmit="saveIncentive(event)" novalidate>
             <div class="dialog-head">
-                <h2>New Performance Incentive</h2>
+                <h2 id="ivtTitle">New Performance Incentive</h2>
                 <button type="button" class="close-x" onclick="document.getElementById('incentiveDialog').close()" aria-label="Close">×</button>
             </div>
             <div class="dialog-body">
@@ -2296,7 +2341,7 @@
             </div>
             <div class="dialog-foot">
                 <button type="button" class="btn btn-ghost" onclick="document.getElementById('incentiveDialog').close()">Cancel</button>
-                <button type="submit" class="btn btn-primary">Save Incentive</button>
+                <button type="submit" class="btn btn-primary" id="ivtSubmit">Save Incentive</button>
             </div>
         </form>
     </dialog>
@@ -2305,7 +2350,7 @@
     <dialog id="familyDialog" class="small">
         <form onsubmit="saveFamily(event)" novalidate>
             <div class="dialog-head">
-                <h2>Add Family Member</h2>
+                <h2 id="famTitle">Add Family Member</h2>
                 <button type="button" class="close-x" onclick="document.getElementById('familyDialog').close()" aria-label="Close">×</button>
             </div>
             <div class="dialog-body">
@@ -2327,7 +2372,7 @@
             </div>
             <div class="dialog-foot">
                 <button type="button" class="btn btn-ghost" onclick="document.getElementById('familyDialog').close()">Cancel</button>
-                <button type="submit" class="btn btn-primary">Save Member</button>
+                <button type="submit" class="btn btn-primary" id="famSubmit">Save Member</button>
             </div>
         </form>
     </dialog>
@@ -2336,7 +2381,7 @@
     <dialog id="welfareDialog" class="small">
         <form onsubmit="saveWelfare(event)" novalidate>
             <div class="dialog-head">
-                <h2>Record Welfare Benefit</h2>
+                <h2 id="welTitle">Record Welfare Benefit</h2>
                 <button type="button" class="close-x" onclick="document.getElementById('welfareDialog').close()" aria-label="Close">×</button>
             </div>
             <div class="dialog-body">
@@ -2356,7 +2401,7 @@
             </div>
             <div class="dialog-foot">
                 <button type="button" class="btn btn-ghost" onclick="document.getElementById('welfareDialog').close()">Cancel</button>
-                <button type="submit" class="btn btn-primary">Save Benefit</button>
+                <button type="submit" class="btn btn-primary" id="welSubmit">Save Benefit</button>
             </div>
         </form>
     </dialog>
@@ -2395,7 +2440,7 @@
     <dialog id="advanceDialog" class="small">
         <form onsubmit="saveAdvance(event)" novalidate>
             <div class="dialog-head">
-                <h2>New Salary Advance</h2>
+                <h2 id="advTitle">New Salary Advance</h2>
                 <button type="button" class="close-x" onclick="document.getElementById('advanceDialog').close()" aria-label="Close">×</button>
             </div>
             <div class="dialog-body">
@@ -2419,7 +2464,7 @@
             </div>
             <div class="dialog-foot">
                 <button type="button" class="btn btn-ghost" onclick="document.getElementById('advanceDialog').close()">Cancel</button>
-                <button type="submit" class="btn btn-primary">Save Advance</button>
+                <button type="submit" class="btn btn-primary" id="advSubmit">Save Advance</button>
             </div>
         </form>
     </dialog>
@@ -2428,6 +2473,7 @@
         let employees = [];
         let advances = [];
         let welfare = [];
+        let editing = null;   // { empId, id } while an existing record is open in a dialog
         let selectedEmployee = null;
         let editingId = null;
         let showSensitive = false;
@@ -2458,15 +2504,18 @@
         const GRATUITY_RATE = 0.0481;
         const WELFARE_KEY = 'staybay.welfare.v1';
         const FY_KEY = 'staybay.fy';
+        const BONUS_KEY = 'staybay.bonus.v1';
+        const DEFAULT_BONUS_RULES = { multiplier: 2, minMonths: 6 };
+        let bonusRules = { ...DEFAULT_BONUS_RULES };
         const WELFARE_SCHEMES = [
-            { key: 'health', icon: '🏥', name: 'Medical & Health Support', desc: 'Hospitalisation, surgery and health check-ups for the employee or family', cap: 50000 },
-            { key: 'education', icon: '🎓', name: "Children's Education Aid", desc: 'School / college fees and books for employees\' children', cap: 25000 },
-            { key: 'marriage', icon: '💍', name: 'Marriage Gift', desc: 'Wedding gift for the employee or their children', cap: 10000 },
-            { key: 'maternity', icon: '👶', name: 'Maternity & Newborn', desc: 'Maternity / paternity support and a newborn gift', cap: 15000 },
-            { key: 'bereavement', icon: '🕊️', name: 'Bereavement Support', desc: 'Financial help on the loss of an immediate family member', cap: 25000 },
-            { key: 'festival', icon: '🪔', name: 'Festival Gift & Sweets', desc: 'Deepavali, Pongal and other festival gifts for the team', cap: 5000 },
-            { key: 'emergency', icon: '🚑', name: 'Emergency Aid', desc: 'Urgent relief for accidents, floods or other emergencies', cap: 30000 },
-            { key: 'insurance', icon: '🛡️', name: 'Group Insurance & Accident Cover', desc: 'Premiums for group health or personal accident cover', cap: 20000 }
+            { key: 'health', icon: 'cross', name: 'Medical & Health Support', desc: 'Hospitalisation, surgery and health check-ups for the employee or family', cap: 50000 },
+            { key: 'education', icon: 'book', name: "Children's Education Aid", desc: 'School / college fees and books for employees\' children', cap: 25000 },
+            { key: 'marriage', icon: 'rings', name: 'Marriage Gift', desc: 'Wedding gift for the employee or their children', cap: 10000 },
+            { key: 'maternity', icon: 'smile', name: 'Maternity & Newborn', desc: 'Maternity / paternity support and a newborn gift', cap: 15000 },
+            { key: 'bereavement', icon: 'leaf', name: 'Bereavement Support', desc: 'Financial help on the loss of an immediate family member', cap: 25000 },
+            { key: 'festival', icon: 'sparkles', name: 'Festival Gift & Sweets', desc: 'Deepavali, Pongal and other festival gifts for the team', cap: 5000 },
+            { key: 'emergency', icon: 'alert', name: 'Emergency Aid', desc: 'Urgent relief for accidents, floods or other emergencies', cap: 30000 },
+            { key: 'insurance', icon: 'shield', name: 'Group Insurance & Accident Cover', desc: 'Premiums for group health or personal accident cover', cap: 20000 }
         ];
 
         // Stored attendance codes. 'GH' is never stored: an unmarked holiday is a govt holiday off.
@@ -2810,19 +2859,6 @@
             return emp;
         }
 
-        // The attendance bonus no longer exists: take it out of any payment already saved with one.
-        function stripLegacyBonus(emp) {
-            Object.values(emp.payments).forEach(p => {
-                const snap = p.snapshot;
-                if (snap && snap.bonus) {
-                    snap.gross -= snap.bonus;
-                    snap.net -= snap.bonus;
-                    snap.bonus = 0;
-                }
-            });
-            return emp;
-        }
-
         function loadAll() {
             try {
                 const savedHolidays = localStorage.getItem(HOLIDAYS_KEY);
@@ -2834,13 +2870,48 @@
                 advances = JSON.parse(localStorage.getItem(ADVANCES_KEY) || '[]');
                 welfare = JSON.parse(localStorage.getItem(WELFARE_KEY) || '[]');
                 const raw = localStorage.getItem(STORAGE_KEY);
-                if (raw) return JSON.parse(raw).map(Employee.fromJSON).map(migrateStatuses).map(stripLegacyBonus);
+                if (raw) return JSON.parse(raw).map(Employee.fromJSON).map(migrateStatuses);
                 const legacy = localStorage.getItem(LEGACY_STORAGE_KEY);
                 if (legacy) return migrateLegacy(legacy);
             } catch (e) {
                 console.warn('Could not load saved data', e);
             }
             return null;
+        }
+
+        function loadBonusRules() {
+            try {
+                bonusRules = { ...DEFAULT_BONUS_RULES, ...JSON.parse(localStorage.getItem(BONUS_KEY) || '{}') };
+            } catch (e) {
+                bonusRules = { ...DEFAULT_BONUS_RULES };
+            }
+        }
+
+        function setBonusRule(field, value) {
+            const n = parseFloat(value);
+            bonusRules[field] = Number.isFinite(n) && n >= 0 ? (field === 'minMonths' ? Math.round(n) : n) : DEFAULT_BONUS_RULES[field];
+            try { localStorage.setItem(BONUS_KEY, JSON.stringify(bonusRules)); } catch (e) { /* ignore */ }
+            refreshAll();
+        }
+
+        function setDiwaliDate() {
+            const iso = document.getElementById('diwaliDate').value;
+            if (!iso) {
+                showToast('Pick the Diwali date first.');
+                return;
+            }
+            if (!inFy(iso)) {
+                showToast(`That date is outside FY ${TAX_RULES.fy}. Change the financial year first.`);
+                return;
+            }
+            const months = fyMonths();
+            Object.keys(holidays).forEach(d => {
+                if (d >= months[0] + '-01' && d <= dayIso(months[11], 31) && /deepavali|diwali/i.test(holidays[d])) delete holidays[d];
+            });
+            holidays[iso] = 'Deepavali';
+            saveHolidays();
+            refreshAll();
+            showToast(`Diwali set to ${formatDate(iso)}.`);
         }
 
         function loadEmployer() {
@@ -3024,12 +3095,13 @@
             const hra = Math.round(s.hra * ratio);
             const special = Math.round(s.special * ratio);
             const incentive = incentivesFor(emp, ym);
-            const gross = basic + hra + special + incentive;
+            const bonus = diwaliBonus(emp, ym);
+            const gross = basic + hra + special + incentive + bonus;
             const pf = emp.salaryConfig.pfEnabled ? Math.round(Math.min(basic, PF_WAGE_CEILING) * PF_RATE) : 0;
             const pt = gross > 0 ? emp.salaryConfig.professionalTax : 0;
             return {
                 ym, paidDays: att.paidDays, lopDays: att.lopDays, unmarked: att.U, attendancePct: att.attendancePct,
-                basic, hra, special, incentive, gross, pf, employerPf: pf, gratuity: Math.round(basic * GRATUITY_RATE), pt
+                basic, hra, special, incentive, bonus, gross, pf, employerPf: pf, gratuity: Math.round(basic * GRATUITY_RATE), pt
             };
         }
 
@@ -3038,6 +3110,41 @@
             const incs = emp.increments || [];
             const all = incs.reduce((s, i) => s + i.amount, 0);
             return (emp.salary || 0) - all + incs.filter(i => i.ym <= ym).reduce((s, i) => s + i.amount, 0);
+        }
+
+        // ---------- Diwali bonus ----------
+        // Bonus = multiplier x monthly salary, paid with the salary of the month Diwali falls in, to employees who
+        // have completed the minimum service (default 6 months) before the Diwali date. The Diwali date is read from
+        // the government holiday calendar (a holiday named Deepavali / Diwali).
+
+        function diwaliDate() {
+            const months = fyMonths();
+            const first = months[0] + '-01', last = dayIso(months[11], 31);
+            const hit = Object.entries(holidays).filter(([iso, name]) => iso >= first && iso <= last && /deepavali|diwali/i.test(name)).sort(([a], [b]) => a.localeCompare(b))[0];
+            return hit ? { iso: hit[0], name: hit[1] } : null;
+        }
+
+        function fullMonthsBetween(fromIso, toIso) {
+            const a = parseDate(fromIso), b = parseDate(toIso);
+            let m = (b.getFullYear() - a.getFullYear()) * 12 + b.getMonth() - a.getMonth();
+            if (b.getDate() < a.getDate()) m--;
+            return m;
+        }
+
+        function bonusInfo(emp) {
+            const d = diwaliDate();
+            if (!d) return { applies: false };
+            const months = emp.doj ? fullMonthsBetween(emp.doj, d.iso) : null;
+            const eligible = months !== null && months >= bonusRules.minMonths;
+            const ym = d.iso.slice(0, 7);
+            const salary = salaryForMonth(emp, ym);
+            const eligibleFrom = emp.doj ? isoDate(new Date(parseDate(emp.doj).getFullYear(), parseDate(emp.doj).getMonth() + bonusRules.minMonths, parseDate(emp.doj).getDate())) : '';
+            return { applies: true, date: d.iso, name: d.name, ym, months, eligible, salary, amount: eligible ? Math.round(salary * bonusRules.multiplier) : 0, eligibleFrom };
+        }
+
+        function diwaliBonus(emp, ym) {
+            const info = bonusInfo(emp);
+            return info.applies && info.ym === ym ? info.amount : 0;
         }
 
         function incentivesFor(emp, ym) {
@@ -3181,7 +3288,7 @@
                 r.net = r.gross - r.pf - r.pt - r.tds - r.advance;
             });
 
-            const keys = ['paidDays', 'lopDays', 'basic', 'hra', 'special', 'incentive', 'gross', 'pf', 'employerPf', 'gratuity', 'pt', 'tds', 'advance', 'net'];
+            const keys = ['paidDays', 'lopDays', 'basic', 'hra', 'special', 'incentive', 'bonus', 'gross', 'pf', 'employerPf', 'gratuity', 'pt', 'tds', 'advance', 'net'];
             const totals = Object.fromEntries(keys.map(k => [k, rows.reduce((s, r) => s + (r[k] || 0), 0)]));
             const nextUnpaid = unpaid[0];
             return { rows, tax, totals, monthlyTds: nextUnpaid ? nextUnpaid.tds : 0 };
@@ -3272,6 +3379,8 @@
 
             advances = [];
             welfare = [];
+            if (!Object.values(holidays).some((name, i) => /deepavali|diwali/i.test(name) && Object.keys(holidays)[i] < '2026-04-01')) holidays['2025-10-20'] = 'Deepavali';
+            saveHolidays();
             const cur = defaultFy();
             const years = cur > FY_FIRST ? [cur - 1, cur] : [cur];
             years.forEach(fy => {
@@ -3329,7 +3438,7 @@
 
             if (isCurrent) {
                 const nowYm = clampToFy(current);
-                employees[3].incentives.push({ id: uid('ivt'), ym: nowYm, amount: 4000, reason: 'Guest satisfaction score 4.8★', date: `${nowYm}-15` });
+                employees[3].incentives.push({ id: uid('ivt'), ym: nowYm, amount: 4000, reason: 'Guest satisfaction score 4.8 out of 5', date: `${nowYm}-15` });
                 welfare.push({ id: uid('wel'), empId: employees[4].id, date: `${nowYm}-10`, category: 'health', beneficiary: 'Shanmugam (Father)', amount: 15000, status: 'Requested', note: 'Cataract surgery' });
                 const advMonth = clampToFy(addMonths(current, -2));
                 advances.push({ id: uid('adv'), empId: employees[3].id, date: `${advMonth}-10`, amount: 20000, emi: 5000, startMonth: clampToFy(addMonths(advMonth, 1)), mode: 'Cash', reason: 'Family function' });
@@ -3392,15 +3501,15 @@
 
             document.getElementById('fyRibbon').innerHTML = `
                 <div class="fy-main">
-                    <div class="fy-ico">📅</div>
+                    <div class="fy-ico"><svg class="i" aria-hidden="true"><use href="#i-calendar"/></svg></div>
                     <div>
                         <div class="fy-title">Financial Year ${TAX_RULES.fy} <span class="badge ${kind[1]}">${kind[0]}</span></div>
                         <div class="fy-sub">1 Apr ${start} – 31 Mar ${start + 1} · Assessment Year ${TAX_RULES.ay} · ${TAX_RULES.act}</div>
                     </div>
                 </div>
                 <div class="fy-nav">
-                    <button class="btn btn-ghost btn-sm" ${start <= FY_FIRST ? 'disabled' : ''} onclick="shiftFy(-1)">◀ ${start <= FY_FIRST ? 'Earlier' : 'FY ' + fyLabel(start - 1)}</button>
-                    <button class="btn btn-ghost btn-sm" ${start >= FY_LAST ? 'disabled' : ''} onclick="shiftFy(1)">${start >= FY_LAST ? 'Later' : 'FY ' + fyLabel(start + 1)} ▶</button>
+                    <button class="btn btn-ghost btn-sm" ${start <= FY_FIRST ? 'disabled' : ''} onclick="shiftFy(-1)">${ic('chevron-left')} ${start <= FY_FIRST ? 'Earlier' : 'FY ' + fyLabel(start - 1)}</button>
+                    <button class="btn btn-ghost btn-sm" ${start >= FY_LAST ? 'disabled' : ''} onclick="shiftFy(1)">${start >= FY_LAST ? 'Later' : 'FY ' + fyLabel(start + 1)} ${ic('chevron-right')}</button>
                 </div>`;
 
             document.querySelectorAll('.fy-text').forEach(el => { el.textContent = 'FY ' + TAX_RULES.fy; });
@@ -3454,6 +3563,8 @@
 
         const lastCounts = {};
 
+        const ic = name => `<svg class="i" aria-hidden="true"><use href="#i-${name}"/></svg>`;
+
         function greeting() {
             const h = new Date().getHours();
             return h < 12 ? 'Good morning' : h < 17 ? 'Good afternoon' : 'Good evening';
@@ -3486,7 +3597,7 @@
         function kpiCard(key, icon, label, value, kind, sub, accent, suffix = '') {
             return `
                 <div class="kpi" style="--accent: ${accent};">
-                    <div class="kpi-ico">${icon}</div>
+                    <div class="kpi-ico">${ic(icon)}</div>
                     <div>
                         <div class="kpi-value" data-key="${key}" data-count="${value}" data-kind="${kind}" data-suffix="${esc(suffix)}">${formatCount(kind, value, suffix)}</div>
                         <div class="kpi-label">${label}</div>
@@ -3504,12 +3615,12 @@
                 const iso = isoDate(d);
                 const rel = i === 0 ? 'Today' : i === 1 ? 'Tomorrow' : `in ${i} days`;
                 const hol = holidayName(iso);
-                if (hol) out.push({ iso, d, rel, kind: 'hol', title: hol, sub: 'Government holiday' });
+                if (hol) out.push({ iso, d, rel, kind: 'hol', icon: 'flag', title: hol, sub: 'Government holiday' });
                 employees.forEach(e => {
-                    if (isBirthdayOn(e, iso)) out.push({ iso, d, rel, kind: 'bday', title: `🎂 ${e.name}'s birthday`, sub: `Turns ${ageOn(e.dob, d)}` });
+                    if (isBirthdayOn(e, iso)) out.push({ iso, d, rel, kind: 'bday', icon: 'cake', title: `${e.name}'s birthday`, sub: `Turns ${ageOn(e.dob, d)}` });
                     if (e.doj && e.doj.slice(5) === iso.slice(5) && e.doj.slice(0, 4) < iso.slice(0, 4)) {
                         const yrs = Number(iso.slice(0, 4)) - Number(e.doj.slice(0, 4));
-                        out.push({ iso, d, rel, kind: 'anniv', title: `🏅 ${e.name}`, sub: `${yrs} year${yrs > 1 ? 's' : ''} with STAY BAY` });
+                        out.push({ iso, d, rel, kind: 'anniv', icon: 'award', title: `${e.name}`, sub: `${yrs} year${yrs > 1 ? 's' : ''} with STAY BAY` });
                     }
                 });
             }
@@ -3519,24 +3630,24 @@
         function recentActivity(limit = 7) {
             const items = [];
             employees.forEach(e => {
-                (e.increments || []).forEach(i => items.push({ date: i.date, icon: '📈', text: `<b>${esc(e.name)}</b> got a raise`, sub: i.reason, amt: '+' + fmt(i.amount) + '/mo' }));
-                (e.incentives || []).forEach(i => items.push({ date: i.date || `${i.ym}-01`, icon: '⭐', text: `<b>${esc(e.name)}</b> earned an incentive`, sub: i.reason, amt: '+' + fmt(i.amount) }));
+                (e.increments || []).forEach(i => items.push({ date: i.date, icon: 'trend', text: `<b>${esc(e.name)}</b> got a raise`, sub: i.reason, amt: '+' + fmt(i.amount) + '/mo' }));
+                (e.incentives || []).forEach(i => items.push({ date: i.date || `${i.ym}-01`, icon: 'star', text: `<b>${esc(e.name)}</b> earned an incentive`, sub: i.reason, amt: '+' + fmt(i.amount) }));
             });
             welfare.forEach(w => {
                 const e = empById(w.empId);
                 const scheme = WELFARE_SCHEMES.find(s => s.key === w.category);
-                items.push({ date: w.date, icon: scheme ? scheme.icon : '🤝', text: `<b>${esc(e ? e.name : 'Employee')}</b> · ${esc(scheme ? scheme.name : 'Welfare')}`, sub: w.status, amt: fmt(w.amount) });
+                items.push({ date: w.date, icon: scheme ? scheme.icon : 'heart', text: `<b>${esc(e ? e.name : 'Employee')}</b> · ${esc(scheme ? scheme.name : 'Welfare')}`, sub: w.status, amt: fmt(w.amount) });
             });
             advances.forEach(a => {
                 const e = empById(a.empId);
-                items.push({ date: a.date, icon: '💸', text: `<b>${esc(e ? e.name : 'Employee')}</b> took an advance`, sub: a.reason || a.mode, amt: fmt(a.amount) });
+                items.push({ date: a.date, icon: 'advance', text: `<b>${esc(e ? e.name : 'Employee')}</b> took an advance`, sub: a.reason || a.mode, amt: fmt(a.amount) });
             });
             return items.filter(x => x.date && inFy(x.date)).sort((a, b) => b.date.localeCompare(a.date)).slice(0, limit);
         }
 
         function renderDashboard() {
             const now = new Date();
-            document.getElementById('heroGreet').textContent = `${greeting()} 👋`;
+            document.getElementById('heroGreet').textContent = greeting();
             document.getElementById('heroDate').textContent = now.toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
 
             const today = todayISO();
@@ -3566,14 +3677,14 @@
             const raises = employees.flatMap(e => (e.increments || []).filter(i => i.ym >= fyMonths()[0] && i.ym <= fyMonths()[11]));
 
             document.getElementById('overviewStats').innerHTML = [
-                kpiCard('emp', '👥', 'Total Employees', employees.length, 'num', `${employees.reduce((s, e) => s + (e.family || []).length, 0)} family members on record`, '#B3122F'),
-                kpiCard('present', '✅', 'Present Today', presentToday, 'num', inToday ? (unmarkedToday ? `${unmarkedToday} not marked yet` : 'All marked') : 'Today is outside this FY', '#10b981', `/${employees.length}`),
-                kpiCard('att', '📅', 'Avg Attendance', pctCount ? Math.round(pctSum / pctCount) : 0, 'pct', `FY ${TAX_RULES.fy} so far`, '#0ea5e9'),
-                kpiCard('payout', '💰', 'Net Payout', payout, 'inr', `${ymLabel(ym)} · ${fmt(paid)} paid`, '#C9A227'),
-                kpiCard('incent', '⭐', 'Incentives', incentives, 'inr', `In ${ymLabel(ym)} payroll`, '#f59e0b'),
-                kpiCard('welfare', '🤝', 'Welfare Spent', welfareSpent, 'inr', `FY ${TAX_RULES.fy}`, '#8b5cf6'),
-                kpiCard('adv', '💸', 'Advances Due', outstanding, 'inr', 'Outstanding balance', '#ef4444'),
-                kpiCard('raises', '📈', 'Raises Given', raises.length, 'num', `+${fmt(raises.reduce((t, i) => t + i.amount, 0))} per month · FY ${TAX_RULES.fy}`, '#0d9488')
+                kpiCard('emp', 'users', 'Total Employees', employees.length, 'num', `${employees.reduce((s, e) => s + (e.family || []).length, 0)} family members on record`, '#B3122F'),
+                kpiCard('present', 'check', 'Present Today', presentToday, 'num', inToday ? (unmarkedToday ? `${unmarkedToday} not marked yet` : 'All marked') : 'Today is outside this FY', '#10b981', `/${employees.length}`),
+                kpiCard('att', 'calendar', 'Avg Attendance', pctCount ? Math.round(pctSum / pctCount) : 0, 'pct', `FY ${TAX_RULES.fy} so far`, '#0ea5e9'),
+                kpiCard('payout', 'coin', 'Net Payout', payout, 'inr', `${ymLabel(ym)} · ${fmt(paid)} paid`, '#C9A227'),
+                kpiCard('incent', 'star', 'Incentives', incentives, 'inr', `In ${ymLabel(ym)} payroll`, '#f59e0b'),
+                kpiCard('welfare', 'heart', 'Welfare Spent', welfareSpent, 'inr', `FY ${TAX_RULES.fy}`, '#8b5cf6'),
+                kpiCard('adv', 'advance', 'Advances Due', outstanding, 'inr', 'Outstanding balance', '#ef4444'),
+                kpiCard('raises', 'trend', 'Raises Given', raises.length, 'num', `+${fmt(raises.reduce((t, i) => t + i.amount, 0))} per month · FY ${TAX_RULES.fy}`, '#0d9488')
             ].join('');
             animateCounts();
 
@@ -3611,7 +3722,7 @@
             document.getElementById('upcomingList').innerHTML = events.length ? events.map(ev => `
                 <div class="event ${ev.kind}">
                     <div class="when">${ev.d.getDate()}<small>${ev.d.toLocaleDateString('en-IN', { month: 'short' })}</small></div>
-                    <div class="txt"><b>${esc(ev.title)}</b><span>${esc(ev.sub)}</span></div>
+                    <div class="txt"><b>${ic(ev.icon)}${esc(ev.title)}</b><span>${esc(ev.sub)}</span></div>
                     <div class="rel">${ev.rel}</div>
                 </div>`).join('') : '<div class="empty-state">Nothing coming up in the next 60 days.</div>';
 
@@ -3619,7 +3730,7 @@
             const acts = recentActivity();
             document.getElementById('activityList').innerHTML = acts.length ? acts.map(a => `
                 <div class="activity">
-                    <div class="ico">${a.icon}</div>
+                    <div class="ico">${ic(a.icon)}</div>
                     <div class="txt">${a.text}<span>${esc(a.sub || '')} · ${esc(formatDate(a.date))}</span></div>
                     <div class="amt">${esc(a.amt)}</div>
                 </div>`).join('') : '<div class="empty-state">Increments, incentives, advances and welfare will show up here.</div>';
@@ -3889,7 +4000,7 @@
             document.getElementById('weekHead').innerHTML = `<tr><th class="emp-col">Employee</th>${dates.map(iso => {
                 const hol = holidayName(iso);
                 const d = parseDate(iso);
-                return `<th class="${iso === today ? 'today' : hol ? 'holiday' : ''}" title="${esc(hol)}">${d.toLocaleDateString('en-IN', { weekday: 'short' })} ${d.getDate()} ${d.toLocaleDateString('en-IN', { month: 'short' })}${hol ? `<span class="hol-name">🎉 ${esc(hol)}</span>` : ''}</th>`;
+                return `<th class="${iso === today ? 'today' : hol ? 'holiday' : ''}" title="${esc(hol)}">${d.toLocaleDateString('en-IN', { weekday: 'short' })} ${d.getDate()} ${d.toLocaleDateString('en-IN', { month: 'short' })}${hol ? `<span class="hol-name">${esc(hol)}</span>` : ''}</th>`;
             }).join('')}<th title="Paid offs left at the end of this week (4 new offs are added on the 1st of each month)">Offs left<br><span style="font-weight: 400; font-size: 11px;">by ${esc(parseDate(dates[6]).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' }))}</span></th></tr>`;
 
             document.getElementById('weekBody').innerHTML = employees.map(emp => {
@@ -3901,7 +4012,7 @@
                     return `<td><button class="wk-cell ${s ? `set st-${s}` : ''}" ${allowed ? '' : 'disabled'} title="${esc(`${emp.name}, ${formatDate(iso)}: ${label}${holidayName(iso) ? ' — ' + holidayName(iso) : ''}`)}" onclick="openStatusDialog('${emp.id}', '${iso}')">${s ? STATUS[s].short : '—'}<small>${s ? esc(s === 'WPO' ? 'Comp off' : s === 'GH' ? 'Holiday' : STATUS[s].label.replace(' (unpaid)', '')) : ''}</small></button></td>`;
                 }).join('');
                 const bal = inFy(lastDay) ? offBalance(emp, lastDay) : '—';
-                return `<tr><th class="emp-col">${esc(emp.name)}${bday ? ` <span title="Birthday on ${esc(formatDate(bday))}">🎂</span>` : ''}<div class="muted">${esc(emp.department)}</div></th>${cells}<td><strong>${bal}</strong></td></tr>`;
+                return `<tr><th class="emp-col">${esc(emp.name)}${bday ? ` <span class="tag-bday" title="Birthday on ${esc(formatDate(bday))}">${ic('cake')}</span>` : ''}<div class="muted">${esc(emp.department)}</div></th>${cells}<td><strong>${bal}</strong></td></tr>`;
             }).join('') || '<tr><td colspan="9" class="muted" style="padding: 20px;">Add employees to start the weekly log.</td></tr>';
         }
 
@@ -4107,7 +4218,7 @@
                 const hol = holidayName(iso);
                 const cls = iso === today ? 'today' : hol ? 'holiday' : wd === 0 ? 'sun' : '';
                 const title = hol ? `${hol} — click for holiday options` : `Mark everyone on ${formatDate(iso)} as ${BRUSH_LABEL[brush]}`;
-                head += `<th class="day-head ${cls}" onclick="clickDayHeader('${iso}')" title="${esc(title)}">${d}<br><span style="font-weight: 400;">${hol ? '🎉' : WEEKDAYS[wd]}</span></th>`;
+                head += `<th class="day-head ${cls}" onclick="clickDayHeader('${iso}')" title="${esc(title)}">${d}<br><span style="font-weight: 400;">${hol ? 'Hol' : WEEKDAYS[wd]}</span></th>`;
             }
             head += '<th class="sum first">P</th><th class="sum">HD</th><th class="sum">A</th><th class="sum">PO</th><th class="sum">WPO</th><th class="sum">GH</th><th class="sum" title="Not marked">Blank</th><th class="sum" title="Paid offs left at month end">Offs left</th><th class="sum">Paid days</th>';
 
@@ -4115,7 +4226,7 @@
                 let cells = '';
                 for (let d = 1; d <= days; d++) cells += `<td>${cellHtml(emp, dayIso(ym, d))}</td>`;
                 const a = monthAttendance(emp, ym);
-                const lock = emp.payments[ym] ? ' 🔒' : '';
+                const lock = emp.payments[ym] ? ' ' + ic('lock') : '';
                 return `<tr><td class="name-col" title="Fill ${esc(emp.name)}'s unmarked days with ${BRUSH_LABEL[brush]}" onclick="fillRow('${emp.id}')">${esc(emp.name)}${lock}</td>${cells}
                     <td class="sum first">${a.P}</td><td class="sum">${a.HD}</td><td class="sum">${a.A}</td><td class="sum">${a.PO}</td><td class="sum">${a.WPO}</td><td class="sum">${a.GH}</td>
                     <td class="sum">${a.U ? `<span class="warn-text">${a.U}</span>` : 0}</td><td class="sum"><strong>${offBalance(emp, dayIso(ym, days))}</strong></td><td class="sum">${fmtDays(a.paidDays)}/${days}</td></tr>`;
@@ -4202,7 +4313,7 @@
                         <td><strong>${esc(emp.name)}</strong><div class="muted" style="font-size: 12px;">${esc(emp.department)} · ${fmt(emp.salary)}/mo</div></td>
                         <td class="num">${fmtDays(row.paidDays)}${!row.paid && row.unmarked ? `<div class="warn-text">${row.unmarked} unmarked</div>` : ''}</td>
                         <td class="num">${fmtDays(row.lopDays)}</td>
-                        <td class="num"><strong>${fmt(row.gross)}</strong>${row.incentive ? `<div><span class="badge ok">⭐ incl. ${fmt(row.incentive)} incentive</span></div>` : ''}</td>
+                        <td class="num"><strong>${fmt(row.gross)}</strong>${row.incentive ? `<div><span class="badge ok">incl. ${fmt(row.incentive)} incentive</span></div>` : ''}${row.bonus ? `<div><span class="badge info">incl. ${fmt(row.bonus)} Diwali bonus</span></div>` : ''}</td>
                         <td class="num">${fmt(row.pf)}</td>
                         <td class="num">${fmt(row.pt)}</td>
                         <td class="num">${fmt(row.tds)}</td>
@@ -4222,9 +4333,49 @@
 
             const payAll = document.getElementById('payAllBtn');
             payAll.disabled = !canPay || !pendingRows.length;
-            payAll.textContent = pendingRows.length ? `Pay All Pending (${pendingRows.length})` : 'All Paid ✓';
+            payAll.textContent = pendingRows.length ? `Pay All Pending (${pendingRows.length})` : 'All Paid';
 
+            renderBonus();
             renderAdvances();
+        }
+
+        function renderBonus() {
+            const info = employees.map(emp => ({ emp, b: bonusInfo(emp) }));
+            const first = info[0]?.b;
+            const d = diwaliDate();
+            document.getElementById('bonusMult').value = bonusRules.multiplier;
+            document.getElementById('bonusMin').value = bonusRules.minMonths;
+            document.getElementById('diwaliDate').value = d ? d.iso : '';
+
+            document.getElementById('bonusDesc').textContent = d
+                ? `${d.name} falls on ${formatDate(d.iso)}. Employees with at least ${bonusRules.minMonths} months of service before that date receive ${bonusRules.multiplier} x their monthly salary as bonus, paid with the ${ymLabel(d.iso.slice(0, 7), true)} salary.`
+                : `No Diwali / Deepavali date is set for FY ${TAX_RULES.fy}. Pick the date below, or add a holiday named Deepavali in the Attendance tab, and bonuses will be calculated automatically.`;
+
+            const eligible = info.filter(x => x.b.eligible);
+            const total = eligible.reduce((sum, x) => sum + x.b.amount, 0);
+            document.getElementById('bonusStats').innerHTML = d ? `
+                <div class="stat"><div class="stat-value">${formatDate(d.iso)}</div><div class="stat-label">${esc(d.name)}</div></div>
+                <div class="stat"><div class="stat-value">${eligible.length}/${employees.length}</div><div class="stat-label">Employees Eligible</div></div>
+                <div class="stat"><div class="stat-value">${fmt(total)}</div><div class="stat-label">Total Bonus</div><div class="stat-sub">Paid with ${ymLabel(d.iso.slice(0, 7))} salary</div></div>` : '';
+
+            document.getElementById('bonusBody').innerHTML = d ? info.map(({ emp, b }) => {
+                const row = payRow(emp, b.ym);
+                const status = !b.eligible ? '<span class="badge neutral">Not applicable</span>' : row.paid ? '<span class="badge ok">Paid in payroll</span>' : b.ym <= currentYm() ? '<span class="badge warn">Due in payroll</span>' : '<span class="badge neutral">Scheduled</span>';
+                const elig = b.months === null ? '<span class="badge bad">Joining date missing</span>'
+                    : b.eligible ? '<span class="badge ok">Eligible</span>'
+                    : `<span class="badge warn">Not eligible</span><div class="muted" style="font-size: 11px;">Eligible for a Diwali on or after ${esc(formatDate(b.eligibleFrom))}</div>`;
+                return `
+                <tr>
+                    <td><strong>${esc(emp.name)}</strong><div class="muted" style="font-size: 12px;">${esc(emp.department)}</div></td>
+                    <td>${esc(formatDate(emp.doj)) || '<span class="muted">—</span>'}</td>
+                    <td class="num">${b.months === null ? '—' : b.months + ' months'}</td>
+                    <td class="num">${fmt(b.salary)}</td>
+                    <td>${elig}</td>
+                    <td class="num" style="color: var(--success);"><strong>${b.eligible ? fmt(b.amount) : '—'}</strong></td>
+                    <td>${status}</td>
+                </tr>`;
+            }).join('') || '<tr><td colspan="7" class="muted" style="text-align: center; padding: 20px;">No employees</td></tr>'
+                : '<tr><td colspan="7" class="muted" style="text-align: center; padding: 20px;">Set the Diwali date to see who is eligible.</td></tr>';
         }
 
         function renderAdvances() {
@@ -4254,7 +4405,7 @@
                         <td class="num"><strong>${fmt(outstanding)}</strong></td>
                         <td>${next}</td>
                         <td>${outstanding > 0 ? '<span class="badge warn">Active</span>' : '<span class="badge ok">Cleared</span>'}</td>
-                        <td>${recovered === 0 ? `<button class="link-btn" onclick="deleteAdvance('${a.id}')">Delete</button>` : ''}</td>
+                        <td><button class="link-btn" onclick="openAdvanceDialog('${a.id}')">Edit</button>${recovered === 0 ? `<button class="link-btn" onclick="deleteAdvance('${a.id}')">Remove</button>` : ''}</td>
                     </tr>`;
             }).join('');
 
@@ -4277,7 +4428,7 @@
             document.getElementById('paySummary').innerHTML = `
                 <strong>${targets.length === 1 ? esc(targets[0].name) : `${targets.length} employees`}</strong> · ${ymLabel(ym, true)}<br>
                 Net pay: <strong style="color: var(--success);">${fmt(rows.reduce((s, r) => s + r.net, 0))}</strong>
-                ${unmarked ? `<div class="warn-text" style="margin-top: 6px;">⚠ ${unmarked} day(s) are not marked in the attendance register and will be paid as present.</div>` : ''}`;
+                ${unmarked ? `<div class="warn-text" style="margin-top: 6px;">Note: ${unmarked} day(s) are not marked in the attendance register and will be paid as present.</div>` : ''}`;
             document.getElementById('pay_date').value = ym < currentYm() ? `${addMonths(ym, 1)}-01` : todayISO();
             document.getElementById('pay_ref').value = '';
             document.getElementById('paymentDialog').showModal();
@@ -4316,27 +4467,44 @@
             select.value = suggested;
         }
 
-        function openAdvanceDialog() {
+        function openAdvanceDialog(id = null) {
             if (!employees.length) {
                 alert('Add an employee first.');
                 return;
             }
-            const emp = currentEmp();
-            document.getElementById('adv_emp').innerHTML = employees.map(e => `<option value="${e.id}" ${e.id === emp?.id ? 'selected' : ''}>${esc(e.name)}</option>`).join('');
-            document.getElementById('adv_date').value = todayISO();
-            document.getElementById('adv_amount').value = '';
-            document.getElementById('adv_emi').value = '';
-            document.getElementById('adv_reason').value = '';
-            document.getElementById('adv_start').innerHTML = '';
+            const adv = id ? advances.find(a => a.id === id) : null;
+            const recovered = adv ? recoveredSoFar(adv) : 0;
+            document.getElementById('adv_date').disabled = false;
+            document.getElementById('adv_start').disabled = false;
+            editing = adv ? { id } : null;
+            const empId = adv ? adv.empId : currentEmp()?.id;
+            fillEmpSelect('adv_emp', empId);
+            document.getElementById('adv_emp').disabled = Boolean(adv);
+            document.getElementById('advTitle').textContent = adv ? 'Edit Salary Advance' : 'New Salary Advance';
+            document.getElementById('advSubmit').textContent = adv ? 'Save Changes' : 'Save Advance';
+            document.getElementById('adv_date').value = adv ? adv.date : todayISO();
+            document.getElementById('adv_amount').value = adv ? adv.amount : '';
+            document.getElementById('adv_emi').value = adv ? adv.emi : '';
+            document.getElementById('adv_reason').value = adv ? adv.reason || '' : '';
+            document.getElementById('adv_mode').value = adv ? adv.mode : 'Cash';
             document.getElementById('advErrors').style.display = 'none';
             fillAdvanceStartMonths();
+            if (adv) {
+                const sel = document.getElementById('adv_start');
+                if (![...sel.options].some(o => o.value === adv.startMonth)) sel.insertAdjacentHTML('afterbegin', `<option value="${adv.startMonth}">${ymLabel(adv.startMonth, true)}</option>`);
+                sel.value = adv.startMonth;
+            }
+            // Once instalments have been recovered, the date, start month and employee are fixed.
+            document.getElementById('adv_date').disabled = recovered > 0;
+            document.getElementById('adv_start').disabled = recovered > 0;
             document.getElementById('advanceDialog').showModal();
         }
 
         function saveAdvance(event) {
             event.preventDefault();
+            const own = editing ? advances.find(a => a.id === editing.id) : null;
             const a = {
-                id: 'adv_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
+                id: own ? own.id : 'adv_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
                 empId: document.getElementById('adv_emp').value,
                 date: document.getElementById('adv_date').value,
                 amount: parseFloat(document.getElementById('adv_amount').value),
@@ -4346,21 +4514,21 @@
                 reason: document.getElementById('adv_reason').value.trim()
             };
             const errors = [];
+            const recovered = own ? recoveredSoFar(own) : 0;
             if (!a.date) errors.push('Date given is required.');
             if (!(a.amount > 0)) errors.push('Advance amount must be more than zero.');
+            else if (a.amount < recovered) errors.push(`Advance amount cannot be less than the ${fmt(recovered)} already recovered.`);
             if (!(a.emi > 0)) errors.push('Monthly recovery must be more than zero.');
             else if (a.emi > a.amount) errors.push('Monthly recovery cannot be more than the advance amount.');
             const emp = empById(a.empId);
-            if (emp?.payments[a.startMonth]) errors.push(`${ymLabel(a.startMonth, true)} salary is already paid. Choose a later month to start recovery.`);
-            const box = document.getElementById('advErrors');
-            if (errors.length) {
-                box.innerHTML = `<ul>${errors.map(e => `<li>${esc(e)}</li>`).join('')}</ul>`;
-                box.style.display = 'block';
-                return;
-            }
+            if (!own && emp?.payments[a.startMonth]) errors.push(`${ymLabel(a.startMonth, true)} salary is already paid. Choose a later month to start recovery.`);
+            if (own && recovered === 0 && a.startMonth !== own.startMonth && emp?.payments[a.startMonth]) errors.push(`${ymLabel(a.startMonth, true)} salary is already paid. Choose a later month to start recovery.`);
+            if (showFormErrors('advErrors', errors)) return;
             a.amount = Math.round(a.amount);
             a.emi = Math.round(a.emi);
-            advances.push(a);
+            if (own) Object.assign(own, a);
+            else advances.push(a);
+            editing = null;
             document.getElementById('advanceDialog').close();
             saveAll();
             refreshAll();
@@ -4578,7 +4746,7 @@
                 return `<div class="doc-row"><div>${label}<div class="doc-name">Not uploaded</div></div><button class="btn btn-secondary btn-sm" onclick="openEmployeeForm('${emp.id}')">Upload</button></div>`;
             }
             return `<div class="doc-row">
-                <div>${label} <span class="badge ok">✓ On file</span><div class="doc-name">${esc(meta.name)} · ${(meta.size / 1024).toFixed(0)} KB</div></div>
+                <div>${label} <span class="badge ok">On file</span><div class="doc-name">${esc(meta.name)} · ${(meta.size / 1024).toFixed(0)} KB</div></div>
                 <div class="doc-actions">
                     <button class="btn btn-secondary btn-sm" onclick="openDoc('${emp.id}', '${type}')">View</button>
                     <button class="btn btn-secondary btn-sm" onclick="openDoc('${emp.id}', '${type}', true)">Download</button>
@@ -4608,15 +4776,15 @@
                             <p>${esc(emp.department)}${emp.doj ? ` · Joined ${esc(formatDate(emp.doj))} (${esc(tenure(emp.doj))})` : ''}</p>
                         </div>
                         <div class="profile-badges">
-                            ${age !== null ? `<span class="pill">🎂 ${age} yrs</span>` : ''}
-                            <span class="pill">💰 ${fmt(emp.salary)}/mo</span>
-                            <span class="pill">📅 ${stats.pct}% attendance</span>
-                            ${outstanding ? `<span class="pill">💸 ${fmt(outstanding)} advance due</span>` : ''}
+                            ${age !== null ? `<span class="pill"><svg class="i" aria-hidden="true"><use href="#i-cake"/></svg> ${age} yrs</span>` : ''}
+                            <span class="pill"><svg class="i" aria-hidden="true"><use href="#i-coin"/></svg> ${fmt(emp.salary)}/mo</span>
+                            <span class="pill"><svg class="i" aria-hidden="true"><use href="#i-calendar"/></svg> ${stats.pct}% attendance</span>
+                            ${outstanding ? `<span class="pill"><svg class="i" aria-hidden="true"><use href="#i-advance"/></svg> ${fmt(outstanding)} advance due</span>` : ''}
                         </div>
                         <div class="controls" style="margin: 0;">
                             <label class="toggle-label" style="color: white;"><input type="checkbox" ${showSensitive ? 'checked' : ''} onchange="toggleSensitive(this.checked)"> Show full numbers</label>
-                            <button class="btn btn-secondary btn-sm" onclick="openEmployeeForm('${emp.id}')">✎ Edit</button>
-                            <button class="btn btn-secondary btn-sm" onclick="deleteEmployee('${emp.id}')">🗑 Delete</button>
+                            <button class="btn btn-secondary btn-sm" onclick="openEmployeeForm('${emp.id}')"><svg class="i" aria-hidden="true"><use href="#i-edit"/></svg> Edit</button>
+                            <button class="btn btn-secondary btn-sm" onclick="deleteEmployee('${emp.id}')"><svg class="i" aria-hidden="true"><use href="#i-trash"/></svg> Delete</button>
                         </div>
                     </div>
 
@@ -4675,8 +4843,8 @@
                     <td>${esc(formatDate(e.doj)) || '—'}</td>
                     <td class="num">${fmt(e.salary)}</td>
                     <td>
-                        <span class="badge ${e.docs.aadhaar ? 'ok' : 'warn'}">Aadhaar ${e.docs.aadhaar ? '✓' : '✗'}</span>
-                        <span class="badge ${e.docs.pan ? 'ok' : 'warn'}">PAN ${e.docs.pan ? '✓' : '✗'}</span>
+                        <span class="badge ${e.docs.aadhaar ? 'ok' : 'warn'}">Aadhaar ${e.docs.aadhaar ? 'on file' : 'missing'}</span>
+                        <span class="badge ${e.docs.pan ? 'ok' : 'warn'}">PAN ${e.docs.pan ? 'on file' : 'missing'}</span>
                     </td>
                 </tr>`).join('') || '<tr><td colspan="8" style="text-align: center; padding: 20px;" class="muted">No employees</td></tr>';
         }
@@ -4759,7 +4927,7 @@
                     <span class="badge info">FY / Tax Year ${TAX_RULES.fy}</span>
                     <span class="badge info">AY ${TAX_RULES.ay}</span>
                     <span>${TAX_RULES.act}. New regime: standard deduction ${fmt(TAX_RULES.newRegime.standardDeduction)}, no tax up to ${fmt(TAX_RULES.newRegime.rebateLimit)} taxable income (rebate + marginal relief). Old regime also available. 4% health &amp; education cess. The salary TDS certificate is <strong>${TAX_RULES.form}</strong>.</span>
-                    <a href="https://www.incometax.gov.in/iec/foportal/" target="_blank" rel="noopener">Verify on incometax.gov.in ↗</a>
+                    <a href="https://www.incometax.gov.in/iec/foportal/" target="_blank" rel="noopener">Verify on incometax.gov.in</a>
                 </div>`;
 
             if (!emp) {
@@ -4782,7 +4950,7 @@
             const saving = Math.abs(nT.total - oT.total);
             const compare = saving === 0
                 ? `Both regimes result in the same tax (${fmt(nT.total)}).`
-                : `The <strong>${better} regime</strong> saves <strong>${fmt(saving)}</strong> for this employee${better !== cfg.regime ? ` <button class="btn btn-secondary btn-sm" onclick="setRegime('${better}')">Switch to ${better}</button>` : ' ✓ (currently selected)'}`;
+                : `The <strong>${better} regime</strong> saves <strong>${fmt(saving)}</strong> for this employee${better !== cfg.regime ? ` <button class="btn btn-secondary btn-sm" onclick="setRegime('${better}')">Switch to ${better}</button>` : ' (currently selected)'}`;
 
             const rate = x => t.gross ? (x / t.gross * 100).toFixed(1) + '%' : '0%';
             const pct = r => (r * 100).toFixed(0) + '%';
@@ -4877,16 +5045,17 @@
                             ${line('A2', 'House rent allowance received', fmt(reg.totals.hra))}
                             ${line('A3', 'Special allowance', fmt(reg.totals.special))}
                             ${line('A4', 'Performance incentives', fmt(reg.totals.incentive))}
-                            ${line('A5', 'Gross salary (A1 to A4)', fmt(t.gross), 'subtotal')}
-                            ${less('A6', 'HRA exemption', t.hraExempt, !isNew)}
-                            ${less('A7', 'Standard deduction', t.standardDeduction)}
-                            ${less('A8', 'Professional tax (tax on employment)', t.ptDeduction, !isNew)}
-                            ${line('A9', 'Income chargeable under the head “Salaries”', fmt(t.incomeFromSalary), 'subtotal')}
+                            ${line('A5', 'Diwali bonus', fmt(reg.totals.bonus))}
+                            ${line('A6', 'Gross salary (A1 to A5)', fmt(t.gross), 'subtotal')}
+                            ${less('A7', 'HRA exemption', t.hraExempt, !isNew)}
+                            ${less('A8', 'Standard deduction', t.standardDeduction)}
+                            ${less('A9', 'Professional tax (tax on employment)', t.ptDeduction, !isNew)}
+                            ${line('A10', 'Income chargeable under the head “Salaries”', fmt(t.incomeFromSalary), 'subtotal')}
 
                             ${part('B · Other income & house property')}
                             ${line('B1', 'Income from other sources (interest etc.)', fmt(t.otherIncome))}
                             ${less('B2', 'Interest on housing loan (self-occupied)', t.homeLoan, !isNew)}
-                            ${line('B3', 'Gross total income (A9 + B1 − B2)', fmt(t.grossTotal), 'subtotal')}
+                            ${line('B3', 'Gross total income (A10 + B1 − B2)', fmt(t.grossTotal), 'subtotal')}
 
                             ${part('C · Deductions (Chapter VI-A)')}
                             ${less('C1', 'Employee PF + life insurance, PPF, ELSS etc.', t.deduction80C, !isNew)}
@@ -4934,7 +5103,7 @@
                     <table class="data">
                         <thead>
                             <tr>
-                                <th>Month</th><th class="num">Paid Days</th><th class="num">Basic</th><th class="num">HRA</th><th class="num">Special</th><th class="num">Incentive</th>
+                                <th>Month</th><th class="num">Paid Days</th><th class="num">Basic</th><th class="num">HRA</th><th class="num">Special</th><th class="num">Incentive</th><th class="num">Bonus</th>
                                 <th class="num">Gross</th><th class="num">PF</th><th class="num">Prof. Tax</th><th class="num">TDS</th><th class="num">Advance</th><th class="num">Net Pay</th>
                                 <th class="num">Employer PF</th><th>Status</th>
                             </tr>
@@ -4943,7 +5112,7 @@
                             ${reg.rows.map(r => `
                                 <tr>
                                     <td>${ymLabel(r.ym)}</td><td class="num">${fmtDays(r.paidDays)}</td>
-                                    <td class="num">${fmt(r.basic)}</td><td class="num">${fmt(r.hra)}</td><td class="num">${fmt(r.special)}</td><td class="num">${r.incentive ? fmt(r.incentive) : '—'}</td>
+                                    <td class="num">${fmt(r.basic)}</td><td class="num">${fmt(r.hra)}</td><td class="num">${fmt(r.special)}</td><td class="num">${r.incentive ? fmt(r.incentive) : '—'}</td><td class="num">${r.bonus ? fmt(r.bonus) : '—'}</td>
                                     <td class="num"><strong>${fmt(r.gross)}</strong></td><td class="num">${fmt(r.pf)}</td><td class="num">${fmt(r.pt)}</td><td class="num">${fmt(r.tds)}</td>
                                     <td class="num">${r.advance ? fmt(r.advance) : '—'}</td>
                                     <td class="num" style="color: var(--success);"><strong>${fmt(r.net)}</strong></td>
@@ -4953,7 +5122,7 @@
                         <tfoot>
                             <tr>
                                 <td>Total</td><td class="num">${fmtDays(reg.totals.paidDays)}</td>
-                                <td class="num">${fmt(reg.totals.basic)}</td><td class="num">${fmt(reg.totals.hra)}</td><td class="num">${fmt(reg.totals.special)}</td><td class="num">${fmt(reg.totals.incentive)}</td>
+                                <td class="num">${fmt(reg.totals.basic)}</td><td class="num">${fmt(reg.totals.hra)}</td><td class="num">${fmt(reg.totals.special)}</td><td class="num">${fmt(reg.totals.incentive)}</td><td class="num">${fmt(reg.totals.bonus)}</td>
                                 <td class="num">${fmt(reg.totals.gross)}</td><td class="num">${fmt(reg.totals.pf)}</td><td class="num">${fmt(reg.totals.pt)}</td><td class="num">${fmt(reg.totals.tds)}</td>
                                 <td class="num">${fmt(reg.totals.advance)}</td><td class="num">${fmt(reg.totals.net)}</td><td class="num">${fmt(reg.totals.employerPf)}</td><td></td>
                             </tr>
@@ -4998,15 +5167,21 @@
             return true;
         }
 
-        function openIncrementDialog() {
+        function openIncrementDialog(empId = null, id = null) {
             if (!employees.length) {
                 alert('Add an employee first.');
                 return;
             }
-            fillEmpSelect('inc_emp', currentEmp()?.id);
-            document.getElementById('inc_date').value = todayISO();
-            document.getElementById('inc_amount').value = '';
-            document.getElementById('inc_reason').value = '';
+            const emp = (empId && empById(empId)) || currentEmp();
+            const inc = id ? emp.increments.find(i => i.id === id) : null;
+            editing = inc ? { empId: emp.id, id } : null;
+            fillEmpSelect('inc_emp', emp.id);
+            document.getElementById('inc_emp').disabled = Boolean(inc);
+            document.getElementById('incTitle').textContent = inc ? 'Edit Salary Increment' : 'New Salary Increment';
+            document.getElementById('incSubmit').textContent = inc ? 'Save Changes' : 'Save Increment';
+            document.getElementById('inc_date').value = inc ? inc.date : todayISO();
+            document.getElementById('inc_amount').value = inc ? inc.amount : '';
+            document.getElementById('inc_reason').value = inc ? inc.reason : '';
             document.getElementById('incErrors').style.display = 'none';
             updateIncrementPreview();
             document.getElementById('incrementDialog').showModal();
@@ -5016,8 +5191,10 @@
             const emp = empById(document.getElementById('inc_emp').value);
             const amount = parseFloat(document.getElementById('inc_amount').value) || 0;
             if (!emp) return;
-            const pct = emp.salary > 0 ? ` (+${(amount / emp.salary * 100).toFixed(1)}%)` : '';
-            document.getElementById('incPreview').innerHTML = `Current salary <strong>${fmt(emp.salary)}</strong> → new salary <strong style="color: var(--success);">${fmt(emp.salary + amount)}</strong>${pct} per month`;
+            const own = editing ? emp.increments.find(i => i.id === editing.id) : null;
+            const base = emp.salary - (own ? own.amount : 0);
+            const pct = base > 0 ? ` (+${(amount / base * 100).toFixed(1)}%)` : '';
+            document.getElementById('incPreview').innerHTML = `${own ? 'Salary before this increment' : 'Current salary'} <strong>${fmt(base)}</strong> → new salary <strong style="color: var(--success);">${fmt(base + amount)}</strong>${pct} per month`;
         }
 
         function saveIncrement(event) {
@@ -5032,8 +5209,15 @@
             if (!(amount > 0)) errors.push('Increment amount must be more than zero.');
             if (!reason) errors.push('Please give a reason for the increment.');
             if (showFormErrors('incErrors', errors)) return;
-            emp.increments.push({ id: uid('inc'), date, ym: date.slice(0, 7), amount, reason, prev: emp.salary, next: emp.salary + amount });
-            emp.salary += amount;
+            const own = editing ? emp.increments.find(i => i.id === editing.id) : null;
+            if (own) {
+                emp.salary += amount - own.amount;
+                Object.assign(own, { date, ym: date.slice(0, 7), amount, reason, next: own.prev + amount });
+            } else {
+                emp.increments.push({ id: uid('inc'), date, ym: date.slice(0, 7), amount, reason, prev: emp.salary, next: emp.salary + amount });
+                emp.salary += amount;
+            }
+            editing = null;
             document.getElementById('incrementDialog').close();
             saveAll();
             refreshAll();
@@ -5050,16 +5234,26 @@
             refreshAll();
         }
 
-        function openIncentiveDialog() {
+        function openIncentiveDialog(empId = null, id = null) {
             if (!employees.length) {
                 alert('Add an employee first.');
                 return;
             }
-            fillEmpSelect('ivt_emp', currentEmp()?.id);
-            const def = clampToFy(currentYm());
+            const emp = (empId && empById(empId)) || currentEmp();
+            const ivt = id ? emp.incentives.find(i => i.id === id) : null;
+            if (ivt && emp.payments[ivt.ym]) {
+                showToast(`${ymLabel(ivt.ym, true)} salary is already paid, so this incentive is locked. Undo that payment to change it.`);
+                return;
+            }
+            editing = ivt ? { empId: emp.id, id } : null;
+            fillEmpSelect('ivt_emp', emp.id);
+            document.getElementById('ivt_emp').disabled = Boolean(ivt);
+            document.getElementById('ivtTitle').textContent = ivt ? 'Edit Performance Incentive' : 'New Performance Incentive';
+            document.getElementById('ivtSubmit').textContent = ivt ? 'Save Changes' : 'Save Incentive';
+            const def = ivt ? ivt.ym : clampToFy(currentYm());
             document.getElementById('ivt_month').innerHTML = fyMonths().map(ym => `<option value="${ym}" ${ym === def ? 'selected' : ''}>${ymLabel(ym, true)}</option>`).join('');
-            document.getElementById('ivt_amount').value = '';
-            document.getElementById('ivt_reason').value = '';
+            document.getElementById('ivt_amount').value = ivt ? ivt.amount : '';
+            document.getElementById('ivt_reason').value = ivt ? ivt.reason : '';
             document.getElementById('ivtErrors').style.display = 'none';
             document.getElementById('incentiveDialog').showModal();
         }
@@ -5076,11 +5270,14 @@
             if (!reason) errors.push('Please say what the incentive is for.');
             if (emp?.payments[ym]) errors.push(`${ymLabel(ym, true)} salary is already paid for ${emp.name}. Choose a later month or undo that payment first.`);
             if (showFormErrors('ivtErrors', errors)) return;
-            emp.incentives.push({ id: uid('ivt'), ym, amount, reason, date: todayISO() });
+            const own = editing ? emp.incentives.find(i => i.id === editing.id) : null;
+            if (own) Object.assign(own, { ym, amount, reason });
+            else emp.incentives.push({ id: uid('ivt'), ym, amount, reason, date: todayISO() });
+            editing = null;
             document.getElementById('incentiveDialog').close();
             saveAll();
             refreshAll();
-            showToast(`${fmt(amount)} incentive added to ${emp.name}'s ${ymLabel(ym)} pay.`);
+            showToast(`${fmt(amount)} incentive saved for ${emp.name}'s ${ymLabel(ym)} pay.`);
         }
 
         function deleteIncentive(empId, id) {
@@ -5120,7 +5317,7 @@
                     <td class="num" style="color: var(--success);"><strong>+${fmt(i.amount)}</strong><div class="muted" style="font-size: 11px;">${i.prev > 0 ? '+' + (i.amount / i.prev * 100).toFixed(1) + '%' : ''}</div></td>
                     <td class="num"><strong>${fmt(i.next)}</strong></td>
                     <td style="white-space: normal; min-width: 180px;">${esc(i.reason)}</td>
-                    <td><button class="link-btn" onclick="deleteIncrement('${e.id}', '${i.id}')">Remove</button></td>
+                    <td><button class="link-btn" onclick="openIncrementDialog('${e.id}', '${i.id}')">Edit</button><button class="link-btn" onclick="deleteIncrement('${e.id}', '${i.id}')">Remove</button></td>
                 </tr>`).join('') || `<tr><td colspan="7" class="muted" style="text-align: center; padding: 22px;">No increments recorded in FY ${TAX_RULES.fy}. Click <strong>+ New Increment</strong> to add one.</td></tr>`;
 
             const cm = clampToFy(currentYm());
@@ -5142,7 +5339,7 @@
                     <td class="num" style="color: var(--success);"><strong>+${fmt(i.amount)}</strong></td>
                     <td style="white-space: normal; min-width: 200px;">${esc(i.reason)}</td>
                     <td>${state}</td>
-                    <td>${paid ? '' : `<button class="link-btn" onclick="deleteIncentive('${e.id}', '${i.id}')">Remove</button>`}</td>
+                    <td>${paid ? '' : `<button class="link-btn" onclick="openIncentiveDialog('${e.id}', '${i.id}')">Edit</button><button class="link-btn" onclick="deleteIncentive('${e.id}', '${i.id}')">Remove</button>`}</td>
                 </tr>`;
             }).join('') || `<tr><td colspan="6" class="muted" style="text-align: center; padding: 22px;">No incentives in FY ${TAX_RULES.fy}. Click <strong>+ New Incentive</strong> to reward someone.</td></tr>`;
         }
@@ -5150,19 +5347,27 @@
         // ---------- family & welfare ----------
 
         function schemeOf(key) {
-            return WELFARE_SCHEMES.find(s => s.key === key) || { key, icon: '🤝', name: key, cap: 0 };
+            return WELFARE_SCHEMES.find(s => s.key === key) || { key, icon: 'heart', name: key, cap: 0 };
         }
 
-        function openFamilyDialog() {
+        function openFamilyDialog(empId = null, id = null) {
             if (!employees.length) {
                 alert('Add an employee first.');
                 return;
             }
-            fillEmpSelect('fam_emp', currentEmp()?.id);
-            ['fam_name', 'fam_dob', 'fam_notes'].forEach(id => { document.getElementById(id).value = ''; });
-            document.getElementById('fam_relation').value = 'Spouse';
-            document.getElementById('fam_dependent').checked = true;
-            document.getElementById('fam_insured').checked = false;
+            const emp = (empId && empById(empId)) || currentEmp();
+            const m = id ? emp.family.find(f => f.id === id) : null;
+            editing = m ? { empId: emp.id, id } : null;
+            fillEmpSelect('fam_emp', emp.id);
+            document.getElementById('fam_emp').disabled = Boolean(m);
+            document.getElementById('famTitle').textContent = m ? 'Edit Family Member' : 'Add Family Member';
+            document.getElementById('famSubmit').textContent = m ? 'Save Changes' : 'Save Member';
+            document.getElementById('fam_name').value = m ? m.name : '';
+            document.getElementById('fam_dob').value = m ? m.dob || '' : '';
+            document.getElementById('fam_notes').value = m ? m.notes || '' : '';
+            document.getElementById('fam_relation').value = m ? m.relation : 'Spouse';
+            document.getElementById('fam_dependent').checked = m ? m.dependent : true;
+            document.getElementById('fam_insured').checked = m ? m.insured : false;
             document.getElementById('famErrors').style.display = 'none';
             document.getElementById('familyDialog').showModal();
         }
@@ -5177,13 +5382,23 @@
             if (!name) errors.push('Family member name is required.');
             if (dob && dob > todayISO()) errors.push('Date of birth cannot be in the future.');
             if (showFormErrors('famErrors', errors)) return;
-            emp.family.push({
-                id: uid('fam'), name, dob,
+            const data = {
+                name, dob,
                 relation: document.getElementById('fam_relation').value,
                 dependent: document.getElementById('fam_dependent').checked,
                 insured: document.getElementById('fam_insured').checked,
                 notes: document.getElementById('fam_notes').value.trim()
-            });
+            };
+            const own = editing ? emp.family.find(f => f.id === editing.id) : null;
+            if (own) {
+                // Keep welfare records pointing at the renamed person
+                const oldLabel = `${own.name} (${own.relation})`;
+                Object.assign(own, data);
+                welfare.filter(w => w.empId === emp.id && w.beneficiary === oldLabel).forEach(w => { w.beneficiary = `${own.name} (${own.relation})`; });
+            } else {
+                emp.family.push({ id: uid('fam'), ...data });
+            }
+            editing = null;
             selectedEmployee = emp;
             document.getElementById('familyDialog').close();
             saveAll();
@@ -5199,25 +5414,32 @@
             refreshAll();
         }
 
-        function fillWelfareBeneficiaries() {
+        function fillWelfareBeneficiaries(selected = null) {
             const emp = empById(document.getElementById('wel_emp').value);
             const options = ['Employee (self)', ...(emp ? emp.family.map(f => `${f.name} (${f.relation})`) : [])];
-            document.getElementById('wel_ben').innerHTML = options.map(o => `<option>${esc(o)}</option>`).join('');
+            if (selected && !options.includes(selected)) options.push(selected);
+            document.getElementById('wel_ben').innerHTML = options.map(o => `<option ${o === selected ? 'selected' : ''}>${esc(o)}</option>`).join('');
         }
 
-        function openWelfareDialog(category = '') {
+        function openWelfareDialog(category = '', id = null) {
             if (!employees.length) {
                 alert('Add an employee first.');
                 return;
             }
-            fillEmpSelect('wel_emp', currentEmp()?.id);
-            document.getElementById('wel_cat').innerHTML = WELFARE_SCHEMES.map(s => `<option value="${s.key}" ${s.key === category ? 'selected' : ''}>${s.icon} ${esc(s.name)}</option>`).join('');
-            fillWelfareBeneficiaries();
+            const w = id ? welfare.find(x => x.id === id) : null;
+            editing = w ? { id } : null;
+            fillEmpSelect('wel_emp', w ? w.empId : currentEmp()?.id);
+            document.getElementById('wel_emp').disabled = Boolean(w);
+            document.getElementById('welTitle').textContent = w ? 'Edit Welfare Benefit' : 'Record Welfare Benefit';
+            document.getElementById('welSubmit').textContent = w ? 'Save Changes' : 'Save Benefit';
+            const cat = w ? w.category : category;
+            document.getElementById('wel_cat').innerHTML = WELFARE_SCHEMES.map(sc => `<option value="${sc.key}" ${sc.key === cat ? 'selected' : ''}>${esc(sc.name)}</option>`).join('');
+            fillWelfareBeneficiaries(w ? w.beneficiary : null);
             const today = todayISO();
-            document.getElementById('wel_date').value = inFy(today) ? today : `${TAX_RULES.fyStartYear}-04-01`;
-            document.getElementById('wel_amount').value = '';
-            document.getElementById('wel_note').value = '';
-            document.getElementById('wel_status').value = 'Paid';
+            document.getElementById('wel_date').value = w ? w.date : (inFy(today) ? today : `${TAX_RULES.fyStartYear}-04-01`);
+            document.getElementById('wel_amount').value = w ? w.amount : '';
+            document.getElementById('wel_note').value = w ? w.note || '' : '';
+            document.getElementById('wel_status').value = w ? w.status : 'Paid';
             document.getElementById('welErrors').style.display = 'none';
             document.getElementById('welfareDialog').showModal();
         }
@@ -5232,17 +5454,21 @@
             if (!date) errors.push('Date is required.');
             if (!(amount > 0)) errors.push('Amount must be more than zero.');
             if (showFormErrors('welErrors', errors)) return;
-            welfare.push({
-                id: uid('wel'), empId, date, amount,
+            const data = {
+                empId, date, amount,
                 category: document.getElementById('wel_cat').value,
                 beneficiary: document.getElementById('wel_ben').value,
                 status: document.getElementById('wel_status').value,
                 note: document.getElementById('wel_note').value.trim()
-            });
+            };
+            const own = editing ? welfare.find(x => x.id === editing.id) : null;
+            if (own) Object.assign(own, data);
+            else welfare.push({ id: uid('wel'), ...data });
+            editing = null;
             document.getElementById('welfareDialog').close();
             saveAll();
             refreshAll();
-            showToast('Welfare benefit recorded.');
+            showToast('Welfare benefit saved.');
         }
 
         function setWelfareStatus(id, status) {
@@ -5280,7 +5506,7 @@
                 const budget = sc.cap * Math.max(1, employees.length);
                 return `
                 <button class="scheme" onclick="openWelfareDialog('${sc.key}')">
-                    <div class="s-ico">${sc.icon}</div>
+                    <div class="s-ico">${ic(sc.icon)}</div>
                     <h4>${esc(sc.name)}</h4>
                     <p>${esc(sc.desc)}</p>
                     <div class="meter"><i style="width: ${Math.min(100, spent / budget * 100)}%;"></i></div>
@@ -5296,7 +5522,7 @@
                     <td>${f.dependent ? '<span class="badge ok">Dependant</span>' : '<span class="badge neutral">No</span>'}</td>
                     <td>${f.insured ? '<span class="badge ok">Covered</span>' : '<span class="badge warn">Not covered</span>'}</td>
                     <td style="white-space: normal;">${esc(f.notes) || '<span class="muted">—</span>'}</td>
-                    <td><button class="link-btn" onclick="deleteFamily('${emp.id}', '${f.id}')">Remove</button></td>
+                    <td><button class="link-btn" onclick="openFamilyDialog('${emp.id}', '${f.id}')">Edit</button><button class="link-btn" onclick="deleteFamily('${emp.id}', '${f.id}')">Remove</button></td>
                 </tr>`).join('') || `<tr><td colspan="7" class="muted" style="text-align: center; padding: 22px;">No family members recorded for ${esc(emp.name)}. Click <strong>+ Add Family Member</strong>.</td></tr>`)
                 : '<tr><td colspan="7" class="muted" style="text-align: center; padding: 22px;">Add an employee first.</td></tr>';
 
@@ -5310,12 +5536,12 @@
                 <tr>
                     <td>${esc(formatDate(w.date))}</td>
                     <td><strong>${esc(e ? e.name : 'Removed employee')}</strong></td>
-                    <td>${sc.icon} ${esc(sc.name)}</td>
+                    <td>${ic(sc.icon)} ${esc(sc.name)}</td>
                     <td>${esc(w.beneficiary)}</td>
                     <td class="num"><strong>${fmt(w.amount)}</strong></td>
                     <td><span class="badge ${badge}">${esc(w.status)}</span></td>
                     <td style="white-space: normal; min-width: 140px;">${esc(w.note) || '<span class="muted">—</span>'}</td>
-                    <td>${action}<button class="link-btn" onclick="deleteWelfare('${w.id}')">Delete</button></td>
+                    <td>${action}<button class="link-btn" onclick="openWelfareDialog('', '${w.id}')">Edit</button><button class="link-btn" onclick="deleteWelfare('${w.id}')">Remove</button></td>
                 </tr>`;
             }).join('') || `<tr><td colspan="8" class="muted" style="text-align: center; padding: 22px;">No welfare benefits recorded in FY ${TAX_RULES.fy}.</td></tr>`;
         }
@@ -5379,6 +5605,7 @@
 
             const earnings = [['Basic salary', row.basic], ['House rent allowance', row.hra], ['Special allowance', row.special]];
             if (row.incentive) earnings.push(['Performance incentive', row.incentive]);
+            if (row.bonus) earnings.push(['Diwali bonus', row.bonus]);
             const deductions = [['Provident fund', row.pf], ['Professional tax', row.pt], ['Income tax (TDS)', row.tds]];
             if (row.advance) deductions.push(['Salary advance recovery', row.advance]);
             const lines = Math.max(earnings.length, deductions.length);
@@ -5491,7 +5718,7 @@
 
             const partB = [
                 ['Whether opting out of the new tax regime (i.e. taxed under the old regime)', isNew ? 'No' : 'Yes'],
-                ['1. Gross salary (incl. performance incentives)', pdfAmt(t.gross)],
+                ['1. Gross salary (incl. incentives and Diwali bonus)', pdfAmt(t.gross)],
                 ['2. Less: Allowances exempt (House rent allowance)', pdfAmt(t.hraExempt)],
                 ['3. Total salary received from current employer (1 - 2)', pdfAmt(t.gross - t.hraExempt)],
                 ['4. Less: Deductions', ''],
@@ -5587,6 +5814,7 @@
             let savedFy = NaN;
             try { savedFy = Number(localStorage.getItem(FY_KEY)); } catch (e) { /* ignore */ }
             TAX_RULES.fyStartYear = savedFy >= FY_FIRST && savedFy <= FY_LAST ? savedFy : defaultFy();
+            loadBonusRules();
             wireMuster();
             weekStart = mondayOf(fyStartOf(todayISO()) === TAX_RULES.fyStartYear ? todayISO() : `${TAX_RULES.fyStartYear}-04-01`);
             period = clampToFy(currentYm());
