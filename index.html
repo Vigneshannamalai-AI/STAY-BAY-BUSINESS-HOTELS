@@ -1730,6 +1730,52 @@
 
         .link-btn + .link-btn { margin-left: 12px; }
 
+        /* User icon + menu */
+        .hero-top { display: flex; align-items: center; gap: 16px; justify-content: flex-end; }
+        .user-menu { position: relative; }
+        .user-btn { width: 48px; height: 48px; border-radius: 50%; border: 2px solid rgba(255, 255, 255, .6); background: rgba(255, 255, 255, .2); backdrop-filter: blur(6px); color: #fff; display: grid; place-items: center; cursor: pointer; transition: background .2s ease, transform .2s ease; }
+        .user-btn:hover { background: rgba(255, 255, 255, .34); transform: scale(1.05); }
+        .user-btn .i { width: 28px; height: 28px; margin: 0; }
+        .user-pop { position: absolute; right: 0; top: 58px; z-index: 60; min-width: 230px; padding: 8px; text-align: left; background: #fff; color: var(--ink); border-radius: 14px; box-shadow: 0 22px 50px -10px rgba(0, 0, 0, .35); display: none; }
+        .user-pop.open { display: block; animation: rise .2s ease both; }
+        .user-pop .who { padding: 10px 12px 12px; border-bottom: 1px solid var(--neutral-200); margin-bottom: 6px; }
+        .user-pop .who b { display: block; font-size: 15px; }
+        .user-pop .who span { font-size: 12px; color: var(--ink-soft); }
+        .user-pop button { display: flex; align-items: center; gap: 10px; width: 100%; border: none; background: none; padding: 10px 12px; border-radius: 9px; font: inherit; font-size: 14px; cursor: pointer; color: var(--ink); }
+        .user-pop button:hover { background: #fbeff0; color: var(--primary); }
+        body.role-manager .tab:not([data-tab="requests"]) { display: none; }
+        body.role-manager .fy-ribbon, body.role-manager .hero-pills { display: none; }
+        .tab-count { display: none; min-width: 20px; height: 20px; padding: 0 6px; border-radius: 999px; background: var(--primary); color: #fff; font-size: 11px; font-weight: 700; align-items: center; justify-content: center; }
+        .tab.active .tab-count { background: #fff; color: var(--primary); }
+        .req-banner { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; padding: 14px 20px; margin-bottom: 16px; border-radius: 16px; background: linear-gradient(135deg, #eaf4ff, #f3ecff); border: 1px solid rgba(14, 165, 233, .35); font-size: 14px; }
+
+        /* Login: choose user */
+        .lock-users { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+        .lock-user { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 14px 8px; border: 2px solid var(--neutral-200); background: #fff; border-radius: 14px; font: inherit; color: var(--ink); cursor: pointer; transition: border-color .2s ease, background .2s ease; }
+        .lock-user .i { width: 34px; height: 34px; color: var(--neutral-400); margin: 0; }
+        .lock-user b { font-size: 15px; }
+        .lock-user small { font-size: 11.5px; color: var(--ink-soft); }
+        .lock-user.on { border-color: var(--primary); background: #fbeff0; box-shadow: 0 0 0 3px rgba(179, 18, 47, .12); }
+        .lock-user.on .i { color: var(--primary); }
+
+        /* Hero decoration lives in its own clipped layer so the account menu can overlap the page below */
+        header.hero { overflow: visible; z-index: 30; }
+        header.hero::before, header.hero::after { display: none; }
+        header.hero > .hero-bg { position: absolute; inset: 0; z-index: 0; border-radius: 26px; overflow: hidden; pointer-events: none; }
+        .hero-bg::before { content: ''; position: absolute; width: 440px; height: 440px; right: -120px; top: -210px; border-radius: 50%; background: radial-gradient(circle, rgba(255, 255, 255, .24), transparent 65%); }
+        .hero-bg::after { content: ''; position: absolute; width: 320px; height: 320px; left: 32%; bottom: -230px; border-radius: 50%; background: radial-gradient(circle, rgba(233, 203, 106, .38), transparent 65%); }
+
+        /* Hero layout: greeting and controls pinned to the right edge */
+        header.hero { flex-wrap: nowrap; }
+        header.hero .brand { flex: 1 1 auto; min-width: 0; }
+        header.hero .subtitle { max-width: 470px; }
+        header.hero .hero-meta { margin-left: auto; flex: none; }
+        @media (max-width: 900px) {
+            header.hero { flex-wrap: wrap; }
+            header.hero .hero-meta { margin-left: 0; align-items: flex-start; text-align: left; }
+            .hero-pills { justify-content: flex-start; }
+        }
+
         /* Creator footer */
         .creator-footer {
             margin: 40px -24px -24px;
@@ -1802,19 +1848,24 @@
 </head>
 <body class="locked">
     <canvas id="confetti" aria-hidden="true"></canvas>
-    <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><symbol id="i-dashboard" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></symbol><symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol><symbol id="i-card" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M6 15h4"/></symbol><symbol id="i-trend" viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></symbol><symbol id="i-heart" viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"/></symbol><symbol id="i-id" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="11" r="2"/><path d="M6 17c.5-2 2-3 3-3s2.5 1 3 3M14 9h4M14 13h4"/></symbol><symbol id="i-receipt" viewBox="0 0 24 24"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6"/></symbol><symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.5-3.5 3.2-5.5 6.5-5.5s6 2 6.5 5.5"/><circle cx="17.5" cy="9" r="2.5"/><path d="M17 14.5c2.5 0 4.2 1.5 4.5 4"/></symbol><symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/></symbol><symbol id="i-coin" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 8h6M9 11h6M9 8c3 0 5 1 5 3s-2 3-5 3l5 4"/></symbol><symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></symbol><symbol id="i-gift" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M5 12v9h14v-9M12 8v13M12 8C9 8 7.5 6.5 7.5 5S9 3 10 4l2 4zM12 8c3 0 4.5-1.5 4.5-3S15 3 14 4l-2 4z"/></symbol><symbol id="i-advance" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 15l6-6M10 9h5v5"/></symbol><symbol id="i-cake" viewBox="0 0 24 24"><path d="M4 20h16v-6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2z"/><path d="M4 16c2 1.5 3 1.5 4 0s3-1.500 4 0 3 1.500 4 0 2-1 4 0M12 12V8M12 3v2"/></symbol><symbol id="i-award" viewBox="0 0 24 24"><circle cx="12" cy="9" r="6"/><path d="M8.5 14L7 21l5-3 5 3-1.5-7"/></symbol><symbol id="i-flag" viewBox="0 0 24 24"><path d="M5 21V4M5 4h11l-2 4 2 4H5"/></symbol><symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></symbol><symbol id="i-unlock" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 7.5-2"/></symbol><symbol id="i-cross" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M12 8v8M8 12h8"/></symbol><symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 19V5M8 7h7"/></symbol><symbol id="i-rings" viewBox="0 0 24 24"><circle cx="9" cy="14" r="5"/><circle cx="15" cy="14" r="5"/><path d="M8 6l1-2h2l1 2"/></symbol><symbol id="i-smile" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 14c1 1.5 2.5 2.2 4 2.2s3-.7 4-2.2M9 9.5h.01M15 9.5h.01"/></symbol><symbol id="i-leaf" viewBox="0 0 24 24"><path d="M5 19c0-9 5-14 15-14 0 10-5 15-14 15"/><path d="M5 19l8-8"/></symbol><symbol id="i-sparkles" viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8zM19 17l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7z"/></symbol><symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18h.01"/></symbol><symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/></symbol><symbol id="i-building" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="1"/><path d="M9 7h2M13 7h2M9 11h2M13 11h2M10 21v-5h4v5"/></symbol><symbol id="i-refresh" viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 15.5-6.2L21 8M21 3v5h-5M21 12a9 9 0 0 1-15.5 6.2L3 16M3 21v-5h5"/></symbol><symbol id="i-undo" viewBox="0 0 24 24"><path d="M9 14L4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-3"/></symbol><symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M4 21h16"/></symbol><symbol id="i-settings" viewBox="0 0 24 24"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></symbol><symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M14 6l4 4"/></symbol><symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/></symbol><symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol><symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol><symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></symbol><symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></symbol><symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></symbol><symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></symbol></defs></svg>
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><symbol id="i-dashboard" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></symbol><symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol><symbol id="i-card" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M6 15h4"/></symbol><symbol id="i-trend" viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></symbol><symbol id="i-heart" viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"/></symbol><symbol id="i-id" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="11" r="2"/><path d="M6 17c.5-2 2-3 3-3s2.5 1 3 3M14 9h4M14 13h4"/></symbol><symbol id="i-receipt" viewBox="0 0 24 24"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6"/></symbol><symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.5-3.5 3.2-5.5 6.5-5.5s6 2 6.5 5.5"/><circle cx="17.5" cy="9" r="2.5"/><path d="M17 14.5c2.5 0 4.2 1.5 4.5 4"/></symbol><symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/></symbol><symbol id="i-coin" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 8h6M9 11h6M9 8c3 0 5 1 5 3s-2 3-5 3l5 4"/></symbol><symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></symbol><symbol id="i-gift" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M5 12v9h14v-9M12 8v13M12 8C9 8 7.5 6.5 7.5 5S9 3 10 4l2 4zM12 8c3 0 4.5-1.5 4.5-3S15 3 14 4l-2 4z"/></symbol><symbol id="i-advance" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 15l6-6M10 9h5v5"/></symbol><symbol id="i-cake" viewBox="0 0 24 24"><path d="M4 20h16v-6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2z"/><path d="M4 16c2 1.5 3 1.5 4 0s3-1.500 4 0 3 1.500 4 0 2-1 4 0M12 12V8M12 3v2"/></symbol><symbol id="i-award" viewBox="0 0 24 24"><circle cx="12" cy="9" r="6"/><path d="M8.5 14L7 21l5-3 5 3-1.5-7"/></symbol><symbol id="i-flag" viewBox="0 0 24 24"><path d="M5 21V4M5 4h11l-2 4 2 4H5"/></symbol><symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></symbol><symbol id="i-unlock" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 7.5-2"/></symbol><symbol id="i-cross" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M12 8v8M8 12h8"/></symbol><symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 19V5M8 7h7"/></symbol><symbol id="i-rings" viewBox="0 0 24 24"><circle cx="9" cy="14" r="5"/><circle cx="15" cy="14" r="5"/><path d="M8 6l1-2h2l1 2"/></symbol><symbol id="i-smile" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 14c1 1.5 2.5 2.2 4 2.2s3-.7 4-2.2M9 9.5h.01M15 9.5h.01"/></symbol><symbol id="i-leaf" viewBox="0 0 24 24"><path d="M5 19c0-9 5-14 15-14 0 10-5 15-14 15"/><path d="M5 19l8-8"/></symbol><symbol id="i-sparkles" viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8zM19 17l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7z"/></symbol><symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18h.01"/></symbol><symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/></symbol><symbol id="i-building" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="1"/><path d="M9 7h2M13 7h2M9 11h2M13 11h2M10 21v-5h4v5"/></symbol><symbol id="i-refresh" viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 15.5-6.2L21 8M21 3v5h-5M21 12a9 9 0 0 1-15.5 6.2L3 16M3 21v-5h5"/></symbol><symbol id="i-undo" viewBox="0 0 24 24"><path d="M9 14L4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-3"/></symbol><symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M4 21h16"/></symbol><symbol id="i-settings" viewBox="0 0 24 24"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></symbol><symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M14 6l4 4"/></symbol><symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/></symbol><symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol><symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol><symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></symbol><symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></symbol><symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></symbol><symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></symbol><symbol id="i-person" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4.2" fill="currentColor" stroke="none"/><path d="M3.5 21c0-4.7 3.8-7.5 8.5-7.5s8.5 2.8 8.5 7.5z" fill="currentColor" stroke="none"/></symbol></defs></svg>
     <div class="lock-screen" id="lockScreen">
         <form class="lock-card" id="lockCard" onsubmit="tryUnlock(event)" autocomplete="off">
             <h1>STAY BAY</h1>
-            <div class="tag">HR, Payroll &amp; Welfare Suite · Please sign in</div>
+            <div class="tag">HR, Payroll &amp; Welfare Suite · Choose your account</div>
+            <div class="lock-users" id="lockUsers">
+                <button type="button" class="lock-user on" data-role="owner" onclick="pickUser('owner')"><svg class="i" aria-hidden="true"><use href="#i-person"/></svg><b>Owner</b><small>Full access</small></button>
+                <button type="button" class="lock-user" data-role="manager" onclick="pickUser('manager')"><svg class="i" aria-hidden="true"><use href="#i-person"/></svg><b>Manager</b><small>Advance requests</small></button>
+            </div>
             <input type="password" id="lockPassword" placeholder="Enter password" autocomplete="off" aria-label="Password" autofocus>
             <div class="lock-error" id="lockError" role="alert"></div>
-            <button type="submit" class="btn btn-primary"><svg class="i" aria-hidden="true"><use href="#i-unlock"/></svg> Unlock</button>
+            <button type="submit" class="btn btn-primary"><svg class="i" aria-hidden="true"><use href="#i-unlock"/></svg> Sign in</button>
             <div class="lock-foot">Authorised staff only</div>
         </form>
     </div>
     <div class="container">
         <header class="hero">
+            <div class="hero-bg" aria-hidden="true"></div>
             <div class="brand">
                 <div class="logo">SB</div>
                 <div>
@@ -1823,17 +1874,23 @@
                 </div>
             </div>
             <div class="hero-meta">
-                <div>
-                    <div class="hero-greet" id="heroGreet"></div>
-                    <div class="hero-date" id="heroDate"></div>
+                <div class="hero-top">
+                    <div>
+                        <div class="hero-greet" id="heroGreet"></div>
+                        <div class="hero-date" id="heroDate"></div>
+                    </div>
+                    <div class="user-menu">
+                        <button class="user-btn" id="userBtn" onclick="toggleUserMenu(event)" aria-label="Account menu" aria-haspopup="true"><svg class="i" aria-hidden="true"><use href="#i-person"/></svg></button>
+                        <div class="user-pop" id="userPop" role="menu">
+                            <div class="who"><b id="userName"></b><span id="userRole"></span></div>
+                            <button role="menuitem" onclick="lockApp()"><svg class="i" aria-hidden="true"><use href="#i-lock"/></svg> Sign out / Switch user</button>
+                        </div>
+                    </div>
                 </div>
                 <div class="hero-pills">
                     <label class="hero-pill" style="display: inline-flex; align-items: center; gap: 8px;">Financial Year
                         <select id="fySelect" class="fy-select" onchange="setFy(this.value)" aria-label="Select financial year"></select>
                     </label>
-                    <span class="hero-pill" id="heroAct"></span>
-                    <span class="hero-pill">Tamil Nadu</span>
-                    <button class="hero-pill" style="cursor: pointer; font-family: inherit;" onclick="lockApp()" title="Lock the app"><svg class="i" aria-hidden="true"><use href="#i-lock"/></svg> Lock</button>
                 </div>
             </div>
         </header>
@@ -1842,6 +1899,7 @@
             <button class="tab" data-tab="dashboard" onclick="showTab('dashboard')"><svg class="i" aria-hidden="true"><use href="#i-dashboard"/></svg>Dashboard</button>
             <button class="tab" data-tab="attendance" onclick="showTab('attendance')"><svg class="i" aria-hidden="true"><use href="#i-calendar"/></svg>Attendance</button>
             <button class="tab" data-tab="payments" onclick="showTab('payments')"><svg class="i" aria-hidden="true"><use href="#i-card"/></svg>Salary Payments &amp; Advances</button>
+            <button class="tab" data-tab="requests" onclick="showTab('requests')"><svg class="i" aria-hidden="true"><use href="#i-advance"/></svg>Advance Requests<span class="tab-count" id="reqCount"></span></button>
             <button class="tab" data-tab="growth" onclick="showTab('growth')"><svg class="i" aria-hidden="true"><use href="#i-trend"/></svg>Increments &amp; Incentives</button>
             <button class="tab" data-tab="welfare" onclick="showTab('welfare')"><svg class="i" aria-hidden="true"><use href="#i-heart"/></svg>Family &amp; Welfare</button>
             <button class="tab" data-tab="personal" onclick="showTab('personal')"><svg class="i" aria-hidden="true"><use href="#i-id"/></svg>Employee Personal Data</button>
@@ -1852,6 +1910,7 @@
 
         <!-- Dashboard -->
         <section class="tab-panel" id="tab-dashboard">
+            <div id="reqBanner"></div>
             <div id="bdayBanner"></div>
             <div class="kpi-grid" id="overviewStats"></div>
 
@@ -2077,6 +2136,30 @@
             </div>
         </section>
 
+        <!-- Advance requests -->
+        <section class="tab-panel" id="tab-requests">
+            <div class="card">
+                <div class="section-head">
+                    <div>
+                        <h2>Advance Requests</h2>
+                        <p class="section-desc" id="reqDesc"></p>
+                    </div>
+                    <div class="controls">
+                        <button class="btn btn-primary" id="newReqBtn" onclick="openRequestDialog()">+ Request Advance</button>
+                    </div>
+                </div>
+                <div class="stats-grid" id="reqStats"></div>
+                <div class="table-wrap">
+                    <table class="data">
+                        <thead>
+                            <tr><th>Requested On</th><th>Employee</th><th class="num">Amount</th><th class="num">Preferred Recovery</th><th>Reason</th><th>Status</th><th></th></tr>
+                        </thead>
+                        <tbody id="reqBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
         <!-- Increments & Incentives -->
         <section class="tab-panel" id="tab-growth">
             <div class="card">
@@ -2248,6 +2331,7 @@
                     <div class="form-grid">
                         <div class="field"><label for="f_aadhaar">Aadhaar Number</label><input id="f_aadhaar" type="text" inputmode="numeric" maxlength="14" placeholder="1234 5678 9012"></div>
                         <div class="field"><label for="f_pan">PAN Number</label><input id="f_pan" type="text" maxlength="10" placeholder="ABCDE1234F" style="text-transform: uppercase;"></div>
+                        <div class="field"><label for="f_epf">EPF Number</label><input id="f_epf" type="text" maxlength="30" placeholder="e.g. TNMAS0012345000" style="text-transform: uppercase;"></div>
                         <div class="field"><label for="f_phone">Phone Number</label><input id="f_phone" type="tel" maxlength="10" placeholder="10-digit mobile"></div>
                         <div class="field wide"><label for="f_address">Address</label><textarea id="f_address" rows="2"></textarea></div>
                     </div>
@@ -2288,6 +2372,7 @@
                     <div class="form-grid">
                         <div class="field"><label for="f_aadhaarDoc">Aadhaar Card (PDF)</label><input id="f_aadhaarDoc" type="file" accept="application/pdf,.pdf"><span class="hint" id="f_aadhaarDocHint"></span></div>
                         <div class="field"><label for="f_panDoc">PAN Card (PDF)</label><input id="f_panDoc" type="file" accept="application/pdf,.pdf"><span class="hint" id="f_panDocHint"></span></div>
+                        <div class="field"><label for="f_epfDoc">EPF Card (PDF)</label><input id="f_epfDoc" type="file" accept="application/pdf,.pdf"><span class="hint" id="f_epfDocHint"></span></div>
                     </div>
                 </fieldset>
             </div>
@@ -2441,6 +2526,30 @@
         </form>
     </dialog>
 
+    <!-- Request advance dialog -->
+    <dialog id="requestDialog" class="small">
+        <form onsubmit="saveRequest(event)" novalidate>
+            <div class="dialog-head">
+                <h2>Request a Salary Advance</h2>
+                <button type="button" class="close-x" onclick="document.getElementById('requestDialog').close()" aria-label="Close">×</button>
+            </div>
+            <div class="dialog-body">
+                <div class="form-errors" id="reqErrors"></div>
+                <div class="form-grid">
+                    <div class="field wide"><label for="req_emp">Employee</label><select id="req_emp"></select></div>
+                    <div class="field"><label for="req_amount">Advance Amount (₹)</label><input id="req_amount" type="number" min="0" step="100"></div>
+                    <div class="field"><label for="req_emi">Preferred Recovery per Month (₹)</label><input id="req_emi" type="number" min="0" step="100"><span class="hint">Optional. The owner can change it.</span></div>
+                    <div class="field wide"><label for="req_reason">Reason <span class="req">*</span></label><input id="req_reason" type="text" placeholder="e.g. Medical expense"></div>
+                </div>
+                <p class="note">Your request goes to the owner for approval. You will see its status here.</p>
+            </div>
+            <div class="dialog-foot">
+                <button type="button" class="btn btn-ghost" onclick="document.getElementById('requestDialog').close()">Cancel</button>
+                <button type="submit" class="btn btn-primary">Send Request</button>
+            </div>
+        </form>
+    </dialog>
+
     <!-- Record salary payment dialog -->
     <dialog id="paymentDialog" class="small">
         <form onsubmit="confirmPayment(event)" novalidate>
@@ -2508,6 +2617,8 @@
         let employees = [];
         let advances = [];
         let welfare = [];
+        let advanceRequests = [];
+        let pendingRequestId = null;   // advance request being approved in the advance dialog
         let editing = null;   // { empId, id } while an existing record is open in a dialog
         let selectedEmployee = null;
         let editingId = null;
@@ -2534,11 +2645,14 @@
         const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
         const WEEKDAYS = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
         const MAX_DOC_BYTES = 5 * 1024 * 1024;
+        const DOC_TYPES = ['aadhaar', 'pan', 'epf'];
+        const DOC_LABEL = { aadhaar: 'Aadhaar', pan: 'PAN', epf: 'EPF' };
         const PF_WAGE_CEILING = 15000;
         const PF_RATE = 0.12;
         const GRATUITY_RATE = 0.0481;
         const WELFARE_KEY = 'staybay.welfare.v1';
         const FY_KEY = 'staybay.fy';
+        const REQUESTS_KEY = 'staybay.advreq.v1';
         const DEFAULT_BONUS_RULES = { multiplier: 2, minMonths: 6 };
         const bonusRules = { ...DEFAULT_BONUS_RULES };
         // Deepavali dates used when the holiday calendar has none for a year (Tamil Nadu 2025-26 are the notified dates;
@@ -2819,13 +2933,14 @@
                 this.department = department;
                 this.dob = '';
                 this.aadhaar = '';
+                this.epf = '';
                 this.pan = '';
                 this.phone = '';
                 this.address = '';
                 this.bank = { holderName: '', bankName: '', branch: '', accountNumber: '', ifsc: '', accountType: 'Savings', upi: '' };
                 this.doj = '';
                 this.initialSalary = salary;
-                this.docs = { aadhaar: null, pan: null };
+                this.docs = { aadhaar: null, pan: null, epf: null };
                 this.salaryConfig = { ...DEFAULT_SALARY_CONFIG };
                 this.attendance = {};   // { 'YYYY-MM': { day: 'P' | 'HD' | 'A' | 'PO' | 'WPO' } }
                 this.payments = {};     // { 'YYYY-MM': { paidOn, mode, reference, snapshot } }
@@ -2839,7 +2954,7 @@
                 const emp = Object.create(Employee.prototype);
                 Object.assign(emp, data);
                 emp.bank = { holderName: '', bankName: '', branch: '', accountNumber: '', ifsc: '', accountType: 'Savings', upi: '', ...data.bank };
-                emp.docs = { aadhaar: null, pan: null, ...data.docs };
+                emp.docs = { aadhaar: null, pan: null, epf: null, ...data.docs };
                 emp.salaryConfig = { ...DEFAULT_SALARY_CONFIG, ...data.salaryConfig };
                 emp.attendance = data.attendance || {};
                 emp.payments = data.payments || {};
@@ -2863,6 +2978,7 @@
                 localStorage.setItem(STORAGE_KEY, JSON.stringify(employees));
                 localStorage.setItem(ADVANCES_KEY, JSON.stringify(advances));
                 localStorage.setItem(WELFARE_KEY, JSON.stringify(welfare));
+                localStorage.setItem(REQUESTS_KEY, JSON.stringify(advanceRequests));
             } catch (e) {
                 console.warn('Could not save data', e);
             }
@@ -2906,6 +3022,7 @@
             try {
                 advances = JSON.parse(localStorage.getItem(ADVANCES_KEY) || '[]');
                 welfare = JSON.parse(localStorage.getItem(WELFARE_KEY) || '[]');
+                advanceRequests = JSON.parse(localStorage.getItem(REQUESTS_KEY) || '[]');
                 const raw = localStorage.getItem(STORAGE_KEY);
                 if (raw) return JSON.parse(raw).map(Employee.fromJSON).map(migrateStatuses);
                 const legacy = localStorage.getItem(LEGACY_STORAGE_KEY);
@@ -3328,6 +3445,7 @@
                 doj,
                 initialSalary,
                 aadhaar: randomDigits(12),
+                epf: 'TNMAS' + randomDigits(7) + '000' + randomDigits(7),
                 pan: randomPan(name),
                 phone: '9' + randomDigits(9).slice(1),
                 address: 'Sample address, Chennai, Tamil Nadu',
@@ -3383,6 +3501,10 @@
             employees[3].dob = `1990-${t.slice(5)}`;   // sample: Karthik's birthday is today, so the celebration can be tried
             advances = [];
             welfare = [];
+            advanceRequests = [
+                { id: uid('req'), empId: employees[4].id, amount: 8000, emi: 2000, reason: 'Medical expense for family', requestedBy: 'Manager', requestedOn: todayISO(), status: 'Pending' },
+                { id: uid('req'), empId: employees[2].id, amount: 15000, emi: 5000, reason: 'Two-wheeler repair', requestedBy: 'Manager', requestedOn: addMonths(currentYm(), -1) + '-12', status: 'Rejected', decidedOn: addMonths(currentYm(), -1) + '-13', note: 'Please apply after next payroll' }
+            ];
             ensureDiwaliDates();
             const cur = defaultFy();
             const years = cur > FY_FIRST ? [cur - 1, cur] : [cur];
@@ -3516,12 +3638,12 @@
                 </div>`;
 
             document.querySelectorAll('.fy-text').forEach(el => { el.textContent = 'FY ' + TAX_RULES.fy; });
-            document.getElementById('heroAct').textContent = TAX_RULES.act;
         }
 
         // ---------- navigation ----------
 
         function showTab(name) {
+            if (typeof currentRole !== 'undefined' && currentRole === 'manager') name = 'requests';   // the manager only has the requests page
             if (!document.getElementById(`tab-${name}`)) name = 'dashboard';
             activeTab = name;
             document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.tab === name));
@@ -3740,7 +3862,7 @@
 
         function renderDashboard() {
             const now = new Date();
-            document.getElementById('heroGreet').textContent = greeting();
+            document.getElementById('heroGreet').textContent = `${greeting()}, ${USERS[currentRole].label}`;
             document.getElementById('heroDate').textContent = now.toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
 
             const today = todayISO();
@@ -4534,25 +4656,27 @@
             select.value = suggested;
         }
 
-        function openAdvanceDialog(id = null) {
+        function openAdvanceDialog(id = null, reqId = null) {
             if (!employees.length) {
                 alert('Add an employee first.');
                 return;
             }
             const adv = id ? advances.find(a => a.id === id) : null;
+            const req = reqId ? advanceRequests.find(r => r.id === reqId) : null;
+            pendingRequestId = req ? req.id : null;
             const recovered = adv ? recoveredSoFar(adv) : 0;
             document.getElementById('adv_date').disabled = false;
             document.getElementById('adv_start').disabled = false;
             editing = adv ? { id } : null;
-            const empId = adv ? adv.empId : currentEmp()?.id;
+            const empId = adv ? adv.empId : req ? req.empId : currentEmp()?.id;
             fillEmpSelect('adv_emp', empId);
-            document.getElementById('adv_emp').disabled = Boolean(adv);
-            document.getElementById('advTitle').textContent = adv ? 'Edit Salary Advance' : 'New Salary Advance';
-            document.getElementById('advSubmit').textContent = adv ? 'Save Changes' : 'Save Advance';
+            document.getElementById('adv_emp').disabled = Boolean(adv || req);
+            document.getElementById('advTitle').textContent = adv ? 'Edit Salary Advance' : req ? 'Approve Advance Request' : 'New Salary Advance';
+            document.getElementById('advSubmit').textContent = adv ? 'Save Changes' : req ? 'Approve & Save' : 'Save Advance';
             document.getElementById('adv_date').value = adv ? adv.date : todayISO();
-            document.getElementById('adv_amount').value = adv ? adv.amount : '';
-            document.getElementById('adv_emi').value = adv ? adv.emi : '';
-            document.getElementById('adv_reason').value = adv ? adv.reason || '' : '';
+            document.getElementById('adv_amount').value = adv ? adv.amount : req ? req.amount : '';
+            document.getElementById('adv_emi').value = adv ? adv.emi : req ? (req.emi || req.amount) : '';
+            document.getElementById('adv_reason').value = adv ? adv.reason || '' : req ? req.reason || '' : '';
             document.getElementById('adv_mode').value = adv ? adv.mode : 'Cash';
             document.getElementById('advErrors').style.display = 'none';
             fillAdvanceStartMonths();
@@ -4595,10 +4719,111 @@
             a.emi = Math.round(a.emi);
             if (own) Object.assign(own, a);
             else advances.push(a);
+            if (pendingRequestId) {
+                const rq = advanceRequests.find(x => x.id === pendingRequestId);
+                if (rq) Object.assign(rq, { status: 'Approved', decidedOn: todayISO(), advanceId: a.id, empId: a.empId });
+                pendingRequestId = null;
+            }
             editing = null;
             document.getElementById('advanceDialog').close();
             saveAll();
             refreshAll();
+        }
+
+        // ---------- advance requests (manager asks, owner approves) ----------
+
+        function openRequestDialog() {
+            if (!employees.length) {
+                alert('There are no employees yet.');
+                return;
+            }
+            fillEmpSelect('req_emp', employees[0].id);
+            ['req_amount', 'req_emi', 'req_reason'].forEach(id => { document.getElementById(id).value = ''; });
+            document.getElementById('reqErrors').style.display = 'none';
+            document.getElementById('requestDialog').showModal();
+        }
+
+        function saveRequest(event) {
+            event.preventDefault();
+            const empId = document.getElementById('req_emp').value;
+            const amount = Math.round(parseFloat(document.getElementById('req_amount').value));
+            const emi = Math.round(parseFloat(document.getElementById('req_emi').value)) || 0;
+            const reason = document.getElementById('req_reason').value.trim();
+            const errors = [];
+            if (!empById(empId)) errors.push('Choose an employee.');
+            if (!(amount > 0)) errors.push('Advance amount must be more than zero.');
+            if (emi > amount) errors.push('Preferred recovery cannot be more than the advance amount.');
+            if (!reason) errors.push('Please give a reason for the request.');
+            if (showFormErrors('reqErrors', errors)) return;
+            advanceRequests.push({ id: uid('req'), empId, amount, emi, reason, requestedBy: USERS[currentRole].label, requestedOn: todayISO(), status: 'Pending' });
+            document.getElementById('requestDialog').close();
+            saveAll();
+            refreshAll();
+            showToast('Request sent to the owner for approval.');
+        }
+
+        function withdrawRequest(id) {
+            const r = advanceRequests.find(x => x.id === id && x.status === 'Pending');
+            if (!r || !confirm(`Withdraw the ${fmt(r.amount)} request?`)) return;
+            advanceRequests = advanceRequests.filter(x => x.id !== id);
+            saveAll();
+            refreshAll();
+        }
+
+        function approveRequest(id) {
+            if (currentRole !== 'owner') return;
+            openAdvanceDialog(null, id);
+        }
+
+        function rejectRequest(id) {
+            if (currentRole !== 'owner') return;
+            const r = advanceRequests.find(x => x.id === id && x.status === 'Pending');
+            if (!r) return;
+            const note = prompt('Reason for rejecting (optional):');
+            if (note === null) return;
+            Object.assign(r, { status: 'Rejected', decidedOn: todayISO(), note: note.trim() });
+            saveAll();
+            refreshAll();
+        }
+
+        function renderRequests() {
+            const owner = currentRole === 'owner';
+            const list = [...advanceRequests].sort((a, b) => b.requestedOn.localeCompare(a.requestedOn));
+            const pending = list.filter(r => r.status === 'Pending');
+            document.getElementById('newReqBtn').style.display = owner ? 'none' : '';
+            document.getElementById('reqDesc').textContent = owner
+                ? 'Advance requests raised by the manager. Approve to record the advance (you can adjust the amount, recovery and start month), or reject with a reason.'
+                : 'Request a salary advance for an employee. The owner reviews each request and you can see its status here.';
+
+            const count = document.getElementById('reqCount');
+            count.textContent = pending.length;
+            count.style.display = owner && pending.length ? 'inline-flex' : 'none';
+            document.getElementById('reqBanner').innerHTML = owner && pending.length
+                ? `<div class="req-banner"><span><strong>${pending.length}</strong> advance request${pending.length > 1 ? 's' : ''} waiting for your approval (${fmt(pending.reduce((s, r) => s + r.amount, 0))} in total).</span><button class="btn btn-primary btn-sm" onclick="showTab('requests')">Review requests</button></div>` : '';
+
+            document.getElementById('reqStats').innerHTML = `
+                <div class="stat"><div class="stat-value">${pending.length}</div><div class="stat-label">Pending</div><div class="stat-sub">${fmt(pending.reduce((s, r) => s + r.amount, 0))} requested</div></div>
+                <div class="stat"><div class="stat-value">${list.filter(r => r.status === 'Approved').length}</div><div class="stat-label">Approved</div></div>
+                <div class="stat"><div class="stat-value">${list.filter(r => r.status === 'Rejected').length}</div><div class="stat-label">Rejected</div></div>`;
+
+            document.getElementById('reqBody').innerHTML = list.map(r => {
+                const e = empById(r.empId);
+                const badge = r.status === 'Approved' ? 'ok' : r.status === 'Rejected' ? 'bad' : 'warn';
+                const detail = r.status === 'Pending' ? '' : `<div class="muted" style="font-size: 11px;">${esc(formatDate(r.decidedOn))}${r.note ? ' · ' + esc(r.note) : ''}</div>`;
+                const actions = r.status !== 'Pending' ? ''
+                    : owner ? `<button class="link-btn" onclick="approveRequest('${r.id}')">Approve</button><button class="link-btn" onclick="rejectRequest('${r.id}')">Reject</button>`
+                    : `<button class="link-btn" onclick="withdrawRequest('${r.id}')">Withdraw</button>`;
+                return `
+                <tr>
+                    <td>${esc(formatDate(r.requestedOn))}<div class="muted" style="font-size: 11px;">by ${esc(r.requestedBy)}</div></td>
+                    <td><strong>${esc(e ? e.name : 'Removed employee')}</strong></td>
+                    <td class="num"><strong>${fmt(r.amount)}</strong></td>
+                    <td class="num">${r.emi ? fmt(r.emi) : '<span class="muted">—</span>'}</td>
+                    <td style="white-space: normal; min-width: 180px;">${esc(r.reason)}</td>
+                    <td><span class="badge ${badge}">${esc(r.status)}</span>${detail}</td>
+                    <td>${actions}</td>
+                </tr>`;
+            }).join('') || '<tr><td colspan="7" class="muted" style="text-align: center; padding: 22px;">No advance requests yet.</td></tr>';
         }
 
         function deleteAdvance(id) {
@@ -4627,6 +4852,7 @@
                 set('f_department', emp.department);
                 set('f_dob', emp.dob);
                 set('f_aadhaar', formatAadhaar(emp.aadhaar));
+                set('f_epf', emp.epf);
                 set('f_pan', emp.pan);
                 set('f_phone', emp.phone);
                 set('f_address', emp.address);
@@ -4641,7 +4867,7 @@
                 set('f_initialSalary', emp.initialSalary);
                 set('f_currentSalary', emp.salary);
             }
-            ['aadhaar', 'pan'].forEach(type => {
+            DOC_TYPES.forEach(type => {
                 const meta = emp?.docs?.[type];
                 document.getElementById(`f_${type}DocHint`).textContent = meta ? `Current: ${meta.name} — choose a file only to replace it` : '';
             });
@@ -4678,6 +4904,7 @@
                 dob: val('f_dob'),
                 aadhaar: val('f_aadhaar').replace(/\s/g, ''),
                 pan: val('f_pan').toUpperCase(),
+                epf: val('f_epf').toUpperCase().replace(/\s/g, ''),
                 phone: val('f_phone').replace(/\D/g, ''),
                 address: val('f_address'),
                 bank: {
@@ -4706,15 +4933,16 @@
             if (isNaN(data.salary) || data.salary < 0) errors.push('Current salary must be a positive number.');
             if (data.aadhaar && !/^\d{12}$/.test(data.aadhaar)) errors.push('Aadhaar number must be 12 digits.');
             if (data.pan && !/^[A-Z]{5}\d{4}[A-Z]$/.test(data.pan)) errors.push('PAN must look like ABCDE1234F.');
+            if (data.epf && !/^[A-Z0-9\/\-]{6,30}$/.test(data.epf)) errors.push('EPF number must be 6 to 30 letters, digits, / or -.');
             if (data.phone && !/^\d{10}$/.test(data.phone)) errors.push('Phone number must be 10 digits.');
             if (data.bank.ifsc && !/^[A-Z]{4}0[A-Z0-9]{6}$/.test(data.bank.ifsc)) errors.push('IFSC must look like SBIN0001234.');
             if (data.bank.accountNumber && !/^\d{9,18}$/.test(data.bank.accountNumber)) errors.push('Bank account number must be 9–18 digits.');
 
-            ['aadhaar', 'pan'].forEach(type => {
+            DOC_TYPES.forEach(type => {
                 const file = document.getElementById(`f_${type}Doc`).files[0];
                 if (!file) return;
-                if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) errors.push(`${type === 'pan' ? 'PAN' : 'Aadhaar'} document must be a PDF.`);
-                if (file.size > MAX_DOC_BYTES) errors.push(`${type === 'pan' ? 'PAN' : 'Aadhaar'} PDF must be under 5 MB.`);
+                if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) errors.push(`${DOC_LABEL[type]} document must be a PDF.`);
+                if (file.size > MAX_DOC_BYTES) errors.push(`${DOC_LABEL[type]} PDF must be under 5 MB.`);
             });
             return errors;
         }
@@ -4736,14 +4964,14 @@
             if (isNew) emp = new Employee(data.name, data.salary, data.department);
             Object.assign(emp, data);
 
-            for (const type of ['aadhaar', 'pan']) {
+            for (const type of DOC_TYPES) {
                 const file = document.getElementById(`f_${type}Doc`).files[0];
                 if (!file) continue;
                 try {
                     await docStore.put(`${emp.id}:${type}`, file);
                     emp.docs[type] = { name: file.name, size: file.size, uploadedAt: new Date().toISOString() };
                 } catch (e) {
-                    alert(`Could not store the ${type === 'pan' ? 'PAN' : 'Aadhaar'} PDF in this browser: ${e.message || e}`);
+                    alert(`Could not store the ${DOC_LABEL[type]} PDF in this browser: ${e.message || e}`);
                 }
             }
 
@@ -4762,9 +4990,10 @@
             employees = employees.filter(e => e.id !== id);
             advances = advances.filter(a => a.empId !== id);
             welfare = welfare.filter(w => w.empId !== id);
+            advanceRequests = advanceRequests.filter(r => r.empId !== id);
             if (selectedEmployee?.id === id) selectedEmployee = null;
             try {
-                await Promise.all(['aadhaar', 'pan'].map(t => docStore.del(`${id}:${t}`)));
+                await Promise.all(DOC_TYPES.map(t => docStore.del(`${id}:${t}`)));
             } catch (e) {
                 console.warn('Could not delete documents', e);
             }
@@ -4868,9 +5097,11 @@
                             <h4>Identity</h4>
                             ${infoRow('Aadhaar number', esc(showSensitive ? formatAadhaar(emp.aadhaar) : mask(emp.aadhaar)))}
                             ${infoRow('PAN number', esc(emp.pan))}
+                            ${infoRow('EPF number', esc(emp.epf))}
                             <div style="margin-top: 8px;">
                                 ${docRow(emp, 'aadhaar', 'Aadhaar card (PDF)')}
                                 ${docRow(emp, 'pan', 'PAN card (PDF)')}
+                                ${docRow(emp, 'epf', 'EPF card (PDF)')}
                             </div>
                         </div>
                         <div class="info-group">
@@ -4912,6 +5143,7 @@
                     <td>
                         <span class="badge ${e.docs.aadhaar ? 'ok' : 'warn'}">Aadhaar ${e.docs.aadhaar ? 'on file' : 'missing'}</span>
                         <span class="badge ${e.docs.pan ? 'ok' : 'warn'}">PAN ${e.docs.pan ? 'on file' : 'missing'}</span>
+                        <span class="badge ${e.docs.epf ? 'ok' : 'warn'}">EPF ${e.docs.epf ? 'on file' : 'missing'}</span>
                     </td>
                 </tr>`).join('') || '<tr><td colspan="8" style="text-align: center; padding: 20px;" class="muted">No employees</td></tr>';
         }
@@ -5873,6 +6105,7 @@
             renderAttendance();
             renderPayments();
             renderGrowth();
+            renderRequests();
             renderSelection();
         }
 
@@ -5919,36 +6152,67 @@
         }
         renderCreator();
 
-        const APP_PASSWORD = '123';
+        // Two accounts. Owner has full access; Manager can only raise advance requests for the owner to approve.
+        const USERS = {
+            owner: { label: 'Owner', password: '123', note: 'Full access' },
+            manager: { label: 'Manager', password: '456', note: 'Advance requests' }
+        };
         const AUTH_KEY = 'staybay.auth';
+        let currentRole = 'owner';
+        let pickedRole = 'owner';
         let appStarted = false;
 
-        function isUnlocked() {
-            try { return sessionStorage.getItem(AUTH_KEY) === '1'; } catch (e) { return false; }
+        function savedRole() {
+            try {
+                const v = sessionStorage.getItem(AUTH_KEY);
+                if (v === '1') return 'owner';   // sessions created before roles existed
+                return v && USERS[v] ? v : null;
+            } catch (e) { return null; }
+        }
+
+        function applyRole() {
+            const user = USERS[currentRole];
+            document.body.classList.toggle('role-owner', currentRole === 'owner');
+            document.body.classList.toggle('role-manager', currentRole === 'manager');
+            document.getElementById('userName').textContent = user.label;
+            document.getElementById('userRole').textContent = user.note;
+            document.getElementById('userPop').classList.remove('open');
         }
 
         function startApp() {
+            const previous = appStarted ? currentRole : null;
+            currentRole = savedRole() || 'owner';
+            applyRole();
             document.body.classList.remove('locked');
             if (!appStarted) {
                 appStarted = true;
                 init();
             } else {
-                refreshAll();   // re-draw charts now that the page is visible again
+                refreshAll();   // re-draw everything for the signed-in user
             }
+            if (currentRole === 'manager') showTab('requests');
+            else if (previous && previous !== currentRole) showTab('dashboard');
+        }
+
+        function pickUser(role) {
+            pickedRole = role;
+            document.querySelectorAll('.lock-user').forEach(b => b.classList.toggle('on', b.dataset.role === role));
+            document.getElementById('lockError').textContent = '';
+            document.getElementById('lockPassword').focus();
         }
 
         function tryUnlock(event) {
             event.preventDefault();
             const input = document.getElementById('lockPassword');
-            if (input.value === APP_PASSWORD) {
-                try { sessionStorage.setItem(AUTH_KEY, '1'); } catch (e) { /* ignore */ }
+            if (input.value === USERS[pickedRole].password) {
+                try { sessionStorage.setItem(AUTH_KEY, pickedRole); } catch (e) { /* ignore */ }
                 input.value = '';
                 document.getElementById('lockError').textContent = '';
                 startApp();
                 return;
             }
             const card = document.getElementById('lockCard');
-            document.getElementById('lockError').textContent = 'Incorrect password. Please try again.';
+            document.getElementById('lockError').textContent = 'Incorrect password for ' + USERS[pickedRole].label + '. Please try again.';
             input.select();
             card.classList.remove('shake');
             void card.offsetWidth;
@@ -5958,13 +6222,23 @@
         function lockApp() {
             try { sessionStorage.removeItem(AUTH_KEY); } catch (e) { /* ignore */ }
             document.querySelectorAll('dialog[open]').forEach(d => d.close());
+            document.getElementById('userPop').classList.remove('open');
             document.body.classList.add('locked');
-            setTimeout(() => document.getElementById('lockPassword').focus(), 50);
+            pickUser(pickedRole);
         }
+
+        function toggleUserMenu(event) {
+            event.stopPropagation();
+            document.getElementById('userPop').classList.toggle('open');
+        }
+
+        document.addEventListener('click', e => {
+            if (!e.target.closest('.user-menu')) document.getElementById('userPop').classList.remove('open');
+        });
 
         window.addEventListener('hashchange', () => showTab(location.hash.slice(1)));
 
-        if (isUnlocked()) startApp();
+        if (savedRole()) startApp();
         else setTimeout(() => document.getElementById('lockPassword').focus(), 50);
 
     </script>
