@@ -1743,8 +1743,6 @@
         .user-pop .who span { font-size: 12px; color: var(--ink-soft); }
         .user-pop button { display: flex; align-items: center; gap: 10px; width: 100%; border: none; background: none; padding: 10px 12px; border-radius: 9px; font: inherit; font-size: 14px; cursor: pointer; color: var(--ink); }
         .user-pop button:hover { background: #fbeff0; color: var(--primary); }
-        body.role-manager .tab:not([data-tab="requests"]) { display: none; }
-        body.role-manager .fy-ribbon, body.role-manager .hero-pills { display: none; }
         .tab-count { display: none; min-width: 20px; height: 20px; padding: 0 6px; border-radius: 999px; background: var(--primary); color: #fff; font-size: 11px; font-weight: 700; align-items: center; justify-content: center; }
         .tab.active .tab-count { background: #fff; color: var(--primary); }
         .req-banner { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; padding: 14px 20px; margin-bottom: 16px; border-radius: 16px; background: linear-gradient(135deg, #eaf4ff, #f3ecff); border: 1px solid rgba(14, 165, 233, .35); font-size: 14px; }
@@ -1855,7 +1853,7 @@
             <div class="tag">HR, Payroll &amp; Welfare Suite · Choose your account</div>
             <div class="lock-users" id="lockUsers">
                 <button type="button" class="lock-user on" data-role="owner" onclick="pickUser('owner')"><svg class="i" aria-hidden="true"><use href="#i-person"/></svg><b>Owner</b><small>Full access</small></button>
-                <button type="button" class="lock-user" data-role="manager" onclick="pickUser('manager')"><svg class="i" aria-hidden="true"><use href="#i-person"/></svg><b>Manager</b><small>Advance requests</small></button>
+                <button type="button" class="lock-user" data-role="manager" onclick="pickUser('manager')"><svg class="i" aria-hidden="true"><use href="#i-person"/></svg><b>Manager</b><small>Requests advances</small></button>
             </div>
             <input type="password" id="lockPassword" placeholder="Enter password" autocomplete="off" aria-label="Password" autofocus>
             <div class="lock-error" id="lockError" role="alert"></div>
@@ -1899,7 +1897,6 @@
             <button class="tab" data-tab="dashboard" onclick="showTab('dashboard')"><svg class="i" aria-hidden="true"><use href="#i-dashboard"/></svg>Dashboard</button>
             <button class="tab" data-tab="attendance" onclick="showTab('attendance')"><svg class="i" aria-hidden="true"><use href="#i-calendar"/></svg>Attendance</button>
             <button class="tab" data-tab="payments" onclick="showTab('payments')"><svg class="i" aria-hidden="true"><use href="#i-card"/></svg>Salary Payments &amp; Advances</button>
-            <button class="tab" data-tab="requests" onclick="showTab('requests')"><svg class="i" aria-hidden="true"><use href="#i-advance"/></svg>Advance Requests<span class="tab-count" id="reqCount"></span></button>
             <button class="tab" data-tab="growth" onclick="showTab('growth')"><svg class="i" aria-hidden="true"><use href="#i-trend"/></svg>Increments &amp; Incentives</button>
             <button class="tab" data-tab="welfare" onclick="showTab('welfare')"><svg class="i" aria-hidden="true"><use href="#i-heart"/></svg>Family &amp; Welfare</button>
             <button class="tab" data-tab="personal" onclick="showTab('personal')"><svg class="i" aria-hidden="true"><use href="#i-id"/></svg>Employee Personal Data</button>
@@ -2067,6 +2064,24 @@
                 <p class="note">Once a month is marked paid its figures are locked. Later attendance or salary changes won't alter that payment; use Undo to reopen it.</p>
             </div>
 
+            <div class="card" id="requestsCard">
+                <div class="section-head">
+                    <div>
+                        <h2>Advance Requests</h2>
+                        <p class="section-desc" id="reqDesc"></p>
+                    </div>
+                </div>
+                <div class="stats-grid" id="reqStats"></div>
+                <div class="table-wrap">
+                    <table class="data">
+                        <thead>
+                            <tr><th>Requested On</th><th>Employee</th><th class="num">Amount</th><th class="num">Recovery / Month</th><th>Recover From</th><th>Reason</th><th>Status</th><th></th></tr>
+                        </thead>
+                        <tbody id="reqBody"></tbody>
+                    </table>
+                </div>
+            </div>
+
             <div class="card">
                 <div class="section-head">
                     <div>
@@ -2074,7 +2089,7 @@
                         <p class="section-desc">Record advances given to employees. Each month's instalment is recovered from salary until the balance is cleared.</p>
                     </div>
                     <div class="controls">
-                        <button class="btn btn-primary" onclick="openAdvanceDialog()">+ New Advance</button>
+                        <button class="btn btn-primary" id="advNewBtn" onclick="openAdvanceDialog()">+ New Advance</button>
                     </div>
                 </div>
                 <div class="stats-grid" id="advStats"></div>
@@ -2131,30 +2146,6 @@
                             </tr>
                         </thead>
                         <tbody id="personalTableBody"></tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
-
-        <!-- Advance requests -->
-        <section class="tab-panel" id="tab-requests">
-            <div class="card">
-                <div class="section-head">
-                    <div>
-                        <h2>Advance Requests</h2>
-                        <p class="section-desc" id="reqDesc"></p>
-                    </div>
-                    <div class="controls">
-                        <button class="btn btn-primary" id="newReqBtn" onclick="openRequestDialog()">+ Request Advance</button>
-                    </div>
-                </div>
-                <div class="stats-grid" id="reqStats"></div>
-                <div class="table-wrap">
-                    <table class="data">
-                        <thead>
-                            <tr><th>Requested On</th><th>Employee</th><th class="num">Amount</th><th class="num">Preferred Recovery</th><th>Reason</th><th>Status</th><th></th></tr>
-                        </thead>
-                        <tbody id="reqBody"></tbody>
                     </table>
                 </div>
             </div>
@@ -2522,30 +2513,6 @@
             <div class="dialog-foot">
                 <button type="button" class="btn btn-ghost" onclick="document.getElementById('welfareDialog').close()">Cancel</button>
                 <button type="submit" class="btn btn-primary" id="welSubmit">Save Benefit</button>
-            </div>
-        </form>
-    </dialog>
-
-    <!-- Request advance dialog -->
-    <dialog id="requestDialog" class="small">
-        <form onsubmit="saveRequest(event)" novalidate>
-            <div class="dialog-head">
-                <h2>Request a Salary Advance</h2>
-                <button type="button" class="close-x" onclick="document.getElementById('requestDialog').close()" aria-label="Close">×</button>
-            </div>
-            <div class="dialog-body">
-                <div class="form-errors" id="reqErrors"></div>
-                <div class="form-grid">
-                    <div class="field wide"><label for="req_emp">Employee</label><select id="req_emp"></select></div>
-                    <div class="field"><label for="req_amount">Advance Amount (₹)</label><input id="req_amount" type="number" min="0" step="100"></div>
-                    <div class="field"><label for="req_emi">Preferred Recovery per Month (₹)</label><input id="req_emi" type="number" min="0" step="100"><span class="hint">Optional. The owner can change it.</span></div>
-                    <div class="field wide"><label for="req_reason">Reason <span class="req">*</span></label><input id="req_reason" type="text" placeholder="e.g. Medical expense"></div>
-                </div>
-                <p class="note">Your request goes to the owner for approval. You will see its status here.</p>
-            </div>
-            <div class="dialog-foot">
-                <button type="button" class="btn btn-ghost" onclick="document.getElementById('requestDialog').close()">Cancel</button>
-                <button type="submit" class="btn btn-primary">Send Request</button>
             </div>
         </form>
     </dialog>
@@ -3643,7 +3610,6 @@
         // ---------- navigation ----------
 
         function showTab(name) {
-            if (typeof currentRole !== 'undefined' && currentRole === 'manager') name = 'requests';   // the manager only has the requests page
             if (!document.getElementById(`tab-${name}`)) name = 'dashboard';
             activeTab = name;
             document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.tab === name));
@@ -4594,7 +4560,7 @@
                         <td class="num"><strong>${fmt(outstanding)}</strong></td>
                         <td>${next}</td>
                         <td>${outstanding > 0 ? '<span class="badge warn">Active</span>' : '<span class="badge ok">Cleared</span>'}</td>
-                        <td><button class="link-btn" onclick="openAdvanceDialog('${a.id}')">Edit</button>${recovered === 0 ? `<button class="link-btn" onclick="deleteAdvance('${a.id}')">Remove</button>` : ''}</td>
+                        <td>${currentRole === 'owner' ? `<button class="link-btn" onclick="openAdvanceDialog('${a.id}')">Edit</button>${recovered === 0 ? `<button class="link-btn" onclick="deleteAdvance('${a.id}')">Remove</button>` : ''}` : ''}</td>
                     </tr>`;
             }).join('');
 
@@ -4664,6 +4630,7 @@
             const adv = id ? advances.find(a => a.id === id) : null;
             const req = reqId ? advanceRequests.find(r => r.id === reqId) : null;
             pendingRequestId = req ? req.id : null;
+            const requestMode = currentRole === 'manager' && !adv;
             const recovered = adv ? recoveredSoFar(adv) : 0;
             document.getElementById('adv_date').disabled = false;
             document.getElementById('adv_start').disabled = false;
@@ -4671,19 +4638,21 @@
             const empId = adv ? adv.empId : req ? req.empId : currentEmp()?.id;
             fillEmpSelect('adv_emp', empId);
             document.getElementById('adv_emp').disabled = Boolean(adv || req);
-            document.getElementById('advTitle').textContent = adv ? 'Edit Salary Advance' : req ? 'Approve Advance Request' : 'New Salary Advance';
-            document.getElementById('advSubmit').textContent = adv ? 'Save Changes' : req ? 'Approve & Save' : 'Save Advance';
-            document.getElementById('adv_date').value = adv ? adv.date : todayISO();
+            document.getElementById('advTitle').textContent = adv ? 'Edit Salary Advance' : req ? 'Approve Advance Request' : requestMode ? 'Request Salary Advance' : 'New Salary Advance';
+            document.getElementById('advSubmit').textContent = adv ? 'Save Changes' : req ? 'Approve & Save' : requestMode ? 'Send Request' : 'Save Advance';
+            document.getElementById('adv_date').value = adv ? adv.date : req ? (req.date || todayISO()) : todayISO();
             document.getElementById('adv_amount').value = adv ? adv.amount : req ? req.amount : '';
             document.getElementById('adv_emi').value = adv ? adv.emi : req ? (req.emi || req.amount) : '';
             document.getElementById('adv_reason').value = adv ? adv.reason || '' : req ? req.reason || '' : '';
-            document.getElementById('adv_mode').value = adv ? adv.mode : 'Cash';
+            document.getElementById('adv_mode').value = adv ? adv.mode : req ? (req.mode || 'Cash') : 'Cash';
+            document.querySelector('label[for="adv_reason"] .hint').textContent = requestMode ? '(required)' : '(optional)';
             document.getElementById('advErrors').style.display = 'none';
             fillAdvanceStartMonths();
-            if (adv) {
+            const wantedStart = adv ? adv.startMonth : req ? req.startMonth : null;
+            if (wantedStart) {
                 const sel = document.getElementById('adv_start');
-                if (![...sel.options].some(o => o.value === adv.startMonth)) sel.insertAdjacentHTML('afterbegin', `<option value="${adv.startMonth}">${ymLabel(adv.startMonth, true)}</option>`);
-                sel.value = adv.startMonth;
+                if (![...sel.options].some(o => o.value === wantedStart)) sel.insertAdjacentHTML('afterbegin', `<option value="${wantedStart}">${ymLabel(wantedStart, true)}</option>`);
+                sel.value = wantedStart;
             }
             // Once instalments have been recovered, the date, start month and employee are fixed.
             document.getElementById('adv_date').disabled = recovered > 0;
@@ -4714,9 +4683,21 @@
             const emp = empById(a.empId);
             if (!own && emp?.payments[a.startMonth]) errors.push(`${ymLabel(a.startMonth, true)} salary is already paid. Choose a later month to start recovery.`);
             if (own && recovered === 0 && a.startMonth !== own.startMonth && emp?.payments[a.startMonth]) errors.push(`${ymLabel(a.startMonth, true)} salary is already paid. Choose a later month to start recovery.`);
+            if (currentRole === 'manager' && !own && !a.reason) errors.push('Please give a reason for the request.');
             if (showFormErrors('advErrors', errors)) return;
             a.amount = Math.round(a.amount);
             a.emi = Math.round(a.emi);
+            if (currentRole === 'manager' && !own) {
+                // The manager cannot record an advance directly: it goes to the owner as a request.
+                advanceRequests.push({ id: uid('req'), empId: a.empId, date: a.date, amount: a.amount, emi: a.emi, startMonth: a.startMonth, mode: a.mode, reason: a.reason, requestedBy: USERS[currentRole].label, requestedOn: todayISO(), status: 'Pending' });
+                editing = null;
+                pendingRequestId = null;
+                document.getElementById('advanceDialog').close();
+                saveAll();
+                refreshAll();
+                showToast('Request sent to the owner for approval.');
+                return;
+            }
             if (own) Object.assign(own, a);
             else advances.push(a);
             if (pendingRequestId) {
@@ -4731,36 +4712,6 @@
         }
 
         // ---------- advance requests (manager asks, owner approves) ----------
-
-        function openRequestDialog() {
-            if (!employees.length) {
-                alert('There are no employees yet.');
-                return;
-            }
-            fillEmpSelect('req_emp', employees[0].id);
-            ['req_amount', 'req_emi', 'req_reason'].forEach(id => { document.getElementById(id).value = ''; });
-            document.getElementById('reqErrors').style.display = 'none';
-            document.getElementById('requestDialog').showModal();
-        }
-
-        function saveRequest(event) {
-            event.preventDefault();
-            const empId = document.getElementById('req_emp').value;
-            const amount = Math.round(parseFloat(document.getElementById('req_amount').value));
-            const emi = Math.round(parseFloat(document.getElementById('req_emi').value)) || 0;
-            const reason = document.getElementById('req_reason').value.trim();
-            const errors = [];
-            if (!empById(empId)) errors.push('Choose an employee.');
-            if (!(amount > 0)) errors.push('Advance amount must be more than zero.');
-            if (emi > amount) errors.push('Preferred recovery cannot be more than the advance amount.');
-            if (!reason) errors.push('Please give a reason for the request.');
-            if (showFormErrors('reqErrors', errors)) return;
-            advanceRequests.push({ id: uid('req'), empId, amount, emi, reason, requestedBy: USERS[currentRole].label, requestedOn: todayISO(), status: 'Pending' });
-            document.getElementById('requestDialog').close();
-            saveAll();
-            refreshAll();
-            showToast('Request sent to the owner for approval.');
-        }
 
         function withdrawRequest(id) {
             const r = advanceRequests.find(x => x.id === id && x.status === 'Pending');
@@ -4790,16 +4741,13 @@
             const owner = currentRole === 'owner';
             const list = [...advanceRequests].sort((a, b) => b.requestedOn.localeCompare(a.requestedOn));
             const pending = list.filter(r => r.status === 'Pending');
-            document.getElementById('newReqBtn').style.display = owner ? 'none' : '';
+            document.getElementById('advNewBtn').textContent = owner ? '+ New Advance' : '+ Request Advance';
             document.getElementById('reqDesc').textContent = owner
-                ? 'Advance requests raised by the manager. Approve to record the advance (you can adjust the amount, recovery and start month), or reject with a reason.'
-                : 'Request a salary advance for an employee. The owner reviews each request and you can see its status here.';
+                ? 'Advances requested by the manager. Approve to record the advance (you can still adjust the amount, recovery and start month), or reject with a reason.'
+                : 'Use Request Advance above to ask the owner for a salary advance. Your requests and their status appear here.';
 
-            const count = document.getElementById('reqCount');
-            count.textContent = pending.length;
-            count.style.display = owner && pending.length ? 'inline-flex' : 'none';
             document.getElementById('reqBanner').innerHTML = owner && pending.length
-                ? `<div class="req-banner"><span><strong>${pending.length}</strong> advance request${pending.length > 1 ? 's' : ''} waiting for your approval (${fmt(pending.reduce((s, r) => s + r.amount, 0))} in total).</span><button class="btn btn-primary btn-sm" onclick="showTab('requests')">Review requests</button></div>` : '';
+                ? `<div class="req-banner"><span><strong>${pending.length}</strong> advance request${pending.length > 1 ? 's' : ''} waiting for your approval (${fmt(pending.reduce((s, r) => s + r.amount, 0))} in total).</span><button class="btn btn-primary btn-sm" onclick="showTab('payments')">Review requests</button></div>` : '';
 
             document.getElementById('reqStats').innerHTML = `
                 <div class="stat"><div class="stat-value">${pending.length}</div><div class="stat-label">Pending</div><div class="stat-sub">${fmt(pending.reduce((s, r) => s + r.amount, 0))} requested</div></div>
@@ -4819,11 +4767,12 @@
                     <td><strong>${esc(e ? e.name : 'Removed employee')}</strong></td>
                     <td class="num"><strong>${fmt(r.amount)}</strong></td>
                     <td class="num">${r.emi ? fmt(r.emi) : '<span class="muted">—</span>'}</td>
+                    <td>${r.startMonth ? ymLabel(r.startMonth) : '<span class="muted">—</span>'}</td>
                     <td style="white-space: normal; min-width: 180px;">${esc(r.reason)}</td>
                     <td><span class="badge ${badge}">${esc(r.status)}</span>${detail}</td>
                     <td>${actions}</td>
                 </tr>`;
-            }).join('') || '<tr><td colspan="7" class="muted" style="text-align: center; padding: 22px;">No advance requests yet.</td></tr>';
+            }).join('') || '<tr><td colspan="8" class="muted" style="text-align: center; padding: 22px;">No advance requests yet.</td></tr>';
         }
 
         function deleteAdvance(id) {
@@ -6152,10 +6101,10 @@
         }
         renderCreator();
 
-        // Two accounts. Owner has full access; Manager can only raise advance requests for the owner to approve.
+        // Two accounts. Both see the whole portal; the only difference is salary advances: the Manager sends a request that the Owner approves.
         const USERS = {
             owner: { label: 'Owner', password: '123', note: 'Full access' },
-            manager: { label: 'Manager', password: '456', note: 'Advance requests' }
+            manager: { label: 'Manager', password: '456', note: 'Requests advances' }
         };
         const AUTH_KEY = 'staybay.auth';
         let currentRole = 'owner';
@@ -6190,8 +6139,7 @@
             } else {
                 refreshAll();   // re-draw everything for the signed-in user
             }
-            if (currentRole === 'manager') showTab('requests');
-            else if (previous && previous !== currentRole) showTab('dashboard');
+            if (previous && previous !== currentRole) showTab('dashboard');
         }
 
         function pickUser(role) {
