@@ -2064,24 +2064,6 @@
                 <p class="note">Once a month is marked paid its figures are locked. Later attendance or salary changes won't alter that payment; use Undo to reopen it.</p>
             </div>
 
-            <div class="card" id="requestsCard">
-                <div class="section-head">
-                    <div>
-                        <h2>Advance Requests</h2>
-                        <p class="section-desc" id="reqDesc"></p>
-                    </div>
-                </div>
-                <div class="stats-grid" id="reqStats"></div>
-                <div class="table-wrap">
-                    <table class="data">
-                        <thead>
-                            <tr><th>Requested On</th><th>Employee</th><th class="num">Amount</th><th class="num">Recovery / Month</th><th>Recover From</th><th>Reason</th><th>Status</th><th></th></tr>
-                        </thead>
-                        <tbody id="reqBody"></tbody>
-                    </table>
-                </div>
-            </div>
-
             <div class="card">
                 <div class="section-head">
                     <div>
@@ -4564,12 +4546,40 @@
                     </tr>`;
             }).join('');
 
-            document.getElementById('advBody').innerHTML = body || '<tr><td colspan="11" style="text-align: center; padding: 20px;" class="muted">No advances recorded</td></tr>';
+            // Requests from the manager sit at the top of the same table until the owner decides.
+            const owner = currentRole === 'owner';
+            const requests = [...advanceRequests].filter(r => r.status !== 'Approved').sort((a, b) => b.requestedOn.localeCompare(a.requestedOn));
+            const requestRows = requests.map(r => {
+                const emp = empById(r.empId);
+                const pending = r.status === 'Pending';
+                const actions = pending
+                    ? (owner ? `<button class="link-btn" onclick="approveRequest('${r.id}')">Approve</button><button class="link-btn" onclick="rejectRequest('${r.id}')">Reject</button>` : `<button class="link-btn" onclick="withdrawRequest('${r.id}')">Withdraw</button>`)
+                    : `<button class="link-btn" onclick="dismissRequest('${r.id}')">Dismiss</button>`;
+                const status = pending ? '<span class="badge warn">Awaiting approval</span>'
+                    : `<span class="badge bad">Rejected</span><div class="muted" style="font-size: 11px;">${esc(formatDate(r.decidedOn))}${r.note ? ' · ' + esc(r.note) : ''}</div>`;
+                return `
+                    <tr style="background: rgba(245, 158, 11, 0.06);">
+                        <td><strong>${esc(emp ? emp.name : 'Removed employee')}</strong></td>
+                        <td>${esc(formatDate(r.requestedOn))}<div class="muted" style="font-size: 11px;">Requested by ${esc(r.requestedBy)}</div></td>
+                        <td>${esc(r.reason) || '<span class="muted">—</span>'}</td>
+                        <td class="num">${fmt(r.amount)}</td>
+                        <td class="num">${r.emi ? fmt(r.emi) : '—'}</td>
+                        <td>${r.startMonth ? ymLabel(r.startMonth) : '—'}</td>
+                        <td class="num">—</td>
+                        <td class="num">—</td>
+                        <td>—</td>
+                        <td>${status}</td>
+                        <td>${actions}</td>
+                    </tr>`;
+            }).join('');
+
+            document.getElementById('advBody').innerHTML = (requestRows + body) || '<tr><td colspan="11" style="text-align: center; padding: 20px;" class="muted">No advances recorded</td></tr>';
             document.getElementById('advStats').innerHTML = `
                 <div class="stat"><div class="stat-value">${fmt(totalGiven)}</div><div class="stat-label">Total Advances Given</div></div>
                 <div class="stat"><div class="stat-value">${fmt(totalRecovered)}</div><div class="stat-label">Recovered from Salary</div></div>
                 <div class="stat"><div class="stat-value">${fmt(totalGiven - totalRecovered)}</div><div class="stat-label">Outstanding</div></div>
-                <div class="stat"><div class="stat-value">${list.filter(a => a.amount - recoveredSoFar(a) > 0).length}</div><div class="stat-label">Active Advances</div></div>`;
+                <div class="stat"><div class="stat-value">${list.filter(a => a.amount - recoveredSoFar(a) > 0).length}</div><div class="stat-label">Active Advances</div></div>
+                ${requests.some(r => r.status === 'Pending') ? `<div class="stat"><div class="stat-value">${requests.filter(r => r.status === 'Pending').length}</div><div class="stat-label">Awaiting Approval</div><div class="stat-sub">${fmt(requests.filter(r => r.status === 'Pending').reduce((sum, r) => sum + r.amount, 0))} requested</div></div>` : ''}`;
         }
 
         function openPaymentDialog(empId = null) {
@@ -4721,6 +4731,12 @@
             refreshAll();
         }
 
+        function dismissRequest(id) {
+            advanceRequests = advanceRequests.filter(x => !(x.id === id && x.status === 'Rejected'));
+            saveAll();
+            refreshAll();
+        }
+
         function approveRequest(id) {
             if (currentRole !== 'owner') return;
             openAdvanceDialog(null, id);
@@ -4739,40 +4755,10 @@
 
         function renderRequests() {
             const owner = currentRole === 'owner';
-            const list = [...advanceRequests].sort((a, b) => b.requestedOn.localeCompare(a.requestedOn));
-            const pending = list.filter(r => r.status === 'Pending');
+            const pending = advanceRequests.filter(r => r.status === 'Pending');
             document.getElementById('advNewBtn').textContent = owner ? '+ New Advance' : '+ Request Advance';
-            document.getElementById('reqDesc').textContent = owner
-                ? 'Advances requested by the manager. Approve to record the advance (you can still adjust the amount, recovery and start month), or reject with a reason.'
-                : 'Use Request Advance above to ask the owner for a salary advance. Your requests and their status appear here.';
-
             document.getElementById('reqBanner').innerHTML = owner && pending.length
-                ? `<div class="req-banner"><span><strong>${pending.length}</strong> advance request${pending.length > 1 ? 's' : ''} waiting for your approval (${fmt(pending.reduce((s, r) => s + r.amount, 0))} in total).</span><button class="btn btn-primary btn-sm" onclick="showTab('payments')">Review requests</button></div>` : '';
-
-            document.getElementById('reqStats').innerHTML = `
-                <div class="stat"><div class="stat-value">${pending.length}</div><div class="stat-label">Pending</div><div class="stat-sub">${fmt(pending.reduce((s, r) => s + r.amount, 0))} requested</div></div>
-                <div class="stat"><div class="stat-value">${list.filter(r => r.status === 'Approved').length}</div><div class="stat-label">Approved</div></div>
-                <div class="stat"><div class="stat-value">${list.filter(r => r.status === 'Rejected').length}</div><div class="stat-label">Rejected</div></div>`;
-
-            document.getElementById('reqBody').innerHTML = list.map(r => {
-                const e = empById(r.empId);
-                const badge = r.status === 'Approved' ? 'ok' : r.status === 'Rejected' ? 'bad' : 'warn';
-                const detail = r.status === 'Pending' ? '' : `<div class="muted" style="font-size: 11px;">${esc(formatDate(r.decidedOn))}${r.note ? ' · ' + esc(r.note) : ''}</div>`;
-                const actions = r.status !== 'Pending' ? ''
-                    : owner ? `<button class="link-btn" onclick="approveRequest('${r.id}')">Approve</button><button class="link-btn" onclick="rejectRequest('${r.id}')">Reject</button>`
-                    : `<button class="link-btn" onclick="withdrawRequest('${r.id}')">Withdraw</button>`;
-                return `
-                <tr>
-                    <td>${esc(formatDate(r.requestedOn))}<div class="muted" style="font-size: 11px;">by ${esc(r.requestedBy)}</div></td>
-                    <td><strong>${esc(e ? e.name : 'Removed employee')}</strong></td>
-                    <td class="num"><strong>${fmt(r.amount)}</strong></td>
-                    <td class="num">${r.emi ? fmt(r.emi) : '<span class="muted">—</span>'}</td>
-                    <td>${r.startMonth ? ymLabel(r.startMonth) : '<span class="muted">—</span>'}</td>
-                    <td style="white-space: normal; min-width: 180px;">${esc(r.reason)}</td>
-                    <td><span class="badge ${badge}">${esc(r.status)}</span>${detail}</td>
-                    <td>${actions}</td>
-                </tr>`;
-            }).join('') || '<tr><td colspan="8" class="muted" style="text-align: center; padding: 22px;">No advance requests yet.</td></tr>';
+                ? `<div class="req-banner"><span><strong>${pending.length}</strong> advance request${pending.length > 1 ? 's' : ''} waiting for your approval (${fmt(pending.reduce((sum, r) => sum + r.amount, 0))} in total).</span><button class="btn btn-primary btn-sm" onclick="showTab('payments')">Review requests</button></div>` : '';
         }
 
         function deleteAdvance(id) {
