@@ -1795,6 +1795,19 @@
         .creator-item small { display: block; font-size: 11px; color: #b9a5a1; letter-spacing: .06em; text-transform: uppercase; }
         .creator-item b { display: block; font-size: 15px; color: #fff; font-weight: 600; overflow-wrap: anywhere; }
         .creator-copy { margin-top: 28px; padding-top: 18px; border-top: 1px solid rgba(255, 255, 255, .1); font-size: 12px; color: #9c8a86; text-align: center; }
+        .footer-faq { margin-bottom: 34px; padding-bottom: 30px; border-bottom: 1px solid rgba(255, 255, 255, .1); }
+        .faq-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 10px; }
+        .faq-list details { border-radius: 12px; background: rgba(255, 255, 255, .05); border: 1px solid rgba(255, 255, 255, .09); padding: 12px 16px; }
+        .faq-list summary { cursor: pointer; font-weight: 600; color: #fff; font-size: 14.5px; }
+        .faq-list details[open] { border-color: rgba(233, 203, 106, .5); }
+        .faq-list p { margin-top: 8px; font-size: 13.5px; line-height: 1.55; color: #d8c9c5; }
+        .faq-list b { color: #fff; }
+        .faq-contact { display: flex; justify-content: space-between; align-items: center; gap: 14px; flex-wrap: wrap; margin-top: 16px; padding: 16px 18px; border-radius: 14px; background: rgba(233, 203, 106, .12); border: 1px solid rgba(233, 203, 106, .4); }
+        .faq-contact b { display: block; color: #fff; font-size: 15px; }
+        .faq-contact span { font-size: 13.5px; color: #e9dcd8; }
+        .faq-contact-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+        .faq-contact .btn { text-decoration: none; }
+        @media (max-width: 600px) { .faq-list { grid-template-columns: 1fr; } }
         @media (max-width: 600px) { .creator-footer { margin: 32px -12px -12px; padding: 34px 16px 28px; } }
 
         /* Birthday celebration */
@@ -1963,35 +1976,21 @@
         .mode-hint { font-size: 13px; color: var(--ink-soft); }
         .basic-only { display: none; }
 
-        /* Basic version: fewer tabs, bigger text and buttons */
+        /* Basic version: the original layout (same tabs, names, order and size as before the HR & payroll upgrade) */
+        .basic-only-inline { display: none; }
         body.mode-basic .basic-only { display: block; }
-        body.mode-basic .tab:not([data-tab="dashboard"]):not([data-tab="attendance"]):not([data-tab="payments"]):not([data-tab="personal"]):not([data-tab="manual"]) { display: none; }
-        body.mode-basic #tab-dashboard > :not(.mode-bar):not(#securityBanner):not(#reqBanner):not(#basicDash) { display: none !important; }
-        body.mode-basic #dailyCard, body.mode-basic #fyRibbon, body.mode-basic header.hero .subtitle, body.mode-basic .how-to { display: none; }
-        body.mode-basic .container { font-size: 16px; }
-        body.mode-basic .tab { font-size: 16px; padding: 14px 20px; }
-        body.mode-basic .btn { font-size: 15px; padding: 12px 18px; }
-        body.mode-basic .btn-sm { font-size: 14px; padding: 9px 14px; }
-        body.mode-basic table.data { font-size: 15px; }
-        body.mode-basic .card h2 { font-size: 20px; }
-        body.mode-basic .section-desc { font-size: 14.5px; }
-        body.mode-basic #payStats .stat:nth-child(n+4), body.mode-basic #payWorkflow details, body.mode-basic #paySearch, body.mode-basic #payDept { display: none; }
-        .basic-tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 18px; }
-        @media (max-width: 760px) { .basic-tiles { grid-template-columns: 1fr; } }
-        .basic-tile { padding: 20px 22px; border-radius: 18px; background: #fff; border: 1px solid rgba(36, 19, 24, .07); box-shadow: var(--shadow-sm); border-left: 6px solid var(--tc); }
-        .basic-tile b { display: block; font-size: 32px; font-weight: 800; line-height: 1.15; }
-        .basic-tile span { font-size: 15px; font-weight: 600; color: var(--ink-soft); }
-        .basic-actions { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 18px; }
-        .basic-actions .btn { padding: 16px; font-size: 16px; }
-        .mark-list { display: grid; gap: 10px; }
-        .mark-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; padding: 12px 14px; border-radius: 14px; background: #fffdfb; border: 1px solid rgba(36, 19, 24, .08); }
-        .mark-row .who { flex: 1 1 180px; min-width: 0; font-size: 17px; font-weight: 700; }
-        .mark-row .who small { display: block; font-size: 13px; font-weight: 500; color: var(--ink-soft); }
-        .mark-btns { display: flex; gap: 8px; flex-wrap: wrap; }
-        .mark-btn { min-width: 92px; padding: 12px 14px; border-radius: 12px; border: 2px solid var(--st); background: #fff; color: var(--st); font: inherit; font-size: 15px; font-weight: 700; cursor: pointer; }
-        .mark-btn.on { background: var(--st); color: #fff; }
-        .mark-btn:disabled { opacity: .45; cursor: not-allowed; }
-        @media (max-width: 560px) { .mark-btn { flex: 1 1 40%; min-width: 0; } }
+        body.mode-basic .basic-only-inline { display: inline; }
+        body.mode-basic .adv-only { display: none !important; }
+        body.mode-basic .tab[data-tab="leave"], body.mode-basic .tab[data-tab="reports"], body.mode-basic .tab[data-tab="settings"], body.mode-basic .tab[data-tab="manual"] { display: none; }
+        .tab { transition-property: background, color, box-shadow, transform; }
+        body.mode-basic .tab[data-tab="dashboard"] { order: 1; }
+        body.mode-basic .tab[data-tab="attendance"] { order: 2; }
+        body.mode-basic .tab[data-tab="payments"] { order: 3; }
+        body.mode-basic .tab[data-tab="growth"] { order: 4; }
+        body.mode-basic .tab[data-tab="welfare"] { order: 5; }
+        body.mode-basic .tab[data-tab="personal"] { order: 6; }
+        body.mode-basic .tab[data-tab="tax"] { order: 7; }
+        body.mode-basic #dailyCard { display: none; }
 
         /* User manual */
         .manual { display: grid; grid-template-columns: 240px 1fr; gap: 24px; align-items: start; }
@@ -2114,10 +2113,10 @@
 
         <nav class="tabs" id="tabs">
             <button class="tab" data-tab="dashboard" onclick="showTab('dashboard')"><svg class="i" aria-hidden="true"><use href="#i-dashboard"/></svg>Dashboard</button>
-            <button class="tab" data-tab="personal" onclick="showTab('personal')"><svg class="i" aria-hidden="true"><use href="#i-id"/></svg>Employees</button>
+            <button class="tab" data-tab="personal" onclick="showTab('personal')"><svg class="i" aria-hidden="true"><use href="#i-id"/></svg><span class="adv-only">Employees</span><span class="basic-only-inline">Employee Personal Data</span></button>
             <button class="tab" data-tab="attendance" onclick="showTab('attendance')"><svg class="i" aria-hidden="true"><use href="#i-calendar"/></svg>Attendance</button>
             <button class="tab" data-tab="leave" onclick="showTab('leave')"><svg class="i" aria-hidden="true"><use href="#i-flag"/></svg>Leave &amp; Overtime<span class="tab-count" id="leaveTabCount"></span></button>
-            <button class="tab" data-tab="payments" onclick="showTab('payments')"><svg class="i" aria-hidden="true"><use href="#i-card"/></svg>Payroll &amp; Advances<span class="tab-count" id="payTabCount"></span></button>
+            <button class="tab" data-tab="payments" onclick="showTab('payments')"><svg class="i" aria-hidden="true"><use href="#i-card"/></svg><span class="adv-only">Payroll &amp; Advances</span><span class="basic-only-inline">Salary Payments &amp; Advances</span><span class="tab-count" id="payTabCount"></span></button>
             <button class="tab" data-tab="growth" onclick="showTab('growth')"><svg class="i" aria-hidden="true"><use href="#i-trend"/></svg>Increments &amp; Incentives</button>
             <button class="tab" data-tab="welfare" onclick="showTab('welfare')"><svg class="i" aria-hidden="true"><use href="#i-heart"/></svg>Family &amp; Welfare</button>
             <button class="tab" data-tab="tax" onclick="showTab('tax')"><svg class="i" aria-hidden="true"><use href="#i-receipt"/></svg>Salary &amp; Tax</button>
@@ -2139,27 +2138,26 @@
                 <span class="mode-hint" id="modeHint"></span>
             </div>
             <div id="securityBanner"></div>
-            <div id="basicDash" class="basic-only"></div>
             <div id="reqBanner"></div>
             <div id="bdayBanner"></div>
 
-            <div class="section-title">Employees today</div>
-            <div class="today-strip" id="todayStrip"></div>
+            <div class="section-title adv-only">Employees today</div>
+            <div class="today-strip adv-only" id="todayStrip"></div>
 
-            <div class="section-title">Payroll · <span id="kpiMonth"></span></div>
+            <div class="section-title adv-only">Payroll · <span id="kpiMonth"></span></div>
             <div class="kpi-grid" id="overviewStats"></div>
 
             <div class="quick-row">
                 <button class="btn btn-primary" onclick="openDailyRegister(todayISO())"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg> Mark Today's Attendance</button>
                 <button class="btn btn-secondary" onclick="showTab('payments')">₹ Run This Month's Payroll</button>
-                <button class="btn btn-secondary" onclick="openLeaveDialog()"><svg class="i" aria-hidden="true"><use href="#i-flag"/></svg> New Leave Request</button>
+                <button class="btn btn-secondary adv-only" onclick="openLeaveDialog()"><svg class="i" aria-hidden="true"><use href="#i-flag"/></svg> New Leave Request</button>
                 <button class="btn btn-secondary" onclick="openIncentiveDialog()"><svg class="i" aria-hidden="true"><use href="#i-star"/></svg> Add Incentive</button>
                 <button class="btn btn-secondary" onclick="openWelfareDialog()"><svg class="i" aria-hidden="true"><use href="#i-heart"/></svg> Record Welfare</button>
                 <button class="btn btn-ghost" onclick="openEmployeeForm()">+ Add Employee</button>
                 <button class="btn btn-ghost" onclick="generateSampleData()"><svg class="i" aria-hidden="true"><use href="#i-refresh"/></svg> Sample Data</button>
             </div>
 
-            <div class="card" style="margin-bottom: 20px;">
+            <div class="card adv-only" style="margin-bottom: 20px;">
                 <h2>Needs Attention</h2>
                 <div class="alert-list" id="alertList"></div>
             </div>
@@ -2282,7 +2280,11 @@
                 <div class="chips" id="attLegend2" style="margin-top: 12px;"></div>
             </div>
 
-            <p class="note" style="margin: 0 0 4px;">Government holidays, shifts and weekly-off rules are managed in <button class="link-btn" onclick="openSettings('holidays')">Settings → Holidays</button> and <button class="link-btn" onclick="openSettings('payroll')">Settings → Payroll Rules</button>.</p>
+            <details class="settings basic-only" id="holidayHome">
+                <summary>Government holidays (Tamil Nadu) — <span id="holidayCount2"></span></summary>
+                <div class="settings-body" id="holidayHomeBody"></div>
+            </details>
+            <p class="note adv-only" style="margin: 0 0 4px;">Government holidays, shifts and weekly-off rules are managed in <button class="link-btn" onclick="openSettings('holidays')">Settings → Holidays</button> and <button class="link-btn" onclick="openSettings('payroll')">Settings → Payroll Rules</button>.</p>
         </section>
 
         <!-- 2. Payroll & Advances -->
@@ -2290,19 +2292,21 @@
             <div class="card">
                 <div class="section-head">
                     <div>
-                        <h2>Monthly Payroll</h2>
-                        <p class="section-desc">Pay is worked out from attendance, approved leave, approved overtime, approved incentives and advance or loan recoveries. Gross salary minus total deductions (including loss-of-pay) gives the net salary.</p>
+                        <h2><span class="adv-only">Monthly Payroll</span><span class="basic-only-inline">Monthly Salary Payments</span></h2>
+                        <p class="section-desc basic-only">Pay is worked out from the attendance calendar: every day is paid except Absent days, half of each Half Day and Loss of Pay leave. Weekly offs, holidays and paid leave are paid. Approved incentives are added to the month's gross, and advance recoveries are deducted automatically.</p>
+                        <p class="section-desc adv-only">Pay is worked out from attendance, approved leave, approved overtime, approved incentives and advance or loan recoveries. Gross salary minus total deductions (including loss-of-pay) gives the net salary.</p>
                     </div>
                     <div class="controls">
                         <button class="btn btn-ghost btn-sm" onclick="shiftPeriod(-1)" aria-label="Previous month"><svg class="i" aria-hidden="true"><use href="#i-chevron-left"/></svg></button>
                         <select id="payMonth" onchange="setPeriod(this.value)" aria-label="Payroll month"></select>
                         <button class="btn btn-ghost btn-sm" onclick="shiftPeriod(1)" aria-label="Next month"><svg class="i" aria-hidden="true"><use href="#i-chevron-right"/></svg></button>
+                        <button class="btn btn-primary basic-only-inline" id="basicPayAll" onclick="openPaymentDialog()">Pay All Pending</button>
                     </div>
                 </div>
-                <div class="stepper" id="payStepper"></div>
-                <div class="workflow-bar" id="payWorkflow"></div>
+                <div class="stepper adv-only" id="payStepper"></div>
+                <div class="workflow-bar adv-only" id="payWorkflow"></div>
                 <div class="stats-grid" id="payStats"></div>
-                <div class="toolbar">
+                <div class="toolbar adv-only">
                     <input type="search" id="paySearch" placeholder="Search employee or ID" oninput="renderPayments()" aria-label="Search payroll">
                     <select id="payDept" onchange="renderPayments()" aria-label="Filter by department"></select>
                 </div>
@@ -2313,8 +2317,8 @@
                                 <th>Employee</th>
                                 <th class="num">Paid Days</th>
                                 <th class="num">LOP Days</th>
-                                <th class="num">Gross</th>
-                                <th class="num">LOP</th>
+                                <th class="num"><span class="adv-only">Gross</span><span class="basic-only-inline">Gross Earned</span></th>
+                                <th class="num adv-only">LOP</th>
                                 <th class="num">PF</th>
                                 <th class="num">ESI</th>
                                 <th class="num">Prof. Tax</th>
@@ -2691,7 +2695,7 @@
                             </ol>
                             <div class="man-tip"><b>Use the hotel's device:</b> requests are saved on the computer or phone where they are made, so register on the device the hotel uses for this system.</div>
                             <h4>Basic and Advanced versions</h4>
-                            <p>At the top of the dashboard, slide the circle <b>left for Basic</b> or <b>right for Advanced</b>. Basic shows only the everyday screens (Dashboard, Attendance, Payroll, Employees and this manual) with bigger text, and lets you mark today's attendance with one tap per person. Advanced shows every feature. Each user's choice is remembered.</p>
+                            <p>At the top of the dashboard, slide the circle <b>left for Basic</b> or <b>right for Advanced</b>. Basic is the original layout: Dashboard, Attendance, Salary Payments &amp; Advances, Increments &amp; Incentives, Family &amp; Welfare, Employee Personal Data and Salary &amp; Tax, and salaries are paid in one step with <b>Pay</b>. Advanced adds Leave &amp; Overtime, the payroll approval steps, Reports, Settings and this manual. Both use the same data, and each user's choice is remembered.</p>
                             <div class="man-tip"><b>First sign-in:</b> change your password straight away from the person icon (top right) → <b>Change my password</b>. The dashboard shows a red reminder until you do.</div>
                             <h4>Signing out</h4>
                             <p>Use the person icon → <b>Sign out / Switch user</b>. If nobody touches the screen for <span class="live" data-s="security.idleMinutes"></span> minutes, you are signed out automatically and any unsaved form is closed.</p>
@@ -2988,6 +2992,28 @@
 
         <footer class="creator-footer" id="creatorFooter">
             <div class="creator-inner">
+                <div class="footer-faq" id="faq">
+                    <div class="creator-eyebrow">Frequently asked questions</div>
+                    <div class="faq-list">
+                        <details><summary>How do I mark attendance?</summary><p>Open <b>Attendance</b>. In the weekly log, click a day and choose the status. In the monthly calendar, choose a status at the top, then click or drag across the days. Changes save straight away.</p></details>
+                        <details><summary>How is the salary worked out?</summary><p>From the attendance calendar. Every day is paid except Absent days, half of each Half Day and Loss of Pay leave. Weekly offs, holidays and paid leave are paid. PF, ESI, professional tax, income tax (TDS) and any advance instalment are deducted, and approved incentives are added.</p></details>
+                        <details><summary>How do I pay the salaries for a month?</summary><p>Open <b>Salary Payments &amp; Advances</b> (called Payroll &amp; Advances in the Advanced version), choose the month and press <b>Pay All Pending</b> or <b>Pay</b> for one person. Enter the payment date and mode, then confirm. Download each payslip with the <b>Payslip</b> button.</p></details>
+                        <details><summary>Who can approve an Advance Salary?</summary><p>Only the Owner. The Manager can request an advance; it shows as "Awaiting Owner approval" until the Owner approves or rejects it.</p></details>
+                        <details><summary>How does a new staff member get a login?</summary><p>On the sign-in page they tap <b>New staff? Request access</b> and fill in the form on the hotel's computer. The Owner approves the request from the dashboard or Settings → Users &amp; Roles.</p></details>
+                        <details><summary>What is the difference between Basic and Advanced?</summary><p><b>Basic</b> is the original, simpler layout. <b>Advanced</b> adds leave and overtime, the payroll approval steps, reports, settings and the user manual. Switch with the slider at the top of the dashboard; nothing is lost when you switch.</p></details>
+                        <details><summary>Where is my data saved? How do I keep it safe?</summary><p>In the browser on the device you use. Download a backup every week from Settings → Backup &amp; Restore (in the Advanced version, or from the person icon → Settings).</p></details>
+                        <details><summary>I forgot my password.</summary><p>Ask the Owner to set a new one in Settings → Users &amp; Roles. If the Owner's password is forgotten, contact the developer below.</p></details>
+                        <details><summary>The website still looks old after an update.</summary><p>Reload without the cache: ⌘ + Shift + R on a Mac, or Ctrl + Shift + R on Windows.</p></details>
+                    </div>
+                    <div class="faq-contact">
+                        <div><b>Still need help?</b><span>Contact <span id="faqName"></span>, who built this system.</span></div>
+                        <div class="faq-contact-btns">
+                            <a class="btn btn-primary btn-sm" id="faqCall">Call <span id="faqPhone"></span></a>
+                            <a class="btn btn-secondary btn-sm" id="faqWhatsApp" target="_blank" rel="noopener">WhatsApp</a>
+                            <a class="btn btn-secondary btn-sm" id="faqMail">Email</a>
+                        </div>
+                    </div>
+                </div>
                 <div class="creator-brand">
                     <div class="logo" id="footLogo">SBY</div>
                     <div><strong id="footName">STAY BAY Business Hotels</strong><span>HR, Payroll &amp; Welfare Suite</span></div>
@@ -4927,7 +4953,7 @@
 
         // Only the visible tab is drawn; the others are marked stale and drawn when opened.
         const TAB_RENDERERS = {
-            dashboard: () => { renderDashboard(); renderBasicDash(); },
+            dashboard: () => renderDashboard(),
             personal: () => renderPersonalSection(),
             attendance: () => { renderAttendance(); renderDaily(); },
             leave: () => { renderLeave(); renderOvertime(); },
@@ -5113,7 +5139,7 @@
                 if (from === to || reduce) return;
                 const start = performance.now(), dur = 850;
                 const tick = now => {
-                    const p = Math.min(1, (now - start) / dur);
+                    const p = Math.min(1, Math.max(0, (now - start) / dur));   // the first frame can be timed just before start
                     const eased = 1 - Math.pow(1 - p, 3);
                     el.textContent = formatCount(kind, from + (to - from) * eased, suffix);
                     if (p < 1) requestAnimationFrame(tick);
@@ -5210,7 +5236,17 @@
             const welfareSpent = welfare.filter(w => w.status !== 'Requested' && inFy(w.date)).reduce((s, w) => s + w.amount, 0);
             const pendingPayroll = fyMonths().filter(m => m < currentYm() && runStatus(m) !== 'Locked' && payrollEmployees(m).length).length;
             document.getElementById('kpiMonth').textContent = `${ymLabel(ym, true)} · ${status}`;
-            document.getElementById('overviewStats').innerHTML = [
+            const raises = employees.flatMap(e => (e.increments || []).filter(i => i.ym >= fyMonths()[0] && i.ym <= fyMonths()[11]));
+            document.getElementById('overviewStats').innerHTML = uiMode === 'basic' ? [
+                kpiCard('emp', 'users', 'Total Employees', t.active, 'num', `${employees.reduce((s, e) => s + (e.family || []).length, 0)} family members on record`, '#B3122F'),
+                kpiCard('present', 'check', 'Present Today', t.present, 'num', inToday ? (t.unmarked ? `${t.unmarked} not marked yet` : 'All marked') : 'Today is outside this FY', '#10b981', `/${t.active}`),
+                kpiCard('att', 'calendar', 'Avg Attendance', pctCount ? Math.round(pctSum / pctCount) : 0, 'pct', `FY ${TAX_RULES.fy} so far`, '#0ea5e9'),
+                kpiCard('payout', 'coin', 'Net Payout', sum('net'), 'inr', `${ymLabel(ym)} · ${fmt(rows.filter(r => r.paid).reduce((s, r) => s + r.net, 0))} paid`, '#C9A227'),
+                kpiCard('incent', 'star', 'Incentives', sum('incentive'), 'inr', `In ${ymLabel(ym)} payroll`, '#f59e0b'),
+                kpiCard('welfare', 'heart', 'Welfare Spent', welfareSpent, 'inr', `FY ${TAX_RULES.fy}`, '#8b5cf6'),
+                kpiCard('adv', 'advance', 'Advances Due', outstanding, 'inr', 'Outstanding balance', '#ef4444'),
+                kpiCard('raises', 'trend', 'Raises Given', raises.length, 'num', `+${fmt(raises.reduce((x, i) => x + i.amount, 0))} per month · FY ${TAX_RULES.fy}`, '#0d9488')
+            ].join('') : [
                 kpiCard('gross', 'coin', 'Gross Salary', sum('gross'), 'inr', `${rows.length} employees · ${status}`, '#C9A227'),
                 kpiCard('ded', 'receipt', 'Total Deductions', sum('deductions'), 'inr', 'LOP, PF, ESI, PT, TDS, recoveries', '#ef4444'),
                 kpiCard('net', 'card', 'Net Salary', sum('net'), 'inr', `${fmt(rows.filter(r => r.paid).reduce((s, r) => s + r.net, 0))} paid`, '#10b981'),
@@ -5802,6 +5838,8 @@
             renderWeek();
             renderMuster();
             renderHolidays();
+            placeHolidayPanel();
+            document.getElementById('holidayCount2').textContent = document.getElementById('holidayCount').textContent;
         }
 
         function renderMuster() {
@@ -6023,6 +6061,7 @@
 
         function renderPayments() {
             const ym = period;
+            const basic = uiMode === 'basic';
             const status = runStatus(ym);
             const run = payrollRuns[ym];
             const canPay = ym <= currentYm();
@@ -6064,12 +6103,30 @@
                 <div class="stat"><div class="stat-value">${fmt(disbursed)}</div><div class="stat-label">Advances Given</div><div class="stat-sub">This month</div></div>`;
 
             const frozen = status === 'Approved';
+            if (basic) {
+                // Original summary cards
+                document.getElementById('payStats').innerHTML = `
+                    <div class="stat"><div class="stat-value">${fmt(sum('earnedGross'))}</div><div class="stat-label">Gross Salary Earned</div><div class="stat-sub">${ymLabel(ym, true)}</div></div>
+                    <div class="stat"><div class="stat-value">${fmt(sum('pf') + sum('esi') + sum('pt') + sum('tds'))}</div><div class="stat-label">Statutory Deductions</div><div class="stat-sub">PF + ESI + Prof. tax + TDS</div></div>
+                    <div class="stat"><div class="stat-value">${fmt(sum('advance') + sum('loan'))}</div><div class="stat-label">Advance Recovery</div></div>
+                    <div class="stat"><div class="stat-value">${fmt(sum('net'))}</div><div class="stat-label">Net Payout</div><div class="stat-sub">${fmt(sum('net', paidRows))} paid · ${pendingRows.length} pending</div></div>
+                    <div class="stat"><div class="stat-value">${fmt(sum('employerPf'))}</div><div class="stat-label">Employer PF</div><div class="stat-sub">Company contribution</div></div>
+                    <div class="stat"><div class="stat-value">${fmt(disbursed)}</div><div class="stat-label">Advances Given</div><div class="stat-sub">This month</div></div>`;
+                const btn = document.getElementById('basicPayAll');
+                btn.disabled = !canPay || !pendingRows.length;
+                btn.textContent = pendingRows.length ? `Pay All Pending (${pendingRows.length})` : 'All Paid';
+            }
             document.getElementById('payBody').innerHTML = rows.map(({ emp, row }) => {
                 const st = row.paid
                     ? `<span class="badge ok">Paid ${esc(formatDate(row.payment.paidOn))}</span><div class="muted" style="font-size: 11px;">${esc(row.payment.mode)}${row.payment.reference ? ' · ' + esc(row.payment.reference) : ''}</div>`
+                    : basic ? (canPay ? '<span class="badge warn">Pending</span>' : '<span class="badge neutral">Upcoming</span>')
                     : frozen ? (row.frozen ? '<span class="badge info">Approved</span>' : '<span class="badge warn">Not in approved run</span>')
                     : canPay ? `<span class="badge warn">${esc(status)}</span>` : '<span class="badge neutral">Upcoming</span>';
-                const actions = row.paid
+                const actions = basic
+                    ? (row.paid
+                        ? `<button class="btn btn-secondary btn-sm" onclick="downloadPayslip('${emp.id}', '${ym}')">Payslip</button> <button class="link-btn" onclick="undoPayment('${emp.id}', '${ym}')">Undo</button>`
+                        : `<button class="btn btn-primary btn-sm" ${canPay ? '' : 'disabled'} onclick="openPaymentDialog('${emp.id}')">Pay</button> <button class="btn btn-ghost btn-sm" onclick="downloadPayslip('${emp.id}', '${ym}')">Preview</button>`)
+                    : row.paid
                     ? `<button class="btn btn-secondary btn-sm" onclick="downloadPayslip('${emp.id}', '${ym}')">Payslip</button>`
                     : `${frozen ? `<button class="btn btn-primary btn-sm" ${canPay ? '' : 'disabled'} onclick="openPaymentDialog('${emp.id}')">Pay</button> ` : ''}<button class="btn btn-ghost btn-sm" onclick="downloadPayslip('${emp.id}', '${ym}')">Preview</button>`;
                 return `
@@ -6077,8 +6134,8 @@
                         <td>${empCell(emp)}</td>
                         <td class="num">${fmtDays(row.paidDays)}${!row.paid && row.unmarked ? `<div class="warn-text">${row.unmarked} unmarked</div>` : ''}</td>
                         <td class="num">${fmtDays(row.lopDays)}</td>
-                        <td class="num"><strong>${fmt(row.gross)}</strong>${row.overtime ? `<div><span class="badge info">+ OT ${fmt(row.overtime)}</span></div>` : ''}${row.incentive ? `<div><span class="badge ok">+ Incentive ${fmt(row.incentive)}</span></div>` : ''}${row.bonus ? `<div><span class="badge info">+ Diwali bonus ${fmt(row.bonus)}</span></div>` : ''}</td>
-                        <td class="num">${row.lop ? fmt(row.lop) : '—'}</td>
+                        <td class="num"><strong>${fmt(basic ? earnedOf(row) : row.gross)}</strong>${row.overtime ? `<div><span class="badge info">+ OT ${fmt(row.overtime)}</span></div>` : ''}${row.incentive ? `<div><span class="badge ok">+ Incentive ${fmt(row.incentive)}</span></div>` : ''}${row.bonus ? `<div><span class="badge info">+ Diwali bonus ${fmt(row.bonus)}</span></div>` : ''}</td>
+                        <td class="num adv-only">${row.lop ? fmt(row.lop) : '—'}</td>
                         <td class="num">${fmt(row.pf)}</td>
                         <td class="num">${row.esi ? fmt(row.esi) : '—'}</td>
                         <td class="num">${fmt(row.pt)}</td>
@@ -6093,7 +6150,7 @@
             document.getElementById('payFoot').innerHTML = rows.length ? `
                 <tr>
                     <td>Total (${rows.length})</td><td class="num">${fmtDays(sum('paidDays', rows))}</td><td class="num">${fmtDays(sum('lopDays', rows))}</td>
-                    <td class="num">${fmt(sum('gross', rows))}</td><td class="num">${fmt(sum('lop', rows))}</td><td class="num">${fmt(sum('pf', rows))}</td><td class="num">${fmt(sum('esi', rows))}</td><td class="num">${fmt(sum('pt', rows))}</td><td class="num">${fmt(sum('tds', rows))}</td>
+                    <td class="num">${fmt(basic ? sum('earnedGross', rows) : sum('gross', rows))}</td><td class="num adv-only">${fmt(sum('lop', rows))}</td><td class="num">${fmt(sum('pf', rows))}</td><td class="num">${fmt(sum('esi', rows))}</td><td class="num">${fmt(sum('pt', rows))}</td><td class="num">${fmt(sum('tds', rows))}</td>
                     <td class="num">${fmt(sum('advance', rows) + sum('loan', rows))}</td><td class="num">${fmt(sum('net', rows))}</td><td></td><td></td>
                 </tr>` : '';
 
@@ -6272,7 +6329,8 @@
 
         function openPaymentDialog(empId = null) {
             const ym = period;
-            if (runStatus(ym) !== 'Approved') {
+            const quick = uiMode === 'basic' && ['Draft', 'Review'].includes(runStatus(ym)) && ym <= currentYm();
+            if (runStatus(ym) !== 'Approved' && !quick) {
                 showToast('Approve the payroll before recording payments.');
                 return;
             }
@@ -6283,16 +6341,42 @@
 
             document.getElementById('paySummary').innerHTML = `
                 <strong>${targets.length === 1 ? esc(targets[0].name) : `${targets.length} employees`}</strong> · ${ymLabel(ym, true)}<br>
-                Net salary: <strong style="color: var(--success);">${fmt(rows.reduce((s, r) => s + r.net, 0))}</strong>`;
+                Net salary: <strong style="color: var(--success);">${fmt(rows.reduce((s, r) => s + r.net, 0))}</strong>
+                ${quick && rows.some(r => r.unmarked) ? `<div class="warn-text" style="margin-top: 6px;">Note: ${rows.reduce((s, r) => s + r.unmarked, 0)} day(s) are not marked in the attendance register and will be ${settings.payroll.unmarkedAs === 'absent' ? 'treated as absent' : 'paid as present'}.</div>` : ''}`;
             document.getElementById('pay_date').value = ym < currentYm() ? `${addMonths(ym, 1)}-01` : todayISO();
             document.getElementById('pay_ref').value = '';
             document.getElementById('paymentDialog').showModal();
+        }
+
+        // Basic version: paying records the review and approval steps automatically, as the original version had no workflow.
+        function quickApprove(ym) {
+            const why = 'Paid from the Basic version (review and approval recorded automatically)';
+            if (runStatus(ym) === 'Draft') setRunStatus(ym, 'Review', why);
+            const run = ensureRun(ym);
+            run.snapshots = Object.fromEntries(payrollEmployees(ym).filter(e => !e.payments[ym]).map(e => [e.id, stripRow(payRow(e, ym))]));
+            setRunStatus(ym, 'Approved', why);
+        }
+
+        // Basic version "Undo": cancels one employee's payment so it can be recalculated, like the original version.
+        async function undoPayment(empId, ym) {
+            const emp = empById(empId);
+            if (!emp?.payments[ym]) return;
+            const reason = await askDialog({ title: 'Undo Payment', message: `Undo the ${ymLabel(ym, true)} salary payment for ${emp.name}? The amount will be recalculated from current attendance.`, input: 'Reason', required: true, ok: 'Undo Payment', danger: true });
+            if (reason === null) return;
+            audit('Salary payment cancelled', { module: 'Payroll', emp, old: `Paid ${fmt(emp.payments[ym].snapshot.net)} on ${formatDate(emp.payments[ym].paidOn)}`, new: 'Unpaid', reason, detail: ymLabel(ym, true) });
+            delete emp.payments[ym];
+            const run = ensureRun(ym);
+            run.snapshots = {};
+            setRunStatus(ym, 'Draft', reason, { reopened: true });
+            saveAll();
+            refreshAll();
         }
 
         function confirmPayment(event) {
             event.preventDefault();
             if (!document.getElementById('paymentDialog').open) return;   // ignore a second submit while closing
             const ym = period;
+            if (uiMode === 'basic' && ['Draft', 'Review'].includes(runStatus(ym))) quickApprove(ym);
             if (runStatus(ym) !== 'Approved') return;
             const info = {
                 paidOn: document.getElementById('pay_date').value || todayISO(),
@@ -8375,6 +8459,7 @@
         let dailyDate = null;
 
         function openDailyRegister(iso) {
+            if (uiMode === 'basic') { setWeek(iso); showTab('attendance'); return; }
             showTab('attendance');
             setDaily(iso);
             document.getElementById('dailyCard').scrollIntoView({ behavior: 'smooth' });
@@ -9164,6 +9249,7 @@
         }
 
         function renderSettings() {
+            placeHolidayPanel();
             document.getElementById('settingsNav').innerHTML = SETTINGS_SECTIONS.map(([k, l]) => `<button class="subtab ${settingsSection === k ? 'on' : ''}" onclick="openSettings('${k}')">${esc(l)}</button>`).join('');
             document.getElementById('holidayPanel').style.display = settingsSection === 'holidays' ? '' : 'none';
             if (settingsSection === 'holidays') renderHolidays();
@@ -9635,14 +9721,23 @@
             applyMode();
         }
 
+        // Basic shows the holiday list inside Attendance (where it was originally); Advanced keeps it in Settings.
+        function placeHolidayPanel() {
+            const panel = document.getElementById('holidayPanel');
+            const home = uiMode === 'basic' && activeTab !== 'settings' ? document.getElementById('holidayHomeBody') : document.getElementById('settingsBody').parentElement;
+            if (panel.parentElement !== home) home.appendChild(panel);
+            if (home.id === 'holidayHomeBody') panel.style.display = '';
+        }
+
         function applyMode() {
             const basic = uiMode === 'basic';
             document.body.classList.toggle('mode-basic', basic);
             document.getElementById('modeTrack').setAttribute('aria-checked', String(!basic));
             document.querySelectorAll('.mode-label').forEach(b => b.classList.toggle('on', b.dataset.m === uiMode));
             document.getElementById('modeHint').textContent = basic
-                ? 'Basic version: the everyday screens with bigger text. Slide right for every feature.'
-                : 'Advanced version: every feature. Slide left for a simpler, larger view.';
+                ? 'Basic version: the original layout. Slide right for every feature.'
+                : 'Advanced version: every feature. Slide left for the original, simpler layout.';
+            placeHolidayPanel();
         }
 
         function setMode(mode) {
@@ -9654,68 +9749,6 @@
             markDirty(...Object.keys(TAB_RENDERERS));
             renderTab(activeTab);
             showToast(mode === 'basic' ? 'Basic version on.' : 'Advanced version on.');
-        }
-
-        // Simple dashboard: three big totals, big buttons, and one-tap attendance for today.
-        function renderBasicDash() {
-            const box = document.getElementById('basicDash');
-            if (uiMode !== 'basic') { box.innerHTML = ''; return; }
-            const today = todayISO();
-            const hol = holidayName(today);
-            const people = attendanceEmployees(today, today).filter(e => employedOn(e, today));
-            const present = people.filter(e => WORKED.includes(effectiveStatus(e, today))).length;
-            const unmarked = people.filter(e => !effectiveStatus(e, today));
-            const ym = clampToFy(currentYm());
-            const net = payrollEmployees(ym).reduce((s, e) => s + payRow(e, ym).net, 0);
-            const waiting = document.querySelectorAll('#alertList .alert-item:not(.info)').length;
-            const opts = hol ? [['', 'Holiday', 'GH'], ['WH', 'Worked', 'WH']] : [['P', 'Present', 'P'], ['HD', 'Half Day', 'HD'], ['A', 'Absent', 'A'], ['PO', 'Off', 'PO']];
-            box.innerHTML = `
-                <div class="basic-tiles">
-                    <div class="basic-tile" style="--tc: #10b981;"><b>${present} / ${people.length}</b><span>Present today</span></div>
-                    <div class="basic-tile" style="--tc: #C9A227;"><b>${fmt(net)}</b><span>Salary to pay for ${ymLabel(ym, true)} (${esc(runStatus(ym))})</span></div>
-                    <div class="basic-tile" style="--tc: ${waiting ? '#ef4444' : '#0ea5e9'};"><b>${waiting}</b><span>${waiting ? 'Things waiting for you (see below)' : 'Nothing waiting'}</span></div>
-                </div>
-                <div class="basic-actions">
-                    <button class="btn btn-primary" onclick="showTab('payments')">₹ Pay This Month's Salary</button>
-                    <button class="btn btn-secondary" onclick="showTab('attendance')">${ic('calendar')} Monthly Attendance</button>
-                    <button class="btn btn-secondary" onclick="openEmployeeForm()">+ Add Employee</button>
-                    <button class="btn btn-secondary" onclick="showTab('manual')">${ic('book')} Help</button>
-                </div>
-                <div class="card" style="margin-bottom: 18px;">
-                    <div class="section-head" style="margin-bottom: 12px;">
-                        <div><h2>Today's Attendance</h2><p class="section-desc">${esc(new Date().toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'long' }))}${hol ? ` · Holiday: ${esc(hol)}` : ''}. Tap one button for each person.</p></div>
-                        ${unmarked.length && !hol ? `<div class="controls"><button class="btn btn-secondary" onclick="basicAllPresent()">${ic('check')} Mark the other ${unmarked.length} Present</button></div>` : ''}
-                    </div>
-                    <div class="mark-list">${people.map(e => {
-                        const s = getStatus(e, today);
-                        const locked = monthLocked(e, today.slice(0, 7));
-                        const right = s === 'L'
-                            ? `<span class="badge info" style="font-size: 14px; padding: 8px 12px;">On ${esc(leaveTypeOf(e.attInfo[today]?.leaveType).name)}</span>`
-                            : `<div class="mark-btns">${opts.map(([code, label, st]) => `<button class="mark-btn st-${st} ${s === code && (code || hol) ? 'on' : ''}" ${locked ? 'disabled' : ''} onclick="basicMark('${e.id}', '${code}')">${label}</button>`).join('')}</div>`;
-                        return `<div class="mark-row"><span class="mini-avatar" style="width: 44px; height: 44px; font-size: 15px;">${avatarInner(e)}</span><div class="who">${esc(e.name)}<small>${esc(e.designation || e.department)}</small></div>${right}</div>`;
-                    }).join('') || '<div class="empty-state">No employees yet. Tap <strong>+ Add Employee</strong>.</div>'}</div>
-                </div>
-                <div class="card" style="margin-bottom: 18px;"><h2>Things Waiting</h2><div class="alert-list">${document.getElementById('alertList').innerHTML}</div></div>`;
-        }
-
-        function basicMark(empId, code) {
-            const emp = empById(empId);
-            if (!emp) return;
-            pushUndo();
-            const r = applyStatus(emp, todayISO(), code);
-            if (!r.changed) { undoStack.pop(); if (r.message) showToast(r.message); return; }
-            afterAttendanceEdit([], 'Attendance marked');
-        }
-
-        function basicAllPresent() {
-            const today = todayISO();
-            pushUndo();
-            const msgs = [];
-            attendanceEmployees(today, today).filter(e => employedOn(e, today) && !effectiveStatus(e, today)).forEach(e => {
-                const r = applyStatus(e, today, 'P');
-                if (r.message) msgs.push(r.message);
-            });
-            afterAttendanceEdit(msgs, 'Attendance marked');
         }
 
         // ---------- user manual ----------
@@ -9844,6 +9877,11 @@
             document.getElementById('creatorPhoneLink').href = 'tel:' + CREATOR.phone.replace(/[^\d+]/g, '');
             document.getElementById('creatorEmail').textContent = CREATOR.email;
             document.getElementById('creatorEmailLink').href = 'mailto:' + CREATOR.email;
+            document.getElementById('faqName').textContent = CREATOR.name;
+            document.getElementById('faqPhone').textContent = CREATOR.phone;
+            document.getElementById('faqCall').href = 'tel:' + CREATOR.phone.replace(/[^\d+]/g, '');
+            document.getElementById('faqWhatsApp').href = 'https://wa.me/' + CREATOR.phone.replace(/\D/g, '');
+            document.getElementById('faqMail').href = 'mailto:' + CREATOR.email;
             document.getElementById('creatorCopy').textContent = `© ${new Date().getFullYear()} STAY BAY Business Hotels. Designed and developed by ${CREATOR.name}. All rights reserved.`;
         }
         renderCreator();
