@@ -2023,6 +2023,29 @@
             .manual-toc { position: static; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); max-height: none; }
         }
 
+        /* Phones: wide tables become one card per row, each value labelled with its column name */
+        @media (max-width: 700px) {
+            .table-wrap:has(table.stack) { overflow: visible; max-height: none; border: none; background: none; }
+            table.data.stack, table.data.stack tbody, table.data.stack tfoot { display: block; width: 100%; }
+            table.data.stack thead { display: none; }
+            table.data.stack tr { display: block; margin-bottom: 10px; padding: 6px 12px; background: #fff; border: 1px solid rgba(36, 19, 24, .1); border-radius: 12px; box-shadow: var(--shadow-sm); }
+            table.data.stack tr.clickable:active { background: #fffaf5; }
+            table.data.stack tfoot tr { background: #faf3ea; }
+            table.data.stack td { display: flow-root; padding: 8px 0; border: none; border-bottom: 1px dashed rgba(36, 19, 24, .1); white-space: normal !important; min-width: 0 !important; text-align: right; overflow-wrap: anywhere; }
+            table.data.stack td:last-child { border-bottom: none; }
+            table.data.stack td::before { content: attr(data-label); float: left; max-width: 45%; margin-right: 12px; text-align: left; font-size: 12px; font-weight: 600; color: var(--ink-soft); text-transform: none; letter-spacing: 0; }
+            table.data.stack td:not([data-label])::before, table.data.stack td[data-label=""]::before { display: none; }
+            table.data.stack td:not([data-label]), table.data.stack td[data-label=""], table.data.stack td[colspan] { text-align: left; }
+            table.data.stack td:first-child[data-label] { font-size: 15px; }
+            table.data.stack td .emp-cell { display: inline-flex; text-align: left; }
+            table.data.stack td > div:not(.emp-cell) { text-align: inherit; }
+            .stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+            .stats-grid .stat { padding: 12px; }
+            .stats-grid .stat-value { font-size: 19px; overflow-wrap: anywhere; }
+            table.data.stack td input, table.data.stack td select { max-width: 60%; }
+            table.data.stack td:empty { display: none; }
+        }
+
         /* Suggestion dropdowns (replace the browser's datalist, which hid options once one was chosen) */
         .combo { position: relative; }
         .combo input { width: 100%; padding-right: 42px; }
@@ -9752,6 +9775,7 @@
                 ? 'Basic version: the original layout. Slide right for every feature.'
                 : 'Advanced version: every feature. Slide left for the original, simpler layout.';
             placeHolidayPanel();
+            if (typeof labelTables === 'function') labelTables();
         }
 
         function setMode(mode) {
@@ -9944,6 +9968,38 @@
             });
         }
         upgradeCombos();
+
+        // On phones, every table with a header row and four or more columns is shown as cards (see the .stack CSS).
+        // Each cell gets its column name as a label; this re-runs whenever a table is redrawn.
+        function labelTables(root = document) {
+            root.querySelectorAll('table.data').forEach(table => {
+                const head = table.tHead?.rows[0];
+                if (!head || head.cells.length < 4) { table.classList.remove('stack'); return; }
+                const labels = [];
+                const hide = document.body.classList.contains('mode-basic') ? '.adv-only' : '.basic-only, .basic-only-inline';
+                [...head.cells].forEach(th => {
+                    const copy = th.cloneNode(true);
+                    copy.querySelectorAll(hide).forEach(n => n.remove());
+                    for (let i = 0; i < th.colSpan; i++) labels.push(copy.textContent.replace(/\s+/g, ' ').trim());
+                });
+                table.classList.add('stack');
+                [...table.tBodies, table.tFoot].filter(Boolean).forEach(section => [...section.rows].forEach(tr => {
+                    let col = 0;
+                    [...tr.cells].forEach(td => {
+                        if (td.colSpan > 1) td.removeAttribute('data-label');
+                        else if (td.dataset.label !== labels[col]) td.dataset.label = labels[col] || '';
+                        col += td.colSpan;
+                    });
+                }));
+            });
+        }
+        let labelQueued = false;
+        new MutationObserver(() => {
+            if (labelQueued) return;
+            labelQueued = true;
+            requestAnimationFrame(() => { labelQueued = false; labelTables(); });
+        }).observe(document.body, { childList: true, subtree: true });
+        labelTables();
 
         // Creator details shown in the footer of every page.
         const CREATOR = { name: 'Vignesh Annamalai', phone: '+91 94885 22465', email: 'itsvigneshannamalai@gmail.com', website: 'https://vigneshannamalai-ai.github.io/We-Create/#home' };
