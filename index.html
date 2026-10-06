@@ -2134,6 +2134,7 @@
                             <button role="menuitem" onclick="document.getElementById('userPop').classList.remove('open'); showTab('manual')"><svg class="i" aria-hidden="true"><use href="#i-book"/></svg> User manual</button>
                             <button role="menuitem" onclick="openSettings('audit')"><svg class="i" aria-hidden="true"><use href="#i-book"/></svg> Audit log</button>
                             <button role="menuitem" onclick="openSettings('hotel')"><svg class="i" aria-hidden="true"><use href="#i-settings"/></svg> Settings</button>
+                            <button role="menuitem" class="adv-only" onclick="window.open('https://vigneshannamalai-ai.github.io/we-create-erp/#/connect', '_blank', 'noopener')"><svg class="i" aria-hidden="true"><use href="#i-building"/></svg> We Create ERP (accounts)</button>
                             <button role="menuitem" onclick="lockApp()"><svg class="i" aria-hidden="true"><use href="#i-lock"/></svg> Sign out / Switch user</button>
                         </div>
                     </div>
@@ -2229,6 +2230,18 @@
                     </div>
                 </div>
                 <div class="emp-grid" id="employeeList"></div>
+            </div>
+            <div class="card adv-only erp-card">
+                <div class="section-head">
+                    <div>
+                        <h2><svg class="i" aria-hidden="true"><use href="#i-building"/></svg> Accounts in We Create ERP</h2>
+                        <p class="section-desc">Every month you mark salaries as paid here flows into the ERP's Payroll: salaries, employer PF and ESI, PF / ESI / professional tax / TDS payable and the salary payment are posted to the books, so the Profit &amp; Loss and Balance Sheet stay right. In this browser the ERP picks it up automatically when the STAY BAY company opens; on another computer, download the data file here and load it in the ERP (Connected dashboards).</p>
+                    </div>
+                </div>
+                <div style="display:flex;gap:10px;flex-wrap:wrap">
+                    <a class="btn btn-primary btn-sm" href="https://vigneshannamalai-ai.github.io/we-create-erp/#/connect" target="_blank" rel="noopener" style="text-decoration:none"><svg class="i" aria-hidden="true"><use href="#i-globe"/></svg> Open We Create ERP</a>
+                    <button class="btn btn-secondary btn-sm" onclick="exportBackup()"><svg class="i" aria-hidden="true"><use href="#i-download"/></svg> Download data for the ERP</button>
+                </div>
             </div>
         </section>
 
